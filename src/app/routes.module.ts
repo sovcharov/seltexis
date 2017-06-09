@@ -7,15 +7,17 @@ import { MainComponent } from './main/main.component';
 import { SalesComponent } from './main/trade/sales/sales.component';
 import { PurchasesComponent } from './main/trade/purchases/purchases.component';
 import { HomeComponent } from './main/home/home.component';
+import { RoutesGuard } from './routes-guard.service'
 
 const appRoutes: Routes = [
-  { path: "", component: AppComponent },
-  { path: "login", component: LoginComponent },
-  { path: "main", component: MainComponent, children: [
-    { path: "", component: HomeComponent },
-    { path: "sales", component: SalesComponent },
-    { path: "purchases", component: PurchasesComponent }
+  { path: "", canActivate: [RoutesGuard], component: AppComponent, children: [
+    { path: "main", component: MainComponent, children: [
+      { path: "", component: HomeComponent },
+      { path: "sales", component: SalesComponent },
+      { path: "purchases", component: PurchasesComponent }
+    ] },
   ] },
+  { path: "login", component: LoginComponent },
   { path: "**", redirectTo: "" }
 ];
 

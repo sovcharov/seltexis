@@ -12,7 +12,8 @@ import { PurchasesComponent } from './main/trade/purchases/purchases.component';
 import { HomeComponent } from './main/home/home.component';
 
 const domainName: string = 'localhost:4200/'
-
+import { AuthService } from './auth.service'
+import { RoutesGuard } from './routes-guard.service'
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ const domainName: string = 'localhost:4200/'
     AlertModule.forRoot(),
     RoutesModule
   ],
-  providers: [],
+  providers: [AuthService, RoutesGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
