@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { AlertModule } from 'ngx-bootstrap';
-
+import { RoutesModule} from './routes.module'
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { MainComponent } from './main/main.component';
@@ -12,17 +12,7 @@ import { PurchasesComponent } from './main/trade/purchases/purchases.component';
 import { HomeComponent } from './main/home/home.component';
 
 const domainName: string = 'localhost:4200/'
-const appRoutes: Routes = [
-    { path: "", component: AppComponent },
-    { path: "login", component: LoginComponent },
-    { path: "main", component: MainComponent, children: [
-      { path: "", component: HomeComponent },
-      { path: "sales", component: SalesComponent },
-      { path: "purchases", component: PurchasesComponent }
-    ] },
 
-
-];
 
 @NgModule({
   declarations: [
@@ -36,8 +26,8 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes),
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+    RoutesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
