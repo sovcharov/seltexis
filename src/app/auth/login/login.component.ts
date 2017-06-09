@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../auth.service'
 
 @Component({
     selector: 'login-component',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 
 export class LoginComponent {
 
-  constructor (private router: Router) {
+  constructor (private router: Router, private authService: AuthService) {
 
   }
     temp:string;
@@ -21,7 +22,7 @@ export class LoginComponent {
             password: form.value.password
         };
         this.checkUserInput(user);
-        this.checkUserAtServer(user);
+        this.authService.logIn(user);
     }
 
     checkUserInput(user) {

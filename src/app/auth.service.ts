@@ -1,22 +1,42 @@
+
+import { Observable } from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { ServerService } from './server.service';
+
+@Injectable()
 export class AuthService {
-  loggedIn = false;
+
+ constructor(private serverService: ServerService) {}
+
+ user = {
+   name: undefined,
+   lastName: undefined,
+   id: undefined,
+   type: undefined,
+   token: undefined,
+   authenticated: false
+ };
 
   isAuthenticated() {
     const promise = new Promise((resolve, reject) => {
-      setTimeout(()=>{
-        resolve(this.loggedIn);
-        console.log('LoggedIn');
-      }, 800);
+      resolve(this.user.authenticated);
     });
     return promise;
   };
 
-  logIn() {
-    this.loggedIn = true;
+  logIn(user) {
+    this.serverService.getUserInfo(this.user).subscribe(
+      (response) => {
+        // this.user.name = response.data.Users[0].name;
+        console.log(response.json());
+        console.log(this.user);
+      },
+      (error) => console.log(error)
+    );
   }
 
   logOut() {
-    this.loggedIn = false;
+    this.user.authenticated = false;
   }
 
 }
