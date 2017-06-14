@@ -3,10 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { AlertModule } from 'ngx-bootstrap';
-import { RoutesModule} from './routes.module'
-import { HttpModule } from '@angular/http'
+import { HttpModule } from '@angular/http';
 
-
+//components
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { MainComponent } from './main/main.component';
@@ -14,9 +13,11 @@ import { SalesComponent } from './main/trade/sales/sales.component';
 import { PurchasesComponent } from './main/trade/purchases/purchases.component';
 import { HomeComponent } from './main/home/home.component';
 
-import { AuthService } from './auth.service'
-import { RoutesGuard } from './routes-guard.service'
-import { ServerService } from './server.service'
+//modules and services
+import { RoutesModule } from './router/routes.module';
+import { AuthService } from './services/auth.service'
+import { RoutesGuard } from './router/routes-guard.service'
+import { ServerService } from './services/server.service'
 
 @NgModule({
   declarations: [

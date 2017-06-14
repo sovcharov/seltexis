@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AppComponent } from './app.component';
-import { LoginComponent } from './auth/login/login.component';
-import { MainComponent } from './main/main.component';
-import { SalesComponent } from './main/trade/sales/sales.component';
-import { PurchasesComponent } from './main/trade/purchases/purchases.component';
-import { HomeComponent } from './main/home/home.component';
+import { AppComponent } from '../app.component';
+import { LoginComponent } from '../auth/login/login.component';
+import { MainComponent } from '../main/main.component';
+import { SalesComponent } from '../main/trade/sales/sales.component';
+import { PurchasesComponent } from '../main/trade/purchases/purchases.component';
+import { HomeComponent } from '../main/home/home.component';
 import { RoutesGuard } from './routes-guard.service'
 
 const appRoutes: Routes = [
