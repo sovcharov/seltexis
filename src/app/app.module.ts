@@ -19,7 +19,8 @@ import { RoutesModule } from './router/routes.module';
 import { AuthService } from './services/auth.service'
 import { RoutesGuardGlobal } from './router/routes-guard-global.service'
 import { RoutesGuardCorp } from './router/routes-guard-corp.service'
-import { ServerService } from './services/server.service'
+import { ServerService } from './services/server.service';
+import { TradeComponent } from './corp/main/trade/trade.component'
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ServerService } from './services/server.service'
     MainComponent,
     SalesComponent,
     PurchasesComponent,
-    HomeComponent
+    HomeComponent,
+    TradeComponent
   ],
   imports: [
     BrowserModule,

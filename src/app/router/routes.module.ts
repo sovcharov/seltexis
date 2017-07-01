@@ -10,14 +10,20 @@ import { SalesComponent } from '../corp/main/trade/sales/sales.component';
 import { PurchasesComponent } from '../corp/main/trade/purchases/purchases.component';
 import { HomeComponent } from '../corp/main/trade/home/home.component';
 import { RoutesGuardGlobal } from './routes-guard-global.service'
-import { RoutesGuardCorp } from './routes-guard-corp.service'
+import { RoutesGuardCorp } from './routes-guard-corp.service';
+import { TradeComponent } from '../corp/main/trade/trade.component';
 
 const appRoutes: Routes = [
   { path: "", redirectTo: 'corp/seltex', pathMatch: 'full' },
   { path: "corp/:company", children: [
     { path: "login", component: LoginComponentCorp },
     { path: "", canActivate: [RoutesGuardCorp], component: MainComponent, children: [
-      { path: "", component: HomeComponent,  },
+      { path: "", canActivate: [RoutesGuardCorp], component: TradeComponent, children: [
+        { path: "", component: HomeComponent },
+        { path: "sales", component: SalesComponent },
+        { path: "purchases", component: PurchasesComponent }
+      ]},
+      { path: "", component: HomeComponent },
       { path: "sales", component: SalesComponent },
       { path: "purchases", component: PurchasesComponent }
     ]},
@@ -25,7 +31,7 @@ const appRoutes: Routes = [
   { path: "global", children: [
     { path: "login", component: LoginComponentGlobal },
     { path: "", canActivate: [RoutesGuardGlobal], component: MainComponent, children: [
-      { path: "", component: HomeComponent,  },
+      { path: "", component: HomeComponent },
       { path: "sales", component: SalesComponent },
       { path: "purchases", component: PurchasesComponent }
     ]},
