@@ -9,6 +9,7 @@ export class AuthService {
   constructor(private serverService: ServerService) {}
 
   user = {
+    company: undefined,
     name: undefined,
     lastName: undefined,
     id: undefined,
@@ -30,7 +31,7 @@ export class AuthService {
         (response) => {
           // this.user.name = response.data.Users[0].name;
           console.log(response.json());
-          console.log(this.user);
+
         },
         (error) => console.log(error)
       );

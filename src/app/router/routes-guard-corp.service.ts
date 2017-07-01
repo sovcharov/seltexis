@@ -10,9 +10,10 @@ import { Injectable } from '@angular/core'
 import { AuthService } from '../services/auth.service'
 
 @Injectable()
-export class RoutesGuard implements CanActivate {
+export class RoutesGuardCorp implements CanActivate {
 
-  constructor(private authService: AuthService, private router: Router) {};
+  constructor(private authService: AuthService, private router: Router) {
+  };
 
   canActivate(route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot) : Observable<boolean> | Promise<boolean> | boolean {
@@ -22,7 +23,7 @@ export class RoutesGuard implements CanActivate {
           if(authenticated) {
             return true;
           } else {
-            this.router.navigate(['/login'])
+            this.router.navigate(['/corp/' + route.params.company + '/login']);
           }
         }
       );

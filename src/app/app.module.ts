@@ -7,7 +7,9 @@ import { HttpModule } from '@angular/http';
 
 //components
 import { AppComponent } from './app.component';
-import { LoginComponent } from './auth/login/login.component';
+import { LoginComponentCorp } from './corp/auth/login/login.component';
+import { LoginComponentGlobal } from './global/auth/login/login.component';
+
 import { MainComponent } from './main/main.component';
 import { SalesComponent } from './main/trade/sales/sales.component';
 import { PurchasesComponent } from './main/trade/purchases/purchases.component';
@@ -16,13 +18,15 @@ import { HomeComponent } from './main/home/home.component';
 //modules and services
 import { RoutesModule } from './router/routes.module';
 import { AuthService } from './services/auth.service'
-import { RoutesGuard } from './router/routes-guard.service'
+import { RoutesGuardGlobal } from './router/routes-guard-global.service'
+import { RoutesGuardCorp } from './router/routes-guard-corp.service'
 import { ServerService } from './services/server.service'
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
+    LoginComponentCorp,
+    LoginComponentGlobal,
     MainComponent,
     SalesComponent,
     PurchasesComponent,
@@ -35,7 +39,7 @@ import { ServerService } from './services/server.service'
     RoutesModule,
     HttpModule
   ],
-  providers: [AuthService, RoutesGuard, ServerService],
+  providers: [AuthService, RoutesGuardGlobal, RoutesGuardCorp, ServerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
