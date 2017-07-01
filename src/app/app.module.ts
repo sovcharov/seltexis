@@ -9,11 +9,10 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { LoginComponentCorp } from './corp/auth/login/login.component';
 import { LoginComponentGlobal } from './global/auth/login/login.component';
-
-import { MainComponent } from './main/main.component';
-import { SalesComponent } from './main/trade/sales/sales.component';
-import { PurchasesComponent } from './main/trade/purchases/purchases.component';
-import { HomeComponent } from './main/home/home.component';
+import { MainComponent } from './corp/main/main.component';
+import { SalesComponent } from './corp/main/trade/sales/sales.component';
+import { PurchasesComponent } from './corp/main/trade/purchases/purchases.component';
+import { HomeComponent } from './corp/main/trade/home/home.component';
 
 //modules and services
 import { RoutesModule } from './router/routes.module';
