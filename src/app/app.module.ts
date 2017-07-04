@@ -21,7 +21,8 @@ import { PurchasesComponent } from './corp/main/trade/purchases/purchases.compon
 import { HomeComponent } from './corp/main/trade/home/home.component';
 import { TradeComponent } from './corp/main/trade/trade.component';
 import { StoreComponent } from './corp/main/store/store.component';
-import { MainComponent } from './corp/main/main.component'
+import { MainComponent } from './corp/main/main.component';
+import { RegisterComponent } from './corp/auth/register/register.component'
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { MainComponent } from './corp/main/main.component'
     HomeComponent,
     TradeComponent,
     StoreComponent,
-    MainComponent
+    MainComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

@@ -22,7 +22,7 @@ export class RoutesGuardGlobal implements CanActivate {
           if(authenticated) {
             return true;
           } else {
-            this.router.navigate(['/global/login'])
+            this.router.navigate(['/new/register'])
           }
         }
       );

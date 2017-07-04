@@ -23,7 +23,7 @@ export class RoutesGuardCorp implements CanActivate {
           if(authenticated) {
             return true;
           } else {
-            this.router.navigate(['/corp/' + route.params.company + '/login']);
+            this.router.navigate(['/' + route.params.company + '/login']);
           }
         }
       );

@@ -15,7 +15,7 @@ export class AuthService {
     id: undefined,
     type: undefined,
     token: undefined,
-    authenticated: true
+    authenticated: false
   };
 
   isAuthenticated() {
