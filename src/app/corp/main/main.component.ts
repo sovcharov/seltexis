@@ -1,22 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'main-component',
+  selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
+export class MainComponent implements OnInit {
 
-export class MainComponent {
-  temp:string;
+  constructor() { }
 
-
-  checkUserInput(user) {
-    return true;
-  }
-
-  checkUserAtServer(user) {
-    this.temp = user.email;
-    return true;
+  ngOnInit() {
   }
 
 }
