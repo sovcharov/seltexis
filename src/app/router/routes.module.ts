@@ -8,15 +8,14 @@ import { RoutesGuardCorp } from './routes-guard-corp.service';
 //components
 import { AppComponent } from '../app.component';
 import { LoginComponentCorp } from '../corp/auth/login/login.component';
-import { LoginComponentGlobal } from '../global/auth/login/login.component';
 import { MainComponent } from '../corp/main/main.component';
 import { SalesComponent } from '../corp/main/trade/sales/sales.component';
 import { PurchasesComponent } from '../corp/main/trade/purchases/purchases.component';
 import { HomeComponent } from '../corp/main/trade/home/home.component';
 import { TradeComponent } from '../corp/main/trade/trade.component';
 import { StoreComponent } from '../corp/main/store/store.component';
-import { RegisterComponent } from '../corp/auth/register/register.component'
-
+import { RegisterComponent } from '../corp/auth/register/register.component';
+import { RegisterNewComponent } from '../corp/auth/register-new/register-new.component';
 
 const appRoutes: Routes = [
   { path: "", redirectTo: '/seltex', pathMatch: 'full' },
@@ -32,7 +31,7 @@ const appRoutes: Routes = [
       { path: "store", component: StoreComponent }
     ]},
   ] },
-  { path: "new/register", component: LoginComponentGlobal },
+  { path: "new/company/register", component: RegisterNewComponent },
   { path: "**", redirectTo: "seltex" }
 ];
 
