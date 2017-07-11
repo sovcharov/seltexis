@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import {
-  Router
+  Router,
+  ActivatedRouteSnapshot
 } from '@angular/router';
+import { AlertsComponent } from './corp/alerts/alerts.component';
+
 
 @Component({
   selector: 'app-root',
@@ -15,7 +18,7 @@ export class AppComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    // this.router.navigate(['/global/']);
+
   }
 
 

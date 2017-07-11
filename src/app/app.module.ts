@@ -5,6 +5,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AlertModule } from 'ngx-bootstrap';
 import { HttpModule } from '@angular/http';
 
+import { CookieService } from 'angular2-cookie/services/cookies.service';
+
 //modules and services
 import { RoutesModule } from './router/routes.module';
 import { AuthService } from './services/auth.service'
@@ -22,7 +24,8 @@ import { TradeComponent } from './corp/main/trade/trade.component';
 import { StoreComponent } from './corp/main/store/store.component';
 import { MainComponent } from './corp/main/main.component';
 import { RegisterComponent } from './corp/auth/register/register.component';
-import { RegisterNewComponent } from './corp/auth/register-new/register-new.component';
+import { RegisterCompanyComponent } from './corp/auth/register-company/register-company.component';
+import { AlertsComponent } from './corp/alerts/alerts.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,8 @@ import { RegisterNewComponent } from './corp/auth/register-new/register-new.comp
     StoreComponent,
     MainComponent,
     RegisterComponent,
-    RegisterNewComponent
+    RegisterCompanyComponent,
+    AlertsComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +48,13 @@ import { RegisterNewComponent } from './corp/auth/register-new/register-new.comp
     RoutesModule,
     HttpModule
   ],
-  providers: [AuthService, RoutesGuardGlobal, RoutesGuardCorp, ServerService],
+  providers: [
+    AuthService,
+    RoutesGuardGlobal,
+    RoutesGuardCorp,
+    ServerService,
+    CookieService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

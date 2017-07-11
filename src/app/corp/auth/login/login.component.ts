@@ -1,38 +1,53 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../services/auth.service'
+import { AuthService } from '../../../services/auth.service';
+import {CookieService} from 'angular2-cookie/core';
 
 @Component({
-    selector: 'login-component',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+  selector: 'login-component',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 
-export class LoginComponentCorp {
+export class LoginComponentCorp  implements OnInit {
 
-  constructor (private router: Router, private authService: AuthService) {
+  constructor (private router: Router, private authService: AuthService, private _cookieService: CookieService) {
 
   }
-    temp:string;
 
-    logIn(form: NgForm) {
-        let user = {
-            email: form.value.email,
-            password: form.value.password
-        };
-        this.checkUserInput(user);
-        this.authService.logIn(user);
-    }
 
-    checkUserInput(user) {
-        return true;
-    }
+  ngOnInit() {
+    // let date = new Date();
+    // date.setDate(date.getDate () + 30);
+    // this._cookieService.putObject('user', {id: 0, firstName: 'Sergei', lastName: 'Ovcharov', email: 'smartauto@mail.ru', token: 12345}, {expires: date});
+    console.log(this.getCookie());
+  }
 
-    checkUserAtServer(user) {
-        this.temp = user.email;
-        this.router.navigate(['/main']);
-        return true;
-    }
+  getCookie(){
+    let user = this._cookieService.get('user');
+    return user;
+  }
+
+  temp:string;
+
+  logIn(form: NgForm) {
+    let user = {
+      email: form.value.email,
+      password: form.value.password
+    };
+    this.checkUserInput(user);
+    this.authService.logIn(user);
+  }
+
+  checkUserInput(user) {
+    return true;
+  }
+
+  checkUserAtServer(user) {
+    this.temp = user.email;
+    this.router.navigate(['/main']);
+    return true;
+  }
 
 }

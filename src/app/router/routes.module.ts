@@ -15,7 +15,8 @@ import { HomeComponent } from '../corp/main/trade/home/home.component';
 import { TradeComponent } from '../corp/main/trade/trade.component';
 import { StoreComponent } from '../corp/main/store/store.component';
 import { RegisterComponent } from '../corp/auth/register/register.component';
-import { RegisterNewComponent } from '../corp/auth/register-new/register-new.component';
+import { RegisterCompanyComponent } from '../corp/auth/register-company/register-company.component';
+
 
 const appRoutes: Routes = [
   { path: "", redirectTo: '/seltex', pathMatch: 'full' },
@@ -31,7 +32,7 @@ const appRoutes: Routes = [
       { path: "store", component: StoreComponent }
     ]},
   ] },
-  { path: "new/company/register", component: RegisterNewComponent },
+  { path: "new/company/register", component: RegisterCompanyComponent },
   { path: "**", redirectTo: "seltex" }
 ];
 
