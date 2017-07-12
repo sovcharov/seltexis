@@ -27,7 +27,7 @@ export class AlertService {
       waitForClick: alert.waitForClick || false
     };
     this.alerts[this.alerts.length] = alertToAdd;
-    let myInterval = 0;
+    let myInterval: any = 0;
     if(!myInterval) {
       myInterval = setInterval(() => {
         let i: number;
@@ -36,15 +36,16 @@ export class AlertService {
             if (this.alerts[i].life) {
               this.alerts[i].life -= 1;
             } else {
-              this.deleteAlert(i);
-              i -= 1;
+              if(!this.alerts[i].waitForClick) {
+                this.deleteAlert(i);
+                i -= 1;
+              }
             }
           }
         } else {
           clearInterval(myInterval);
           myInterval = 0;
         }
-        console.log('interval')
       }, 1000);
     }
   };
