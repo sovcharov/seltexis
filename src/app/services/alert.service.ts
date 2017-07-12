@@ -16,19 +16,6 @@ export class AlertService {
 
   constructor () {
     this.alerts = [];
-    setInterval(() => {
-      let i: number;
-      if(this.alerts.length) {
-        for (i = 0; i < this.alerts.length; i += 1) {
-          if (this.alerts[i].life) {
-            this.alerts[i].life -= 1;
-          } else {
-            this.deleteAlert(i);
-            i -= 1;
-          }
-        }
-      }
-    }, 1000);
   }
 
   addAlert(alert: Alert): void {
@@ -40,6 +27,26 @@ export class AlertService {
       waitForClick: alert.waitForClick || false
     };
     this.alerts[this.alerts.length] = alertToAdd;
+    let myInterval = 0;
+    if(!myInterval) {
+      myInterval = setInterval(() => {
+        let i: number;
+        if(this.alerts.length) {
+          for (i = 0; i < this.alerts.length; i += 1) {
+            if (this.alerts[i].life) {
+              this.alerts[i].life -= 1;
+            } else {
+              this.deleteAlert(i);
+              i -= 1;
+            }
+          }
+        } else {
+          clearInterval(myInterval);
+          myInterval = 0;
+        }
+        console.log('interval')
+      }, 1000);
+    }
   };
 
   getAlertClass(alertClass: string) {

@@ -33,22 +33,6 @@ export class LoginComponentCorp  implements OnInit {
       waitForClick: true
     }
     this.alertService.addAlert(alert);
-    alert = {
-      alertClass: 'success',
-      text: 'login',
-      comment: 'string',
-      life: 10,
-      waitForClick: true
-    }
-    this.alertService.addAlert(alert);
-    alert = {
-      alertClass: 'success',
-      text: 'loginLast',
-      comment: 'string',
-      life: 3,
-      waitForClick: true
-    }
-    this.alertService.addAlert(alert);
 
   }
 
