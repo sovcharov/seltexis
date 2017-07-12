@@ -4,21 +4,25 @@ import {
   Router,
   ActivatedRouteSnapshot
 } from '@angular/router';
-import { AlertsComponent } from './corp/alerts/alerts.component';
+
+import { Alert, AlertService } from './services/alert.service';
 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [AlertService]
 })
 export class AppComponent implements OnInit {
   title = 'app';
-
-  constructor(private authService: AuthService, private router: Router) {}
+  alerts: Alert[] = [];
+  constructor(private authService: AuthService,
+    private router: Router,
+    private alertService: AlertService) {}
 
   ngOnInit() {
-
+    this.alerts = this.alertService.alerts;
   }
 
 

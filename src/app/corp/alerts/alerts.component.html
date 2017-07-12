@@ -1,6 +1,6 @@
 <div class="infoBoxMain">
-    <div class="infoBox infoBoxSuccess">
-        <div>hey</div>
-        <div class = "infoBoxComment">hkjhkjh</div>
+    <div *ngFor = "let alert of alerts" class="infoBox infoBoxDanger" [ngClass] = "alertService.getAlertClass(alert.alertClass)">
+        <div>{{alert.text }}</div>
+        <div class = "infoBoxComment">{{alert.comment}}</div>
     </div>
 </div>

@@ -2,18 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
-import {CookieService} from 'angular2-cookie/core';
+import { CookieService} from 'angular2-cookie/core';
+import { AlertService, Alert } from '../../../services/alert.service';
+
+
 
 @Component({
   selector: 'login-component',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: []
 })
 
 export class LoginComponentCorp  implements OnInit {
 
-  constructor (private router: Router, private authService: AuthService, private _cookieService: CookieService) {
-
+  constructor (private router: Router, private authService: AuthService, private _cookieService: CookieService, private alertService: AlertService) {
   }
 
 
@@ -22,6 +25,31 @@ export class LoginComponentCorp  implements OnInit {
     // date.setDate(date.getDate () + 30);
     // this._cookieService.putObject('user', {id: 0, firstName: 'Sergei', lastName: 'Ovcharov', email: 'smartauto@mail.ru', token: 12345}, {expires: date});
     console.log(this.getCookie());
+    let alert: Alert = {
+      alertClass: 'danger',
+      text: 'login',
+      comment: 'string',
+      life: 5,
+      waitForClick: true
+    }
+    this.alertService.addAlert(alert);
+    alert = {
+      alertClass: 'success',
+      text: 'login',
+      comment: 'string',
+      life: 10,
+      waitForClick: true
+    }
+    this.alertService.addAlert(alert);
+    alert = {
+      alertClass: 'success',
+      text: 'loginLast',
+      comment: 'string',
+      life: 3,
+      waitForClick: true
+    }
+    this.alertService.addAlert(alert);
+
   }
 
   getCookie(){
