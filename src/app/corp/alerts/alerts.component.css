@@ -1,5 +1,15 @@
 /*Info Event start*/
 /*Copyright (c) 2015 Sergei Ovcharov*/
+/*Here add new alert classes to style them */
+
+.infoBoxDanger{
+	background-color:#B20000;
+}
+.infoBoxSuccess{
+	background-color:#33804c;
+}
+
+/*Here are commonly used styles for alerts: */
 .infoBoxMain{
 	position:fixed;
 	bottom:0px;
@@ -19,12 +29,6 @@
 	color:white;
 	line-height:40px;
     /*z-index:5;*/
-}
-.infoBoxDanger{
-	background-color:#B20000;
-}
-.infoBoxSuccess{
-	background-color:#33804c;
 }
 .infoBoxComment{
     font-size:12px;
