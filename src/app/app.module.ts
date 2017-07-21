@@ -10,7 +10,7 @@ import { CookieService } from 'angular2-cookie/services/cookies.service';
 //modules and services
 import { RoutesModule } from './router/routes.module';
 import { AuthService } from './services/auth.service'
-import { RoutesGuardGlobal } from './router/routes-guard-global.service'
+import { RoutesCheckCompany } from './router/routes-check-company.service'
 import { RoutesGuardCorp } from './router/routes-guard-corp.service'
 import { ServerService } from './services/server.service';
 
@@ -50,7 +50,7 @@ import { AlertsComponent } from './corp/alerts/alerts.component';
   ],
   providers: [
     AuthService,
-    RoutesGuardGlobal,
+    RoutesCheckCompany,
     RoutesGuardCorp,
     ServerService,
     CookieService

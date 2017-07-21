@@ -9,14 +9,18 @@ export class AuthService {
   constructor(private serverService: ServerService) {}
 
   user = {
-    company: undefined,
     name: undefined,
     lastName: undefined,
     id: undefined,
-    type: undefined,
     token: undefined,
-    authenticated: false
+    authenticated: true,
+    rights: []
   };
+
+  company = {
+    name: undefined,
+    fullName: undefined
+  }
 
   isAuthenticated() {
     const promise = new Promise((resolve, reject) => {
@@ -24,6 +28,28 @@ export class AuthService {
     });
     return promise;
   };
+
+  companyExists(company) {
+    const promise = new Promise((resolve, reject) => {
+
+      this.serverService.checkCompany(company)
+      .subscribe(
+          (response) => {
+            if(response) {
+              console.log(response.json());
+              resolve(true)
+            }
+          },
+          (error) => {
+            console.log("Error: " + error);
+            resolve(true);
+          }
+        );
+    });
+    return promise;
+
+
+  }
 
   logIn(user) {
     this.serverService.getUserInfo(this.user)

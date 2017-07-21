@@ -8,4 +8,8 @@ export class ServerService {
   getUserInfo(user: any) {
     return this.http.get('http://localhost:5555/api/test');
   }
+
+  checkCompany(company: any) {
+    return this.http.get(`http://localhost:5555/api/company/exists/${company}`);
+  }
 }

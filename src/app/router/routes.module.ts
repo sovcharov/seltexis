@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 //services
-import { RoutesGuardGlobal } from './routes-guard-global.service'
+import { RoutesCheckCompany } from './routes-check-company.service'
 import { RoutesGuardCorp } from './routes-guard-corp.service';
 
 //components
@@ -21,7 +21,7 @@ import { RegisterCompanyComponent } from '../corp/auth/register-company/register
 const appRoutes: Routes = [
   { path: "", redirectTo: '/seltex', pathMatch: 'full' },
   { path: ":company", children: [
-    { path: "login", component: LoginComponentCorp },
+    { path: "login", canActivate: [RoutesCheckCompany],component: LoginComponentCorp },
     { path: "register", component: RegisterComponent },
     { path: "", canActivate: [RoutesGuardCorp], component: MainComponent, children: [
       { path: "", component: TradeComponent, children: [

@@ -7,7 +7,6 @@ import {
 
 import { Alert, AlertService } from './services/alert.service';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -24,6 +23,5 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.alerts = this.alertService.alerts;
   }
-
 
 }
