@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { CookieService } from 'angular2-cookie/core';
+import { MyCookieService } from './my-cookie.service';
 import { ServerService } from './server.service';
 
 
@@ -10,9 +10,10 @@ interface Right {
 }
 
 export interface User {
+  id: number,
   firstName: string,
   lastName: string,
-  id: number,
+  email: string,
   token: number,
   authenticated?: boolean,
   rights: Right[]
@@ -24,24 +25,19 @@ export class UserService {
   user: User;
   tempUser: any;
   constructor(
-    private cookieService: CookieService,
+    private myCookieService: MyCookieService,
     private serverService: ServerService
   ) {
     // let date = new Date();
     // date.setDate(date.getDate() + 30);
     // this.cookieService.putObject('user', { id: 0, firstName: 'Sergei', lastName: 'Ovcharov', email: 'smartauto@mail.ru', token: 12345, authenticated: true, rights: [{ companyId: 1, rightId: 1 }] }, { expires: date });
-    this.tempUser = this.cookieService.getObject('user');
+    this.tempUser = this.myCookieService.getUser();
     if (this.tempUser) {
       this.user = this.tempUser;
       this.user.authenticated = false;
     } else {
       this.user.authenticated = false;
     }
-  }
-
-  private getCookie() {
-    let user = this.cookieService.get('user');
-    return user;
   }
 
 }

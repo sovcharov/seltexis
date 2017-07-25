@@ -6,8 +6,13 @@ import 'rxjs/Rx';
 export class ServerService {
   constructor(private http: Http) { }
 
-  getUserInfo(user: any) {
-    return this.http.get('http://localhost:5555/api/test');
+  logInUser(email, password, company) {
+    return this.http.get(`http://localhost:5555/api/logInUser/${email}/${password}/${company}`)
+      .map((response: Response) => {
+        const data = response.json();
+        // console.log(data);
+        return data;
+      });
   }
 
   checkCompany(company: any) {

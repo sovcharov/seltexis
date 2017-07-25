@@ -29,6 +29,8 @@ import { AlertsComponent } from './corp/alerts/alerts.component';
 import { AlertService } from './services/alert.service';
 import { CompanyService } from './services/company.service';
 import { UserService } from './services/user.service';
+import { MyCookieService } from './services/my-cookie.service';
+
 
 
 
@@ -62,7 +64,8 @@ import { UserService } from './services/user.service';
     CookieService,
     AlertService,
     CompanyService,
-    UserService
+    UserService,
+    MyCookieService
   ],
   bootstrap: [AppComponent]
 })

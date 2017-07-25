@@ -7,11 +7,4 @@ export interface Company {
 
 export class CompanyService {
   company: Company;
-  constructor() {
-    this.company = {
-      id: 1,
-      name: '',
-      fullName: ''
-    }
-  }
 }

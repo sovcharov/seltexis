@@ -39,15 +39,15 @@ export class LoginComponentCorp implements OnInit {
 
   }
 
-  temp: string;
-
   logIn(form: NgForm) {
     let user = {
       email: form.value.email,
       password: form.value.password
     };
-    this.checkUserInput(user);
-    // this.authService.logIn(user);
+    console.log(user)
+    if (this.checkUserInput(user)) {
+      this.authService.logIn(user);
+    };
   }
 
   checkUserInput(user) {
@@ -55,7 +55,6 @@ export class LoginComponentCorp implements OnInit {
   }
 
   checkUserAtServer(user) {
-    this.temp = user.email;
     this.router.navigate(['/main']);
     return true;
   }

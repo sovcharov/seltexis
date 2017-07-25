@@ -1,4 +1,3 @@
-
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 
@@ -11,21 +10,15 @@ import { UserService } from './user.service';
 @Injectable()
 export class AuthService {
 
+  user;
   constructor(
     private serverService: ServerService,
-    private companyServie: CompanyService,
+    private companyService: CompanyService,
     private alertService: AlertService,
     private userService: UserService
   ) { }
 
-  user = {
-    name: undefined,
-    lastName: undefined,
-    id: undefined,
-    token: undefined,
-    authenticated: false,
-    rights: []
-  };
+
 
   company = {
     name: undefined,
@@ -34,7 +27,7 @@ export class AuthService {
 
   isAuthenticated() {
     const promise = new Promise((resolve, reject) => {
-      resolve(this.user.authenticated);
+      resolve(this.userService.user.authenticated);
     });
     return promise;
   };
@@ -46,7 +39,7 @@ export class AuthService {
         .subscribe(
         (response) => {
           if (response) {
-            this.companyServie.company = response;
+            this.companyService.company = response;
             // console.log(this.companyServie.company);
             resolve(true)
           } else {
@@ -74,15 +67,18 @@ export class AuthService {
 
 
   logIn(user) {
-    this.serverService.getUserInfo(this.user)
+    this.serverService.logInUser(user.email, user.password, this.companyService.company.id)
       .subscribe(
       (response) => {
         // this.user.name = response.data.Users[0].name;
-        console.log(response.json());
+        console.log(response);
 
       },
-      (error) => console.log(error)
+      (error) => {
+        console.log("Error: " + error);
+      }
       );
+    return true;
   }
 
   logOut() {
