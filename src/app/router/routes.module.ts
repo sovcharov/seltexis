@@ -20,18 +20,27 @@ import { RegisterCompanyComponent } from '../corp/auth/register-company/register
 
 const appRoutes: Routes = [
   { path: "", redirectTo: '/seltex', pathMatch: 'full' },
-  { path: ":company", children: [
-    { path: "login", canActivate: [RoutesCheckCompany],component: LoginComponentCorp },
-    { path: "register", component: RegisterComponent },
-    { path: "", canActivate: [RoutesGuardCorp], component: MainComponent, children: [
-      { path: "", component: TradeComponent, children: [
-        { path: "", component: HomeComponent },
-        { path: "sales", component: SalesComponent },
-        { path: "purchases", component: PurchasesComponent }
-      ]},
-      { path: "store", component: StoreComponent }
-    ]},
-  ] },
+  {
+    path: ":company",
+    children: [
+      { path: "login", canActivate: [RoutesCheckCompany], component: LoginComponentCorp },
+      { path: "register", component: RegisterComponent },
+      {
+        path: "", canActivate: [RoutesGuardCorp], component: MainComponent,
+        children: [
+          {
+            path: "", component: TradeComponent,
+            children: [
+              { path: "", component: HomeComponent },
+              { path: "sales", component: SalesComponent },
+              { path: "purchases", component: PurchasesComponent }
+            ]
+          },
+          { path: "store", component: StoreComponent }
+        ]
+      },
+    ]
+  },
   { path: "new/company/register", component: RegisterCompanyComponent },
   { path: "**", redirectTo: "seltex" }
 ];

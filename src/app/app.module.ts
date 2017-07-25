@@ -26,6 +26,10 @@ import { MainComponent } from './corp/main/main.component';
 import { RegisterComponent } from './corp/auth/register/register.component';
 import { RegisterCompanyComponent } from './corp/auth/register-company/register-company.component';
 import { AlertsComponent } from './corp/alerts/alerts.component';
+import { AlertService } from './services/alert.service';
+import { CompanyService } from './services/company.service';
+
+
 
 @NgModule({
   declarations: [
@@ -53,7 +57,9 @@ import { AlertsComponent } from './corp/alerts/alerts.component';
     RoutesCheckCompany,
     RoutesGuardCorp,
     ServerService,
-    CookieService
+    CookieService,
+    AlertService,
+    CompanyService
   ],
   bootstrap: [AppComponent]
 })

@@ -16,16 +16,16 @@ export class RoutesCheckCompany implements CanActivate {
   };
 
   canActivate(route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot) : Observable<boolean> | Promise<boolean> | boolean {
-      return this.authService.companyExists(route.params.company)
+    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    return this.authService.companyExists(route.params.company)
       .then(
-        (exists: boolean) => {
-          if(exists) {
-            return true;
-          } else {
-            this.router.navigate(['/seltex/login']);
-          }
+      (exists: boolean) => {
+        if (exists) {
+          return true;
+        } else {
+          this.router.navigate(['/seltex/login']);
         }
+      }
       );
-    }
   }
+}

@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { CookieService} from 'angular2-cookie/core';
 import { AlertService, Alert } from '../../../services/alert.service';
+import { Company, CompanyService } from '../../../services/company.service';
+
+
 
 
 
@@ -14,9 +17,9 @@ import { AlertService, Alert } from '../../../services/alert.service';
   providers: []
 })
 
-export class LoginComponentCorp  implements OnInit {
+export class LoginComponentCorp implements OnInit {
 
-  constructor (private router: Router, private authService: AuthService, private _cookieService: CookieService, private alertService: AlertService) {
+  constructor(private router: Router, private authService: AuthService, private _cookieService: CookieService, private alertService: AlertService, private companyService: CompanyService) {
   }
 
 
@@ -33,15 +36,20 @@ export class LoginComponentCorp  implements OnInit {
       waitForClick: true
     }
     this.alertService.addAlert(alert);
+    alert.life = 12;
+    alert.alertClass = 'success';
+    this.alertService.addAlert(alert);
+    alert.waitForClick = false;
+    this.alertService.addAlert(alert);
 
   }
 
-  getCookie(){
+  getCookie() {
     let user = this._cookieService.get('user');
     return user;
   }
 
-  temp:string;
+  temp: string;
 
   logIn(form: NgForm) {
     let user = {
