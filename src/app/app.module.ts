@@ -28,6 +28,8 @@ import { RegisterCompanyComponent } from './corp/auth/register-company/register-
 import { AlertsComponent } from './corp/alerts/alerts.component';
 import { AlertService } from './services/alert.service';
 import { CompanyService } from './services/company.service';
+import { UserService } from './services/user.service';
+
 
 
 
@@ -59,7 +61,8 @@ import { CompanyService } from './services/company.service';
     ServerService,
     CookieService,
     AlertService,
-    CompanyService
+    CompanyService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

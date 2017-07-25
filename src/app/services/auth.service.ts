@@ -4,12 +4,19 @@ import { Injectable } from '@angular/core';
 
 import { ServerService } from './server.service';
 import { CompanyService } from './company.service';
+import { AlertService, Alert } from './alert.service';
+import { UserService } from './user.service';
 
 
 @Injectable()
 export class AuthService {
 
-  constructor(private serverService: ServerService, private companyServie: CompanyService) { }
+  constructor(
+    private serverService: ServerService,
+    private companyServie: CompanyService,
+    private alertService: AlertService,
+    private userService: UserService
+  ) { }
 
   user = {
     name: undefined,
@@ -40,13 +47,23 @@ export class AuthService {
         (response) => {
           if (response) {
             this.companyServie.company = response;
-            console.log(this.companyServie.company);
+            // console.log(this.companyServie.company);
             resolve(true)
+          } else {
+            let alert: Alert = {
+              alertClass: 'danger',
+              text: `Wrong company`,
+              comment: `${company} not exists`,
+              life: 15,
+              waitForClick: false
+            }
+            this.alertService.addAlert(alert);
+            resolve(false);
           }
         },
         (error) => {
           console.log("Error: " + error);
-          resolve(true);
+          resolve(false);
         }
         );
     });
@@ -54,6 +71,7 @@ export class AuthService {
 
 
   }
+
 
   logIn(user) {
     this.serverService.getUserInfo(this.user)

@@ -12,11 +12,10 @@ export class ServerService {
 
   checkCompany(company: any) {
     return this.http.get(`http://localhost:5555/api/company/exists/${company}`)
-      .map(
-      (response: Response) => {
+      .map((response: Response) => {
         const data = response.json();
+        // console.log(data);
         return data;
-      }
-      );
+      });
   }
 }
