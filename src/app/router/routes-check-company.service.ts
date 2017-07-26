@@ -23,7 +23,12 @@ export class RoutesCheckCompany implements CanActivate {
         if (exists) {
           return true;
         } else {
-          this.router.navigate(['/seltex/login']);
+          console.log()
+          if (route.params.company === 'seltex') {
+            this.router.navigate(['/server/error']);
+          } else {
+            this.router.navigate(['/seltex/login']);
+          }
         }
       }
       );
