@@ -66,19 +66,26 @@ export class AuthService {
   }
 
 
-  logIn(user) {
+  logIn(user, callback) {
     this.serverService.logInUser(user.email, user.password, this.companyService.company.id)
       .subscribe(
       (response) => {
         // this.user.name = response.data.Users[0].name;
         console.log(response);
+        if (response) {
+          this.userService.user = response;
+          this.userService.user.authenticated = true;
+          callback(true);
+        } else {
+          callback(false);
 
+        }
       },
       (error) => {
         console.log("Error: " + error);
+        return false;
       }
       );
-    return true;
   }
 
   logOut() {

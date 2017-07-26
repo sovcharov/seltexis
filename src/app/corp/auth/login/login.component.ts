@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router
+} from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { AlertService, Alert } from '../../../services/alert.service';
 import { Company, CompanyService } from '../../../services/company.service';
-
-
-
 
 
 @Component({
@@ -18,25 +18,17 @@ import { Company, CompanyService } from '../../../services/company.service';
 
 export class LoginComponentCorp implements OnInit {
 
-  constructor(private router: Router, private authService: AuthService, private alertService: AlertService, private companyService: CompanyService) {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private alertService: AlertService,
+    private companyService: CompanyService
+  ) {
   }
 
 
   ngOnInit() {
-    let alert: Alert = {
-      alertClass: 'danger',
-      text: 'login',
-      comment: 'string',
-      life: 5,
-      waitForClick: true
-    }
-    this.alertService.addAlert(alert);
-    alert.life = 12;
-    alert.alertClass = 'success';
-    this.alertService.addAlert(alert);
-    alert.waitForClick = false;
-    this.alertService.addAlert(alert);
-
   }
 
   logIn(form: NgForm) {
@@ -44,9 +36,22 @@ export class LoginComponentCorp implements OnInit {
       email: form.value.email,
       password: form.value.password
     };
-    console.log(user)
     if (this.checkUserInput(user)) {
-      this.authService.logIn(user);
+      this.authService.logIn(user, (login) => {
+        if (login) {
+          this.router.navigate(['/' + this.route.snapshot.params.company]);
+        } else {
+          let alert: Alert = {
+            alertClass: 'danger',
+            text: 'wrong user',
+            comment: 'check credential and retry',
+            life: 10,
+            waitForClick: false
+          }
+          this.alertService.addAlert(alert);
+        }
+      });
+
     };
   }
 

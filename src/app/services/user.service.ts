@@ -6,7 +6,7 @@ import { ServerService } from './server.service';
 
 interface Right {
   companyId: number,
-  rightId: number
+  rights: number[]
 }
 
 export interface User {
