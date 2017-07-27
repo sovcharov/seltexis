@@ -15,14 +15,23 @@ export interface User {
   lastName: string,
   email: string,
   token: number,
-  authenticated?: boolean,
+  authenticated: boolean,
   rights: Right[]
 }
 
 @Component({
 })
 export class UserService {
-  user: User;
+
+  user: User = {
+    id: 0,
+    firstName: '',
+    lastName: '',
+    email: '',
+    token: 0,
+    authenticated: false,
+    rights: []
+  };
   tempUser: any;
   constructor(
     private myCookieService: MyCookieService,
