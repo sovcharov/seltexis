@@ -1,6 +1,6 @@
 <div>
 <ul class="nav nav-tabs">
-  <li role="presentation" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active"><a routerLink=''>Home</a></li>
+  <li role="presentation" [ngClass] = "{'active': homeIsActive()}"><a routerLink='/'>Home</a></li>
   <li role="presentation" routerLinkActive="active"><a routerLink="sales">Продажи</a></li>
   <li role="presentation" routerLinkActive="active"><a routerLink="purchases">Закупки</a></li>
 </ul>
