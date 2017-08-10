@@ -7,6 +7,8 @@ import {
 import { AuthService } from '../../../services/auth.service';
 import { AlertService, Alert } from '../../../services/alert.service';
 import { Company, CompanyService } from '../../../services/company.service';
+import { UserService } from '../../../services/user.service';
+
 
 
 @Component({
@@ -23,7 +25,8 @@ export class LoginComponentCorp implements OnInit {
     private route: ActivatedRoute,
     private authService: AuthService,
     private alertService: AlertService,
-    private companyService: CompanyService
+    private companyService: CompanyService,
+    private userService: UserService
   ) {
   }
 
@@ -37,8 +40,14 @@ export class LoginComponentCorp implements OnInit {
       password: form.value.password
     };
     if (this.checkUserInput(user)) {
-      this.authService.logIn(user, (login) => {
-        if (login) {
+      this.authService.logIn(user, (res) => {
+        console.log(res)
+        if (res.error) {
+          this.router.navigate(['/server/error']);
+          console.log(res.error);
+        } else if (res.items) {
+          this.userService.user = res.items;
+          this.userService.user.authenticated = true;
           this.router.navigate(['/' + this.route.snapshot.params.company]);
         } else {
           let alert: Alert = {

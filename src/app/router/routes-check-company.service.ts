@@ -19,11 +19,13 @@ export class RoutesCheckCompany implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.authService.companyExists(route.params.company)
       .then(
-      (exists: boolean) => {
-        if (exists) {
+      (response: any) => {
+        if (response.error) {
+          this.router.navigate(['/server/error']);
+          console.log(response.error);
+        } else if (response.items) {
           return true;
         } else {
-          console.log()
           if (route.params.company === 'seltex') {
             this.router.navigate(['/server/error']);
           } else {

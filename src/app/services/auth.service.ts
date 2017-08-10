@@ -38,10 +38,11 @@ export class AuthService {
       this.serverService.checkCompany(company)
         .subscribe(
         (response) => {
-          if (response) {
-            this.companyService.company = response;
-            // console.log(this.companyServie.company);
-            resolve(true)
+          if (response.error) {
+            resolve(response);
+          } else if (response.items) {
+            this.companyService.company = response.items;
+            resolve(response)
           } else {
             let alert: Alert = {
               alertClass: 'danger',
@@ -51,7 +52,7 @@ export class AuthService {
               waitForClick: false
             }
             this.alertService.addAlert(alert);
-            resolve(false);
+            resolve(response);
           }
         },
         (error) => {
@@ -70,16 +71,8 @@ export class AuthService {
     this.serverService.logInUser(user.email, user.password, this.companyService.company.id)
       .subscribe(
       (response) => {
-        // this.user.name = response.data.Users[0].name;
+        callback(response);
         console.log(response);
-        if (response) {
-          this.userService.user = response;
-          this.userService.user.authenticated = true;
-          callback(true);
-        } else {
-          callback(false);
-
-        }
       },
       (error) => {
         console.log("Error: " + error);
