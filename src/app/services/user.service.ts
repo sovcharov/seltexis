@@ -34,19 +34,18 @@ export class UserService {
   };
   tempUser: any;
   constructor(
-    private myCookieService: MyCookieService,
-    private serverService: ServerService
+    private myCookieService: MyCookieService
   ) {
-    // let date = new Date();
-    // date.setDate(date.getDate() + 30);
-    // this.cookieService.putObject('user', { id: 0, firstName: 'Sergei', lastName: 'Ovcharov', email: 'smartauto@mail.ru', token: 12345, authenticated: true, rights: [{ companyId: 1, rightId: 1 }] }, { expires: date });
     this.tempUser = this.myCookieService.getUser();
     if (this.tempUser) {
       this.user = this.tempUser;
-      this.user.authenticated = false;
     } else {
       this.user.authenticated = false;
     }
+  }
+
+  saveUserCookie() {
+    this.myCookieService.putUser(this.user)
   }
 
 }

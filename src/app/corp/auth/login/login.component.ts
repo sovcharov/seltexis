@@ -48,6 +48,7 @@ export class LoginComponentCorp implements OnInit {
         } else if (res.items) {
           this.userService.user = res.items;
           this.userService.user.authenticated = true;
+          this.userService.saveUserCookie();
           this.router.navigate(['/' + this.route.snapshot.params.company]);
         } else {
           let alert: Alert = {

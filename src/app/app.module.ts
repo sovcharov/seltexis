@@ -8,11 +8,15 @@ import { HttpModule } from '@angular/http';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 
 //modules and services
+import { CompanyService } from './services/company.service';
+import { UserService } from './services/user.service';
 import { RoutesModule } from './router/routes.module';
 import { AuthService } from './services/auth.service'
 import { RoutesCheckCompany } from './router/routes-check-company.service'
 import { RoutesGuardCorp } from './router/routes-guard-corp.service'
 import { ServerService } from './services/server.service';
+import { AlertService } from './services/alert.service';
+import { MyCookieService } from './services/my-cookie.service';
 
 //components
 import { AppComponent } from './app.component';
@@ -26,10 +30,7 @@ import { MainComponent } from './corp/main/main.component';
 import { RegisterComponent } from './corp/auth/register/register.component';
 import { RegisterCompanyComponent } from './corp/auth/register-company/register-company.component';
 import { AlertsComponent } from './corp/alerts/alerts.component';
-import { AlertService } from './services/alert.service';
-import { CompanyService } from './services/company.service';
-import { UserService } from './services/user.service';
-import { MyCookieService } from './services/my-cookie.service';
+
 import { ErrorComponent } from './corp/auth/error/error.component';
 
 
@@ -59,14 +60,14 @@ import { ErrorComponent } from './corp/auth/error/error.component';
     HttpModule
   ],
   providers: [
+    CompanyService,
+    UserService,
     AuthService,
     RoutesCheckCompany,
     RoutesGuardCorp,
     ServerService,
     CookieService,
     AlertService,
-    CompanyService,
-    UserService,
     MyCookieService
   ],
   bootstrap: [AppComponent]

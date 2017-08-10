@@ -42,6 +42,7 @@ export class AuthService {
             resolve(response);
           } else if (response.items) {
             this.companyService.company = response.items;
+            this.companyService.saveCompanyCookie();
             resolve(response)
           } else {
             let alert: Alert = {
