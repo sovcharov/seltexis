@@ -32,7 +32,12 @@ export class LoginComponentCorp implements OnInit {
 
 
   ngOnInit() {
+    console.log(this.userService.user)
+    if (this.userService.user.authenticated) {
+      this.router.navigate([`/${this.route.snapshot.params.company}`]);
+    }
   }
+
 
   logIn(form: NgForm) {
     let user = {

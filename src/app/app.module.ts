@@ -17,6 +17,8 @@ import { RoutesGuardCorp } from './router/routes-guard-corp.service'
 import { ServerService } from './services/server.service';
 import { AlertService } from './services/alert.service';
 import { MyCookieService } from './services/my-cookie.service';
+import { SecurityService } from './services/security.service';
+
 
 //components
 import { AppComponent } from './app.component';
@@ -68,7 +70,8 @@ import { ErrorComponent } from './corp/auth/error/error.component';
     ServerService,
     CookieService,
     AlertService,
-    MyCookieService
+    MyCookieService,
+    SecurityService
   ],
   bootstrap: [AppComponent]
 })

@@ -67,7 +67,6 @@ export class AuthService {
 
   }
 
-
   logIn(user, callback) {
     this.serverService.logInUser(user.email, user.password, this.companyService.company.id)
       .subscribe(
@@ -81,6 +80,7 @@ export class AuthService {
       }
       );
   }
+
 
   logOut() {
     this.user.authenticated = false;
