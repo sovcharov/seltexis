@@ -6,6 +6,7 @@ import { UserService } from './user.service';
 @Injectable()
 
 export class SecurityService {
+  myInterval;
 
   constructor(
     private companyService: CompanyService,
@@ -13,9 +14,13 @@ export class SecurityService {
   ) { }
 
   startCheckUser() {
-    setInterval(() => {
+    this.myInterval = setInterval(() => {
       this.userService.checkUserLoggedIn();
     }, 10000);
+  }
+
+  stopCheckUser() {
+    clearInterval(this.myInterval);
   }
 
 }
