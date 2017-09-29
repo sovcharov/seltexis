@@ -3,6 +3,9 @@ import {
   Router,
   ActivatedRoute
 } from '@angular/router';
+import { Tabs } from '../../../services/tabs.service'
+
+
 
 @Component({
   selector: 'app-trade',
@@ -11,7 +14,9 @@ import {
 })
 export class TradeComponent implements OnInit {
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router, private route: ActivatedRoute,
+    private tabs: Tabs
+  ) {
   }
 
   ngOnInit() {
@@ -23,6 +28,10 @@ export class TradeComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  closeTab(index) {
+    this.tabs.closeTab(index);
   }
 
 }

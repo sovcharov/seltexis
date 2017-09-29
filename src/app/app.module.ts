@@ -5,7 +5,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AlertModule } from 'ngx-bootstrap';
 import { HttpModule } from '@angular/http';
 
-import { CookieService } from 'angular2-cookie/services/cookies.service';
+// import { CookieService } from 'angular2-cookie/services/cookies.service';
+import { CookieModule } from 'ngx-cookie';
 
 //modules and services
 import { CompanyService } from './services/company.service';
@@ -18,6 +19,7 @@ import { ServerService } from './services/server.service';
 import { AlertService } from './services/alert.service';
 import { MyCookieService } from './services/my-cookie.service';
 import { SecurityService } from './services/security.service';
+import { Tabs } from './services/tabs.service';
 
 
 //components
@@ -34,6 +36,8 @@ import { RegisterCompanyComponent } from './corp/auth/register-company/register-
 import { AlertsComponent } from './corp/alerts/alerts.component';
 
 import { ErrorComponent } from './corp/auth/error/error.component';
+import { ServiceComponent } from './corp/main/trade/service/service.component';
+import { InventoryComponent } from './corp/main/trade/inventory/inventory.component';
 
 
 
@@ -52,12 +56,15 @@ import { ErrorComponent } from './corp/auth/error/error.component';
     RegisterComponent,
     RegisterCompanyComponent,
     AlertsComponent,
-    ErrorComponent
+    ErrorComponent,
+    ServiceComponent,
+    InventoryComponent
   ],
   imports: [
+    AlertModule.forRoot(),
+    CookieModule.forRoot(),
     BrowserModule,
     FormsModule,
-    AlertModule.forRoot(),
     RoutesModule,
     HttpModule
   ],
@@ -68,10 +75,11 @@ import { ErrorComponent } from './corp/auth/error/error.component';
     RoutesCheckCompany,
     RoutesGuardCorp,
     ServerService,
-    CookieService,
+    // CookieService,
     AlertService,
     MyCookieService,
-    SecurityService
+    SecurityService,
+    Tabs
   ],
   bootstrap: [AppComponent]
 })

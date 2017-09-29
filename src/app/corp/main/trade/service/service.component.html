@@ -1,23 +1,17 @@
-
 <div class="">
   <div class="col-md-12">
     <!-- <h4><small><i class="glyphicon glyphicon-wrench"></i> Инструменты</small></h4> -->
     <br/>
   </div>
-  <div class="col-md-8">
 
-  </div>
 
   <div class="col-md-4">
     <div class="panel panel-primary">
       <div class="panel-heading">
-        <h3 class="panel-title">Торговля</h3>
+        <h3 class="panel-title">Номенклатура</h3>
       </div>
       <div class="panel-body">
-        <p><a routerLink='sales' (click)="addTab('Продажи','sales')"><i class="glyphicon glyphicon-usd"></i>  Продажи</a></p>
-        <p><a routerLink='purchases' (click)="addTab('Закупки','purchases')"><i class="glyphicon glyphicon-shopping-cart"></i>  Закупки</a></p>
-        <p><a routerLink='payments' (click)="addTab('Оплаты','payments')"><i class="fa fa-credit-card" aria-hidden="true"></i>  Оплаты</a></p>
-        <p><a routerLink='service' (click)="addTab('Сервис','service')"><i class="glyphicon glyphicon-wrench"></i>  Сервис</a></p>
+        <p><a routerLink='inventory' (click)="addTab('Номенклатура','inventory')"><i class="fa fa-list" aria-hidden="true"></i>  Вся номенклатура</a></p>
       </div>
     </div>
     <div class="panel panel-primary">
@@ -36,5 +30,8 @@
         <p ng-if="access.toUsersManagementPage()"><a ui-sref="main.usersManagement"><i class="glyphicon glyphicon-user"></i>  Управление пользователями</a></p>
       </div>
     </div>
+  </div>
+  <div class="col-md-8">
+
   </div>
 </div>

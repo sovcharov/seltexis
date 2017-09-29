@@ -5,6 +5,7 @@ import {
 import { SecurityService } from '../../services/security.service';
 import { CompanyService } from '../../services/company.service';
 import { UserService } from '../../services/user.service';
+import { Tabs } from '../../services/tabs.service'
 
 
 
@@ -20,7 +21,8 @@ export class MainComponent implements OnInit {
     private securityService: SecurityService,
     private router: Router,
     private companyService: CompanyService,
-    private userService: UserService
+    private userService: UserService,
+    private tabs: Tabs
   ) { }
 
   ngOnInit() {

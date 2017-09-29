@@ -11,6 +11,10 @@ import { LoginComponentCorp } from '../corp/auth/login/login.component';
 import { MainComponent } from '../corp/main/main.component';
 import { SalesComponent } from '../corp/main/trade/sales/sales.component';
 import { PurchasesComponent } from '../corp/main/trade/purchases/purchases.component';
+import { ServiceComponent } from '../corp/main/trade/service/service.component';
+import { InventoryComponent } from '../corp/main/trade/inventory/inventory.component';
+
+
 import { HomeComponent } from '../corp/main/trade/home/home.component';
 import { TradeComponent } from '../corp/main/trade/trade.component';
 import { StoreComponent } from '../corp/main/store/store.component';
@@ -35,7 +39,11 @@ const appRoutes: Routes = [
             children: [
               { path: "", component: HomeComponent },
               { path: "sales", component: SalesComponent },
-              { path: "purchases", component: PurchasesComponent }
+              { path: "purchases", component: PurchasesComponent },
+              { path: "service", component: ServiceComponent },
+              { path: "inventory", component: InventoryComponent }
+
+
             ]
           },
           { path: "store", component: StoreComponent }

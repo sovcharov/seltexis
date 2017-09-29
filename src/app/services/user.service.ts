@@ -45,11 +45,11 @@ export class UserService {
     private route: ActivatedRoute
   ) {
     this.tempUser = this.myCookieService.getUser();
+    this.user.authenticated = false;
     if (this.tempUser) {
       this.user = this.tempUser;
+      this.checkUserLoggedIn();
     }
-    this.user.authenticated = false;
-    this.checkUserLoggedIn();
   }
 
   checkUserLoggedIn() {
@@ -61,8 +61,10 @@ export class UserService {
           this.router.navigate([`/${this.companyService.company.name}/login`]);
 
         } else {
-          this.user.authenticated = true;
-          this.router.navigate([`/${this.companyService.company.name}`]);
+          if (!this.user.authenticated) {
+            this.user.authenticated = true;
+            this.router.navigate([`/${this.companyService.company.name}`]);
+          }
         }
       },
       (error) => {

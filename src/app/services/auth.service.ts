@@ -72,7 +72,7 @@ export class AuthService {
       .subscribe(
       (response) => {
         callback(response);
-        console.log(response);
+        // console.log(response);
       },
       (error) => {
         console.log("Error: " + error);
