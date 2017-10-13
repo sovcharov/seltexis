@@ -33,4 +33,13 @@ export class ServerService {
       });
   }
 
+  getAllInventory(company) {
+    return this.http.get(`http://localhost:5555/api/getallinventory/company/${company.id}`)
+      .map((response: Response) => {
+        const data = response.json();
+        // console.log(data);
+        return data;
+      });
+  }
+
 }

@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import {
+  Router
+} from '@angular/router';
+import { CompanyService } from '../../../../services/company.service';
+import { Tabs } from '../../../../services/tabs.service'
 
 @Component({
   selector: 'app-service',
@@ -7,9 +12,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ServiceComponent implements OnInit {
 
-  constructor() { }
+  public baseRoute: string;
+  constructor(
+    private router: Router,
+    private companyService: CompanyService,
+    private tabs: Tabs
+  ) {
+
+  }
 
   ngOnInit() {
+
+  }
+
+  public addTab(name, href) {
+    this.tabs.addTab(name, href);
   }
 
 }
