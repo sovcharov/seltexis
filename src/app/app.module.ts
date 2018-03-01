@@ -20,6 +20,8 @@ import { AlertService } from './services/alert.service';
 import { MyCookieService } from './services/my-cookie.service';
 import { SecurityService } from './services/security.service';
 import { Tabs } from './services/tabs.service';
+import { InventoryService } from './services/inventory.service';
+
 
 
 //components
@@ -38,6 +40,7 @@ import { AlertsComponent } from './corp/alerts/alerts.component';
 import { ErrorComponent } from './corp/auth/error/error.component';
 import { ServiceComponent } from './corp/main/trade/service/service.component';
 import { InventoryComponent } from './corp/main/trade/inventory/inventory.component';
+import { InventoryChangeComponent } from './corp/main/trade/inventory/inventory-change/inventory-change.component';
 
 
 
@@ -58,7 +61,8 @@ import { InventoryComponent } from './corp/main/trade/inventory/inventory.compon
     AlertsComponent,
     ErrorComponent,
     ServiceComponent,
-    InventoryComponent
+    InventoryComponent,
+    InventoryChangeComponent
   ],
   imports: [
     AlertModule.forRoot(),
@@ -79,7 +83,8 @@ import { InventoryComponent } from './corp/main/trade/inventory/inventory.compon
     AlertService,
     MyCookieService,
     SecurityService,
-    Tabs
+    Tabs,
+    InventoryService
   ],
   bootstrap: [AppComponent]
 })

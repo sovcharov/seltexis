@@ -13,6 +13,8 @@ import { SalesComponent } from '../corp/main/trade/sales/sales.component';
 import { PurchasesComponent } from '../corp/main/trade/purchases/purchases.component';
 import { ServiceComponent } from '../corp/main/trade/service/service.component';
 import { InventoryComponent } from '../corp/main/trade/inventory/inventory.component';
+import { InventoryChangeComponent } from '../corp/main/trade/inventory/inventory-change/inventory-change.component';
+
 
 
 import { HomeComponent } from '../corp/main/trade/home/home.component';
@@ -41,7 +43,13 @@ const appRoutes: Routes = [
               { path: "sales", component: SalesComponent },
               { path: "purchases", component: PurchasesComponent },
               { path: "service", component: ServiceComponent },
-              { path: "inventory", component: InventoryComponent }
+              {
+                path: "inventory",
+                children: [
+                  { path: "", component: InventoryComponent },
+                  { path: "change/:id", component: InventoryChangeComponent }
+                ]
+              }
 
 
             ]

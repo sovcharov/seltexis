@@ -16,6 +16,7 @@ export class ServerService {
   }
 
   checkCompany(company: any) {
+    console.log(company);
     return this.http.get(`http://localhost:5555/api/company/exists/${company}/`)
       .map((response: Response) => {
         const data = response.json();
@@ -34,7 +35,43 @@ export class ServerService {
   }
 
   getAllInventory(company) {
-    return this.http.get(`http://localhost:5555/api/getallinventory/company/${company.id}`)
+    return this.http.get(`http://localhost:5555/api/getallinventory/company/${company}`)
+      .map((response: Response) => {
+        const data = response.json();
+        // console.log(data);
+        return data;
+      });
+  }
+
+  getInventory(company, id) {
+    return this.http.get(`http://localhost:5555/api/getinventory/company/${company}/id/${id}`)
+      .map((response: Response) => {
+        const data = response.json();
+        // console.log(data);
+        return data;
+      });
+  }
+
+  getInventoryNumbers(company, id) {
+    return this.http.get(`http://localhost:5555/api/getinventorynumbers/company/${company}/id/${id}`)
+      .map((response: Response) => {
+        const data = response.json();
+        // console.log(data);
+        return data;
+      });
+  }
+
+  updateInventoryNumber(company, invenventoryNumberId, newNumber, newManufacturer) {
+    return this.http.put(`http://localhost:5555/api/updateinventorynumber/company/${company}/numberid/${invenventoryNumberId}/newnumber/${newNumber}/newManufacturer/${newManufacturer}`,{})
+      .map((response: Response) => {
+        const data = response.json();
+        // console.log(data);
+        return data;
+      });
+  }
+
+  saveInventoryNewNumber(company, id, newnumber) {
+    return this.http.get(`http://localhost:5555/api/saveinventorynewnumber/company/${company}/id/${id}/number/${newnumber}`)
       .map((response: Response) => {
         const data = response.json();
         // console.log(data);
