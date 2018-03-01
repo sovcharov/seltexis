@@ -77,6 +77,7 @@ export class InventoryChangeComponent implements OnInit {
   }
 
   changeMainSave(index){
+    this.inventoryService.inventoryToEdit.numbers[index].saving = true;
     this.inventoryService.updateInventoryMainNumber(this.inventoryService.inventoryToEdit.numbers[index].id, this.id, (res) => {
       console.log(res);
       this.inventoryService.inventoryToEdit.numbers[index].changeMain = false;
@@ -86,6 +87,7 @@ export class InventoryChangeComponent implements OnInit {
         }
 
       }
+      this.inventoryService.inventoryToEdit.numbers[index].saving = false;
       this.inventoryService.inventoryToEdit.numbers[index].main = 1;
     });
   }
