@@ -72,4 +72,26 @@ export class InventoryChangeComponent implements OnInit {
     return '';
   }
 
+  changeMainBegin(index){
+    this.inventoryService.inventoryToEdit.numbers[index].changeMain=true;
+  }
+
+  changeMainSave(index){
+    this.inventoryService.updateInventoryMainNumber(this.inventoryService.inventoryToEdit.numbers[index].id, this.id, (res) => {
+      console.log(res);
+      this.inventoryService.inventoryToEdit.numbers[index].changeMain = false;
+      for (let i = 0; i < this.inventoryService.inventoryToEdit.numbers.length; i+=1){
+        if(this.inventoryService.inventoryToEdit.numbers[i].main) {
+          this.inventoryService.inventoryToEdit.numbers[i].main = 0;
+        }
+
+      }
+      this.inventoryService.inventoryToEdit.numbers[index].main = 1;
+    });
+  }
+
+  changeMainCancel(index){
+    this.inventoryService.inventoryToEdit.numbers[index].changeMain=false;
+  }
+
 }

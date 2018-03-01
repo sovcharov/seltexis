@@ -49,9 +49,20 @@
                           <i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
                           <span class="sr-only">Loading...</span>
                         </span>
-                        <button type="submit" class="btn btn-default" *ngIf = "!number.editing && !number.saving" (click) = "editBegin(i)">Изменить</button>
-                        <button type="submit" class="btn btn-default" *ngIf = "number.editing" (click) = "editSave(i)">Сохранить</button>
-                        <button type="submit" class="btn btn-default" *ngIf = "number.editing" (click) = "editCancel(i)">Отменить</button>
+                        <span *ngIf = "!number.saving">
+                          <span  *ngIf = "!number.changeMain">
+                            <button type="submit" class="btn btn-default" *ngIf = "!number.editing" (click) = "editBegin(i)">Изменить</button>
+                            <button type="submit" class="btn btn-default" *ngIf = "number.editing" (click) = "editSave(i)">Сохранить</button>
+                            <button type="submit" class="btn btn-default" *ngIf = "number.editing" (click) = "editCancel(i)">Отменить</button>
+                          </span>
+                          <span  *ngIf = "!number.editing">
+                            <button *ngIf = "!number.main && !number.changeMain" type="submit" class="btn btn-default" (click) = "changeMainBegin(i)">Сделать основным</button>
+                            <button type="submit" class="btn btn-default" *ngIf = "number.changeMain" (click) = "changeMainSave(i)">Подтвердить замену</button>
+                            <button type="submit" class="btn btn-default" *ngIf = "number.changeMain" (click) = "changeMainCancel(i)">Отменить</button>
+                            <span *ngIf = "number.main"> <i class="fa fa-check-square"></i> Основной</span>
+                          </span>
+                        </span>
+
                       </div>
                     </form>
                     <div>

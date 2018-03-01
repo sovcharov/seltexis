@@ -84,6 +84,19 @@ export class InventoryService {
       );
   }
 
+  updateInventoryMainNumber(invenventoryNumberId, inventoryId, callback) {
+    this.serverService.updateInventoryMainNumber(this.companyService.company.id, invenventoryNumberId, inventoryId)
+      .subscribe(
+      (response) => {
+        callback(response[0].main);
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+      );
+  }
+
   saveInventoryNewNumber(invenventoryId, newNumber, callback) {
     this.serverService.saveInventoryNewNumber(this.companyService.company.id, invenventoryId, newNumber)
       .subscribe(

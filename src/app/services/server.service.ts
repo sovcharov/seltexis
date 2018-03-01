@@ -70,6 +70,15 @@ export class ServerService {
       });
   }
 
+  updateInventoryMainNumber(company, invenventoryNumberId, inventoryId) {
+    return this.http.put(`http://localhost:5555/api/updateinventorymainnumber/company/${company}/numberid/${invenventoryNumberId}/inventoryid/${inventoryId}/`,{})
+      .map((response: Response) => {
+        const data = response.json();
+        // console.log(data);
+        return data;
+      });
+  }
+
   saveInventoryNewNumber(company, id, newnumber) {
     return this.http.get(`http://localhost:5555/api/saveinventorynewnumber/company/${company}/id/${id}/number/${newnumber}`)
       .map((response: Response) => {
