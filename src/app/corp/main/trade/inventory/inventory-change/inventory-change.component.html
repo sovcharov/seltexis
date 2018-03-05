@@ -37,19 +37,16 @@
                 {{inventoryService.inventoryToEdit.numbers}}
               </div>
                 <ng-container *ngFor = "let number of inventoryService.inventoryToEdit.numbers; let i = index" >
-                  <div class = "">
                     <form class="form-inline">
-
-                      <div >
                         <div class = "form-group" style="margin-bottom:2px;">
                           <input class = "col-md-3" *ngIf = "!number.editing" type="text" id="disabledTextInput" class="form-control" value="{{number.number}}" disabled>
                           <input class = "col-md-3" *ngIf = "number.editing" type="text" id="" class="form-control" name="number" [(ngModel)]="number.number">
                         </div>
-                        <span *ngIf = "number.saving">
+                        <span *ngIf = "number.saving || changingMain">
                           <i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
                           <span class="sr-only">Loading...</span>
                         </span>
-                        <span *ngIf = "!number.saving">
+                        <span *ngIf = "!number.saving && !changingMain">
                           <span  *ngIf = "!number.changeMain">
                             <button type="submit" class="btn btn-default" *ngIf = "!number.editing" (click) = "editBegin(i)">Изменить</button>
                             <button type="submit" class="btn btn-default" *ngIf = "number.editing" (click) = "editSave(i)">Сохранить</button>
@@ -62,16 +59,26 @@
                             <span *ngIf = "number.main"> <i class="fa fa-check-square"></i> Основной</span>
                           </span>
                         </span>
-
-                      </div>
                     </form>
-                    <div>
-
-                    </div>
-                  </div>
                 </ng-container>
-                                      <button type="submit" class="btn btn-default">Добавить</button>
+
+                  <form class="form-inline">
+                                      <button type="submit" class="btn btn-default" *ngIf = "!numberToAdd.editing && !numberToAdd.saving" (click) = "addNumberBegin()">Добавить</button>
+                    <div class = "form-group" style="margin-bottom:2px;">
+                      <input class = "" *ngIf = "numberToAdd.editing" type="text" id="" class="form-control" name="number" [(ngModel)]="numberToAdd.number">
+                    </div>
+                    <span *ngIf = "numberToAdd.saving">
+                      <i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
+                      <span class="sr-only">Loading...</span>
+                    </span>
+                    <span *ngIf = "!numberToAdd.saving">
+                        <button type="submit" class="btn btn-default" *ngIf = "numberToAdd.editing" (click) = "addNumberSave()">Сохранить</button>
+                        <button type="submit" class="btn btn-default" *ngIf = "numberToAdd.editing" (click) = "addNumberCancel()">Отменить</button>
+                    </span>
+                </form>
+
             </div>
+
             <div class = "col-md-12">
               <div class="col-md-8">
                 <label class="control-label">Аналоги:</label>

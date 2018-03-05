@@ -13,6 +13,12 @@ export class InventoryChangeComponent implements OnInit {
   id: number;
   loading: boolean;
   newNumber: string;
+  changingMain: boolean;
+  numberToAdd = {
+    number: '',
+    editing: false,
+    saving: false
+  };
 
   constructor(
     private inventoryService: InventoryService,
@@ -78,6 +84,7 @@ export class InventoryChangeComponent implements OnInit {
 
   changeMainSave(index){
     this.inventoryService.inventoryToEdit.numbers[index].saving = true;
+    this.changingMain = true;
     this.inventoryService.updateInventoryMainNumber(this.inventoryService.inventoryToEdit.numbers[index].id, this.id, (res) => {
       console.log(res);
       this.inventoryService.inventoryToEdit.numbers[index].changeMain = false;
@@ -88,12 +95,32 @@ export class InventoryChangeComponent implements OnInit {
 
       }
       this.inventoryService.inventoryToEdit.numbers[index].saving = false;
+      this.changingMain = false;
       this.inventoryService.inventoryToEdit.numbers[index].main = 1;
     });
   }
 
   changeMainCancel(index){
     this.inventoryService.inventoryToEdit.numbers[index].changeMain=false;
+  }
+
+  addNumberBegin () {
+    console.log(this.numberToAdd);
+    this.numberToAdd.editing = true;
+  }
+
+  addNumberSave () {
+    console.log(this.numberToAdd);
+    this.numberToAdd.number = '';
+    this.numberToAdd.editing = false;
+
+  }
+
+  addNumberCancel () {
+    console.log(this.numberToAdd);
+    this.numberToAdd.editing = false;
+    this.numberToAdd.number = '';
+
   }
 
 }
