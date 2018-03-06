@@ -44,12 +44,12 @@ export class InventoryChangeComponent implements OnInit {
     // console.log(this.inventoryService.inventory);
   }
 
-  editBegin(index): void {
+  editNumberBegin(index): void {
     this.inventoryService.inventoryToEdit.numbers[index].editing=true;
     this.inventoryService.inventoryToEdit.numbers[index].tempNumber = this.inventoryService.inventoryToEdit.numbers[index].number;
   }
 
-  editSave(index): void {
+  editNumberSave(index): void {
 
       console.log(this.inventoryService.inventoryToEdit.numbers[index].number);
       this.inventoryService.inventoryToEdit.numbers[index].editing=false;
@@ -62,7 +62,7 @@ export class InventoryChangeComponent implements OnInit {
 
   }
 
-  editCancel(index): void {
+  editNumberCancel(index): void {
     this.inventoryService.inventoryToEdit.numbers[index].editing=false;
       console.log(this.inventoryService.inventoryToEdit.numbers[index].number);
     this.inventoryService.inventoryToEdit.numbers[index].number = this.inventoryService.inventoryToEdit.numbers[index].tempNumber;
@@ -110,9 +110,17 @@ export class InventoryChangeComponent implements OnInit {
   }
 
   addNumberSave () {
-    console.log(this.numberToAdd);
-    this.numberToAdd.number = '';
-    this.numberToAdd.editing = false;
+    let manId = 1;
+    this.numberToAdd.saving = true;
+    this.inventoryService.saveInventoryNewNumber(this.id, this.numberToAdd.number, manId, (res) => {
+      console.log(res);
+      this.inventoryService.inventoryToEdit.numbers[this.inventoryService.inventoryToEdit.numbers.length] = res[0];
+      this.numberToAdd.number = '';
+      this.numberToAdd.editing = false;
+      this.numberToAdd.saving = false;
+
+    });
+
 
   }
 
@@ -122,5 +130,25 @@ export class InventoryChangeComponent implements OnInit {
     this.numberToAdd.number = '';
 
   }
+
+  deleteNumberBegin (index) {
+    console.log(this.inventoryService.inventoryToEdit.numbers[index]);
+    this.inventoryService.inventoryToEdit.numbers[index].deleting = true;
+  }
+
+  deleteNumberSave (index) {
+    this.inventoryService.inventoryToEdit.numbers[index].saving = true;
+    this.inventoryService.deleteInventoryNumber(this.inventoryService.inventoryToEdit.numbers[index].id, (res) => {
+      console.log(res);
+      this.inventoryService.inventoryToEdit.numbers.splice(index,1);
+      this.inventoryService.inventoryToEdit.numbers[index].saving = false;
+    });
+  }
+
+  deleteNumberCancel (index) {
+    console.log(this.inventoryService.inventoryToEdit.numbers[index]);
+    this.inventoryService.inventoryToEdit.numbers[index].deleting = false;
+  }
+
 
 }

@@ -79,8 +79,17 @@ export class ServerService {
       });
   }
 
-  saveInventoryNewNumber(company, id, newnumber) {
-    return this.http.get(`http://localhost:5555/api/saveinventorynewnumber/company/${company}/id/${id}/number/${newnumber}`)
+  saveInventoryNewNumber(company, invenventoryId, newNumber, newManufacturer) {
+        return this.http.post(`http://localhost:5555/api/saveinventorynewnumber/company/${company}/partid/${invenventoryId}/newnumber/${newNumber}/newManufacturer/${newManufacturer}`,{})
+      .map((response: Response) => {
+        const data = response.json();
+        // console.log(data);
+        return data;
+      });
+  }
+
+  deleteInventoryNumber(company, numberId) {
+        return this.http.delete(`http://localhost:5555/api/deleteinventorynumber/company/${company}/numberid/${numberId}`,{})
       .map((response: Response) => {
         const data = response.json();
         // console.log(data);

@@ -10,95 +10,98 @@
       <span class="sr-only">Loading...</span>
     </div>
     <div *ngIf = "!loading">
-        <div style = "height:1px; background-color:gray;width:100%"></div>
-            <div class = "col-md-12">
-              <!-- <span class="col-md-1 control-label label label-default" style="font-size:12px"> </span> -->
-              <div class="col-md-11" style="font-weight:bold; font-size:18px; color:#58595b">
-                {{inventoryService.inventoryToEdit.description}}
-              </div>
-              <div class="col-md-1">
-                <label class="control-label">id:</label>
-                {{inventoryService.inventoryToEdit.id}}
-              </div>
+      <div style = "height:1px; background-color:gray;width:100%"></div>
+      <div class = "">
+        <!-- <span class="col-md-1 control-label label label-default" style="font-size:12px"> </span> -->
+        <div class="col-md-11" style="font-weight:bold; font-size:18px; color:#58595b">
+          {{inventoryService.inventoryToEdit.description}}
+        </div>
+        <div class="col-md-1">
+          <label class="control-label">id:</label>
+          {{inventoryService.inventoryToEdit.id}}
+        </div>
+      </div>
+      <div class = "">
+        <div class="col-md-6">
+          <label class="control-label">Основной номер:</label>
+          {{getMainNumber()}}
+        </div>
+        <div class="col-md-6">
+          <label class="control-label">Производитель:</label>
+          {{inventoryService.inventoryToEdit.manufacturerFullName}}
+        </div>
+      </div>
+      <div class="col-md-8">
+        <label class="control-label">Прочие номера:</label>
+      </div>
+      <div class = "col-md-12">
+        <ng-container *ngFor = "let number of inventoryService.inventoryToEdit.numbers; let i = index" >
+          <form class="form-inline" style="margin-bottom:4px;">
+            <div class = "form-group">
+              <input class = "col-md-3" *ngIf = "!number.editing" type="text" id="disabledTextInput" class="form-control" value="{{number.number}}" disabled>
+              <input class = "col-md-3" *ngIf = "number.editing" type="text" id="" class="form-control" name="number" [(ngModel)]="number.number">
             </div>
-            <div class = "col-md-12">
-              <div class="col-md-6">
-                <label class="control-label">Основной номер:</label>
-                {{getMainNumber()}}
-              </div>
-              <div class="col-md-6">
-                <label class="control-label">Производитель:</label>
-                {{inventoryService.inventoryToEdit.manufacturerFullName}}
-              </div>
+            <div class = "form-group" *ngIf = "number.saving || changingMain">
+              <i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
+              <span class="sr-only">Loading...</span>
             </div>
-            <div class = "col-md-12">
-              <div class="col-md-8">
-                <label class="control-label">Прочие номера:</label>
-                {{inventoryService.inventoryToEdit.numbers}}
-              </div>
-                <ng-container *ngFor = "let number of inventoryService.inventoryToEdit.numbers; let i = index" >
-                    <form class="form-inline">
-                        <div class = "form-group" style="margin-bottom:2px;">
-                          <input class = "col-md-3" *ngIf = "!number.editing" type="text" id="disabledTextInput" class="form-control" value="{{number.number}}" disabled>
-                          <input class = "col-md-3" *ngIf = "number.editing" type="text" id="" class="form-control" name="number" [(ngModel)]="number.number">
-                        </div>
-                        <span *ngIf = "number.saving || changingMain">
-                          <i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
-                          <span class="sr-only">Loading...</span>
-                        </span>
-                        <span *ngIf = "!number.saving && !changingMain">
-                          <span  *ngIf = "!number.changeMain">
-                            <button type="submit" class="btn btn-default" *ngIf = "!number.editing" (click) = "editBegin(i)">Изменить</button>
-                            <button type="submit" class="btn btn-default" *ngIf = "number.editing" (click) = "editSave(i)">Сохранить</button>
-                            <button type="submit" class="btn btn-default" *ngIf = "number.editing" (click) = "editCancel(i)">Отменить</button>
-                          </span>
-                          <span  *ngIf = "!number.editing">
-                            <button *ngIf = "!number.main && !number.changeMain" type="submit" class="btn btn-default" (click) = "changeMainBegin(i)">Сделать основным</button>
-                            <button type="submit" class="btn btn-default" *ngIf = "number.changeMain" (click) = "changeMainSave(i)">Подтвердить замену</button>
-                            <button type="submit" class="btn btn-default" *ngIf = "number.changeMain" (click) = "changeMainCancel(i)">Отменить</button>
-                            <span *ngIf = "number.main"> <i class="fa fa-check-square"></i> Основной</span>
-                          </span>
-                        </span>
-                    </form>
-                </ng-container>
+            <span class = "form-group" *ngIf = "!number.saving && !changingMain">
+              <span  *ngIf = "!number.changeMain && !number.deleting">
+                <button type="submit" class="btn btn-default" *ngIf = "!number.editing" (click) = "editNumberBegin(i)">Изменить</button>
+                <button type="submit" class="btn btn-default" *ngIf = "number.editing" (click) = "editNumberSave(i)">Сохранить</button>
+                <button type="submit" class="btn btn-default" *ngIf = "number.editing" (click) = "editNumberCancel(i)">Отменить</button>
+              </span>
+              <span  *ngIf = "!number.changeMain && !number.editing">
+                <button type="submit" class="btn btn-default" *ngIf = "!number.deleting" (click) = "deleteNumberBegin(i)">Удалить</button>
+                <button type="submit" class="btn btn-danger" *ngIf = "number.deleting" (click) = "deleteNumberSave(i)">Удалить</button>
+                <button type="submit" class="btn btn-success" *ngIf = "number.deleting" (click) = "deleteNumberCancel(i)">Отменить</button>
+              </span>
+              <span  *ngIf = "!number.editing && !number.deleting">
+                <button *ngIf = "!number.main && !number.changeMain" type="submit" class="btn btn-default" (click) = "changeMainBegin(i)">Сделать основным</button>
+                <button type="submit" class="btn btn-default
+                " *ngIf = "number.changeMain" (click) = "changeMainSave(i)">Подтвердить</button>
+                <button type="submit" class="btn btn-default" *ngIf = "number.changeMain" (click) = "changeMainCancel(i)">Отменить</button>
+                <span *ngIf = "number.main"> <i class="fa fa-check-square"></i> Основной</span>
+              </span>
+            </span>
+          </form>
+        </ng-container>
+        <form class="form-inline" style="margin-bottom:4px;">
+          <button type="submit" class="btn btn-default" *ngIf = "!numberToAdd.editing && !numberToAdd.saving" (click) = "addNumberBegin()">Добавить</button>
+          <div class = "form-group">
+            <input class = "" *ngIf = "numberToAdd.editing" type="text" id="" class="form-control" name="number" [(ngModel)]="numberToAdd.number">
+          </div>
+          <span *ngIf = "numberToAdd.saving">
+            <i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
+            <span class="sr-only">Loading...</span>
+          </span>
+          <span *ngIf = "!numberToAdd.saving">
+            <button type="submit" class="btn btn-default" *ngIf = "numberToAdd.editing" (click) = "addNumberSave()">Сохранить</button>
+            <button type="submit" class="btn btn-default" *ngIf = "numberToAdd.editing" (click) = "addNumberCancel()">Отменить</button>
+          </span>
+        </form>
+      </div>
 
-                  <form class="form-inline">
-                                      <button type="submit" class="btn btn-default" *ngIf = "!numberToAdd.editing && !numberToAdd.saving" (click) = "addNumberBegin()">Добавить</button>
-                    <div class = "form-group" style="margin-bottom:2px;">
-                      <input class = "" *ngIf = "numberToAdd.editing" type="text" id="" class="form-control" name="number" [(ngModel)]="numberToAdd.number">
-                    </div>
-                    <span *ngIf = "numberToAdd.saving">
-                      <i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
-                      <span class="sr-only">Loading...</span>
-                    </span>
-                    <span *ngIf = "!numberToAdd.saving">
-                        <button type="submit" class="btn btn-default" *ngIf = "numberToAdd.editing" (click) = "addNumberSave()">Сохранить</button>
-                        <button type="submit" class="btn btn-default" *ngIf = "numberToAdd.editing" (click) = "addNumberCancel()">Отменить</button>
-                    </span>
-                </form>
-
-            </div>
-
-            <div class = "col-md-12">
-              <div class="col-md-8">
-                <label class="control-label">Аналоги:</label>
-                {{inventoryService.inventoryToEdit.numbers}}
-              </div>
-            </div>
-            <div class = "col-md-12">
-              <label class="col-sm-1 control-label">Цена:</label>
-              <div class="col-sm-2">
-                {{inventoryService.inventoryToEdit.price}}
-              </div>
-              <label class="col-sm-1 control-label">Склад:</label>
-              <div class="col-sm-2">
-                {{inventoryService.inventoryToEdit.stock}}
-              </div>
-              <label class="col-sm-1 control-label">Едет:</label>
-              <div class="col-sm-2">
-                {{inventoryService.inventoryToEdit.ordered}}
-              </div>
-            </div>
+      <div class = "col-md-12">
+        <div class="col-md-8">
+          <label class="control-label">Аналоги:</label>
+          {{inventoryService.inventoryToEdit.numbers}}
+        </div>
+      </div>
+      <div class = "col-md-12">
+        <label class="col-sm-1 control-label">Цена:</label>
+        <div class="col-sm-2">
+          {{inventoryService.inventoryToEdit.price}}
+        </div>
+        <label class="col-sm-1 control-label">Склад:</label>
+        <div class="col-sm-2">
+          {{inventoryService.inventoryToEdit.stock}}
+        </div>
+        <label class="col-sm-1 control-label">Едет:</label>
+        <div class="col-sm-2">
+          {{inventoryService.inventoryToEdit.ordered}}
+        </div>
+      </div>
     </div>
   </div>
 </div>

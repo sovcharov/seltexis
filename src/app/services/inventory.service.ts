@@ -97,8 +97,21 @@ export class InventoryService {
       );
   }
 
-  saveInventoryNewNumber(invenventoryId, newNumber, callback) {
-    this.serverService.saveInventoryNewNumber(this.companyService.company.id, invenventoryId, newNumber)
+  saveInventoryNewNumber(invenventoryId, newNumber, newManufacturer, callback) {
+    this.serverService.saveInventoryNewNumber(this.companyService.company.id, invenventoryId, newNumber, newManufacturer)
+      .subscribe(
+      (response) => {
+        callback(response);
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+      );
+  }
+
+  deleteInventoryNumber(numberId, callback) {
+    this.serverService.deleteInventoryNumber(this.companyService.company.id, numberId)
       .subscribe(
       (response) => {
         callback(response);
