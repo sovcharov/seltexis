@@ -11,24 +11,31 @@
     </div>
     <div *ngIf = "!loading">
       <div style = "height:1px; background-color:gray;width:100%"></div>
-      <div class = "">
-        <!-- <span class="col-md-1 control-label label label-default" style="font-size:12px"> </span> -->
-        <div class="col-md-11" style="font-weight:bold; font-size:18px; color:#58595b">
-          {{inventoryService.inventoryToEdit.description}}
+      <div  class = "col-md-12">
+        <div class = "">
+          <!-- <span class="col-md-1 control-label label label-default" style="font-size:12px"> </span> -->
+          <div class="" style="">
+            <label class="control-label">Наименование в 1С:</label>
+            {{inventoryService.inventoryToEdit.description}}
+          </div>
+          <div class="" style="">
+            <label class="control-label">Наименование для сайта:</label>
+            {{inventoryService.inventoryToEdit.descriptionWeb}}
+          </div>
+          <div class="">
+            <label class="control-label">id:</label>
+            {{inventoryService.inventoryToEdit.id}}
+          </div>
         </div>
-        <div class="col-md-1">
-          <label class="control-label">id:</label>
-          {{inventoryService.inventoryToEdit.id}}
-        </div>
-      </div>
-      <div class = "">
-        <div class="col-md-6">
-          <label class="control-label">Основной номер:</label>
-          {{getMainNumber()}}
-        </div>
-        <div class="col-md-6">
-          <label class="control-label">Производитель:</label>
-          {{inventoryService.inventoryToEdit.manufacturerFullName}}
+        <div class = "">
+          <div class="">
+            <label class="control-label">Основной номер:</label>
+            {{getMainNumber()}}
+          </div>
+          <div class="">
+            <label class="control-label">Производитель:</label>
+            {{getMainManufacturer()}}
+          </div>
         </div>
       </div>
       <div class="col-md-8">
@@ -77,6 +84,9 @@
           <div class = "form-group">
             <input class = "" *ngIf = "numberToAdd.editing" type="text" id="" class="form-control" name="number" [(ngModel)]="numberToAdd.number">
           </div>
+          <select *ngIf = "numberToAdd.editing" class="form-control" [(ngModel)]="numberToAdd.manufacturerId" name="manufacturer">
+            <option *ngFor="let manufacturer of inventoryService.manufacturers; let j = index" [ngValue]="manufacturer.id">{{manufacturer.fullName}}</option>
+          </select>
           <span *ngIf = "numberToAdd.saving">
             <i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
             <span class="sr-only">Loading...</span>

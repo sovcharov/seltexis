@@ -92,7 +92,7 @@ export class InventoryService {
       (response) => {
         // console.log(response);
 
-        callback(response[0].number);
+        callback(response[0]);
       },
       (error) => {
         console.log("Error: " + error);

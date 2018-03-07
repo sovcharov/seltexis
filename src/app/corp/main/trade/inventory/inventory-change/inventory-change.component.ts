@@ -16,9 +16,11 @@ export class InventoryChangeComponent implements OnInit {
   changingMain: boolean;
   numberToAdd = {
     number: '',
+    manufacturerId: 1,
     editing: false,
     saving: false
   };
+  inventoryToEdit: any = 0;
 
   constructor(
     private inventoryService: InventoryService,
@@ -28,17 +30,16 @@ export class InventoryChangeComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.loading = true;
       this.id = params['id'];
-      this.inventoryService.getInventory(this.id, () => {
-        this.loading = false;
-      });
+      if(!this.inventoryToEdit){
+        this.getInventory();
+      }
     });
   }
 
   getInventory(): void {
     this.loading = true;
-    this.inventoryService.getInventory(this.id, () => {
+    this.inventoryService.getInventory(this.id, (inventory) => {
       this.loading = false;
     });
   }
@@ -57,7 +58,7 @@ export class InventoryChangeComponent implements OnInit {
       this.inventoryService.updateInventoryNumber(this.inventoryService.inventoryToEdit.numbers[index].id, this.inventoryService.inventoryToEdit.numbers[index].number,
         this.inventoryService.inventoryToEdit.numbers[index].manufacturerId, (res) => {
         this.inventoryService.inventoryToEdit.numbers[index].saving = false;
-        this.inventoryService.inventoryToEdit.numbers[index].number = res;
+        this.inventoryService.inventoryToEdit.numbers[index] = res;
       });
 
   }
@@ -74,6 +75,15 @@ export class InventoryChangeComponent implements OnInit {
     for (i = 0; i < this.inventoryService.inventoryToEdit.numbers.length; i += 1) {
       if(this.inventoryService.inventoryToEdit.numbers[i].main) {
         return this.inventoryService.inventoryToEdit.numbers[i].number;
+      }
+    }
+    return '';
+  }
+
+  getMainManufacturer (): string {
+    for (let i: number = 0; i < this.inventoryService.inventoryToEdit.numbers.length; i += 1) {
+      if(this.inventoryService.inventoryToEdit.numbers[i].main) {
+        return this.inventoryService.inventoryToEdit.numbers[i].manufacturerFullName;
       }
     }
     return '';
@@ -111,9 +121,8 @@ export class InventoryChangeComponent implements OnInit {
   }
 
   addNumberSave () {
-    let manId = 1;
     this.numberToAdd.saving = true;
-    this.inventoryService.saveInventoryNewNumber(this.id, this.numberToAdd.number, manId, (res) => {
+    this.inventoryService.saveInventoryNewNumber(this.id, this.numberToAdd.number, this.numberToAdd.manufacturerId, (res) => {
       // console.log(res);
       this.inventoryService.inventoryToEdit.numbers[this.inventoryService.inventoryToEdit.numbers.length] = res[0];
       this.numberToAdd.number = '';
