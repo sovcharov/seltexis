@@ -40,6 +40,12 @@
             <div class = "form-group">
               <input class = "col-md-3" *ngIf = "!number.editing" type="text" id="disabledTextInput" class="form-control" value="{{number.number}}" disabled>
               <input class = "col-md-3" *ngIf = "number.editing" type="text" id="" class="form-control" name="number" [(ngModel)]="number.number">
+              <select *ngIf = "number.editing" class="form-control" [(ngModel)]="number.manufacturerId" name="manufacturer">
+                <option *ngFor="let manufacturer of inventoryService.manufacturers; let j = index" [selected]="manufacturer.id == number.manufacturerId" [ngValue]="manufacturer.id">{{manufacturer.fullName}}</option>
+              </select>
+              <select *ngIf = "!number.editing" class="form-control" name="manufacturer" disabled>
+                <option *ngFor="let manufacturer of inventoryService.manufacturers; let j = index" [selected]="manufacturer.id == number.manufacturerId" [ngValue]="manufacturer.id">{{manufacturer.fullName}}</option>
+              </select>
             </div>
             <div class = "form-group" *ngIf = "number.saving || changingMain">
               <i class="fa fa-cog fa-spin fa-1x fa-fw"></i>

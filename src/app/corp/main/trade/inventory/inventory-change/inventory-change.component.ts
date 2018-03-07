@@ -41,12 +41,12 @@ export class InventoryChangeComponent implements OnInit {
     this.inventoryService.getInventory(this.id, () => {
       this.loading = false;
     });
-    // console.log(this.inventoryService.inventory);
   }
 
   editNumberBegin(index): void {
     this.inventoryService.inventoryToEdit.numbers[index].editing=true;
     this.inventoryService.inventoryToEdit.numbers[index].tempNumber = this.inventoryService.inventoryToEdit.numbers[index].number;
+    this.inventoryService.inventoryToEdit.numbers[index].tempManufacturerId = this.inventoryService.inventoryToEdit.numbers[index].manufacturerId;
   }
 
   editNumberSave(index): void {
@@ -66,6 +66,7 @@ export class InventoryChangeComponent implements OnInit {
     this.inventoryService.inventoryToEdit.numbers[index].editing=false;
       // console.log(this.inventoryService.inventoryToEdit.numbers[index].number);
     this.inventoryService.inventoryToEdit.numbers[index].number = this.inventoryService.inventoryToEdit.numbers[index].tempNumber;
+    this.inventoryService.inventoryToEdit.numbers[index].manufacturerId = this.inventoryService.inventoryToEdit.numbers[index].tempManufacturerId;
   }
 
   getMainNumber (): string {
@@ -149,5 +150,16 @@ export class InventoryChangeComponent implements OnInit {
     this.inventoryService.inventoryToEdit.numbers[index].deleting = false;
   }
 
+  getManufacturer(number): string {
+    for(let i = 0; i < this.inventoryService.manufacturers.length; i+=1) {
+      if (this.inventoryService.manufacturers[i].id = number.manufacturerId) {
+        return this.inventoryService.manufacturers[i].fullName;
+      }
+    }
+    return '';
+  }
+  changeSelect(x){
+    console.log(x);
+  }
 
 }

@@ -26,7 +26,7 @@ export class InventoryService {
     this.serverService.getManufacturers(this.companyService.company.id)
       .subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.manufacturers = response;
       },
       (error) => {
