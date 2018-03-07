@@ -12,19 +12,36 @@ export class InventoryService {
 
   inventory: any = [];
   inventoryToEdit: any;
+  manufacturers: any = [];
   constructor(
     private serverService: ServerService,
     private companyService: CompanyService,
     private alertService: AlertService,
     private userService: UserService
-  ) { }
+  ) {
+    this.getManufacturers();
+  }
+
+  getManufacturers() {
+    this.serverService.getManufacturers(this.companyService.company.id)
+      .subscribe(
+      (response) => {
+        console.log(response);
+        this.manufacturers = response;
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+      );
+  }
 
 
   getAllInventory(callback) {
     this.serverService.getAllInventory(this.companyService.company.id)
       .subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.inventory = response;
         callback();
       },
@@ -115,9 +132,11 @@ export class InventoryService {
       .subscribe(
       (response) => {
         callback(response);
+        this.alertService.addAlert({alertClass: 'success',text: 'Deleted',comment: '',});
       },
       (error) => {
         console.log("Error: " + error);
+        this.alertService.addAlert({alertClass: 'danger',text: 'ERROR',comment: '',});
         return false;
       }
       );

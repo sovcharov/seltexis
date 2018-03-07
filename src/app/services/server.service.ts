@@ -34,6 +34,15 @@ export class ServerService {
       });
   }
 
+  getManufacturers(company) {
+    return this.http.get(`http://localhost:5555/api/getmanufacturers/company/${company}`)
+      .map((response: Response) => {
+        const data = response.json();
+        // console.log(data);
+        return data;
+      });
+  }
+
   getAllInventory(company) {
     return this.http.get(`http://localhost:5555/api/getallinventory/company/${company}`)
       .map((response: Response) => {
@@ -96,5 +105,7 @@ export class ServerService {
         return data;
       });
   }
+
+
 
 }

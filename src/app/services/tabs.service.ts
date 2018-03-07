@@ -12,7 +12,7 @@ export class Tabs {
 
   addTab(name, href) {
     let inTabs: boolean = false;
-    console.log(href, name);
+    // console.log(href, name);
     for (let i: number = 0; i < this.main.length; i += 1) {
       if (this.main[i].href === href) {
         inTabs = true;

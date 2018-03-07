@@ -22,7 +22,7 @@ export class AlertService {
     let alertToAdd: Alert = {
       alertClass: alert.alertClass,
       text: alert.text,
-      comment: alert.comment,
+      comment: alert.comment || '--------',
       life: alert.life || 5,
       waitForClick: alert.waitForClick || false
     };

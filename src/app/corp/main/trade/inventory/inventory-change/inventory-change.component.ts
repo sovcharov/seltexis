@@ -51,7 +51,7 @@ export class InventoryChangeComponent implements OnInit {
 
   editNumberSave(index): void {
 
-      console.log(this.inventoryService.inventoryToEdit.numbers[index].number);
+      // console.log(this.inventoryService.inventoryToEdit.numbers[index].number);
       this.inventoryService.inventoryToEdit.numbers[index].editing=false;
       this.inventoryService.inventoryToEdit.numbers[index].saving = true;
       this.inventoryService.updateInventoryNumber(this.inventoryService.inventoryToEdit.numbers[index].id, this.inventoryService.inventoryToEdit.numbers[index].number,
@@ -64,7 +64,7 @@ export class InventoryChangeComponent implements OnInit {
 
   editNumberCancel(index): void {
     this.inventoryService.inventoryToEdit.numbers[index].editing=false;
-      console.log(this.inventoryService.inventoryToEdit.numbers[index].number);
+      // console.log(this.inventoryService.inventoryToEdit.numbers[index].number);
     this.inventoryService.inventoryToEdit.numbers[index].number = this.inventoryService.inventoryToEdit.numbers[index].tempNumber;
   }
 
@@ -86,7 +86,7 @@ export class InventoryChangeComponent implements OnInit {
     this.inventoryService.inventoryToEdit.numbers[index].saving = true;
     this.changingMain = true;
     this.inventoryService.updateInventoryMainNumber(this.inventoryService.inventoryToEdit.numbers[index].id, this.id, (res) => {
-      console.log(res);
+      // console.log(res);
       this.inventoryService.inventoryToEdit.numbers[index].changeMain = false;
       for (let i = 0; i < this.inventoryService.inventoryToEdit.numbers.length; i+=1){
         if(this.inventoryService.inventoryToEdit.numbers[i].main) {
@@ -105,7 +105,7 @@ export class InventoryChangeComponent implements OnInit {
   }
 
   addNumberBegin () {
-    console.log(this.numberToAdd);
+    // console.log(this.numberToAdd);
     this.numberToAdd.editing = true;
   }
 
@@ -113,7 +113,7 @@ export class InventoryChangeComponent implements OnInit {
     let manId = 1;
     this.numberToAdd.saving = true;
     this.inventoryService.saveInventoryNewNumber(this.id, this.numberToAdd.number, manId, (res) => {
-      console.log(res);
+      // console.log(res);
       this.inventoryService.inventoryToEdit.numbers[this.inventoryService.inventoryToEdit.numbers.length] = res[0];
       this.numberToAdd.number = '';
       this.numberToAdd.editing = false;
@@ -125,28 +125,27 @@ export class InventoryChangeComponent implements OnInit {
   }
 
   addNumberCancel () {
-    console.log(this.numberToAdd);
+    // console.log(this.numberToAdd);
     this.numberToAdd.editing = false;
     this.numberToAdd.number = '';
 
   }
 
   deleteNumberBegin (index) {
-    console.log(this.inventoryService.inventoryToEdit.numbers[index]);
+    // console.log(this.inventoryService.inventoryToEdit.numbers[index]);
     this.inventoryService.inventoryToEdit.numbers[index].deleting = true;
   }
 
   deleteNumberSave (index) {
     this.inventoryService.inventoryToEdit.numbers[index].saving = true;
     this.inventoryService.deleteInventoryNumber(this.inventoryService.inventoryToEdit.numbers[index].id, (res) => {
-      console.log(res);
+      // console.log(res);
       this.inventoryService.inventoryToEdit.numbers.splice(index,1);
-      this.inventoryService.inventoryToEdit.numbers[index].saving = false;
     });
   }
 
   deleteNumberCancel (index) {
-    console.log(this.inventoryService.inventoryToEdit.numbers[index]);
+    // console.log(this.inventoryService.inventoryToEdit.numbers[index]);
     this.inventoryService.inventoryToEdit.numbers[index].deleting = false;
   }
 
