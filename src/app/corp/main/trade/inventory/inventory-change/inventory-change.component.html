@@ -5,11 +5,11 @@
     <button class="btn btn-default" type="submit" (click)="closeInventory()">Закрыть</button>
   </div>
   <div>
-    <div *ngIf = "loading" class = "flex-center-vertically text-center">
+    <div *ngIf = "loading || !inventoryService.inventoryToEdit.description" class = "flex-center-vertically text-center">
       <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
       <span class="sr-only">Loading...</span>
     </div>
-    <div *ngIf = "!loading">
+    <div *ngIf = "!loading && inventoryService.inventoryToEdit.description">
       <div style = "height:1px; background-color:gray;width:100%"></div>
       <div  class = "col-md-12">
         <div class = "">

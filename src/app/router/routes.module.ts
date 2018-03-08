@@ -47,7 +47,12 @@ const appRoutes: Routes = [
                 path: "inventory",
                 children: [
                   { path: "", component: InventoryComponent },
-                  { path: "change/:id", component: InventoryChangeComponent }
+                  {
+                    path: "change",
+
+                          component: InventoryChangeComponent
+      
+                  }
                 ]
               }
 

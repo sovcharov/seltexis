@@ -27,6 +27,7 @@ export class InventoryComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('getAllInventory');
 
   }
 
@@ -40,8 +41,11 @@ export class InventoryComponent implements OnInit {
 
   public openInventoryId(id) {
     // console.log(this.router.url);
-    this.router.navigate([`/${this.companyService.company.name}/inventory/change/`, id]);
-    this.tabs.addTab(`Редактор ${id}`, `/${this.companyService.company.name}/inventory/change/${id}`);
+    this.inventoryService.inventoryToEdit = {id: id};
+    this.inventoryService.getInventory(id,()=>{});
+    this.router.navigate([`/${this.companyService.company.name}/inventory/change`]);
+    this.tabs.addTab(`Редактор`, `/${this.companyService.company.name}/inventory/change`);
+
 
   }
 

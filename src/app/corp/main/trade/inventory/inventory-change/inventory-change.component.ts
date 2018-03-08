@@ -20,7 +20,7 @@ export class InventoryChangeComponent implements OnInit {
     editing: false,
     saving: false
   };
-  inventoryToEdit: any = 0;
+  // inventoryToEdit: any;
 
   constructor(
     private inventoryService: InventoryService,
@@ -29,17 +29,13 @@ export class InventoryChangeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.id = params['id'];
-      if(!this.inventoryToEdit){
-        this.getInventory();
-      }
-    });
+    this.id = this.inventoryService.inventoryToEdit.id;
+    // this.getInventory();
   }
 
   getInventory(): void {
     this.loading = true;
-    this.inventoryService.getInventory(this.id, (inventory) => {
+    this.inventoryService.getInventory(this.id, () => {
       this.loading = false;
     });
   }

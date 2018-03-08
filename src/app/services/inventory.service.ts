@@ -11,7 +11,7 @@ import { UserService } from './user.service';
 export class InventoryService {
 
   inventory: any = [];
-  inventoryToEdit: any;
+  inventoryToEdit: any = {};
   manufacturers: any = [];
   constructor(
     private serverService: ServerService,
@@ -62,8 +62,9 @@ export class InventoryService {
         // this.inventoryToEdit.numbers = [{id:2,number: '12123',manufcaturer:'Caterpillar',manufacturerId:1},{id:1,number: '222',manufacturer:'Cummins',manufacturerId:2,main:1}];
         this.getInventoryNumbers(invenventoryId,(res)=>{
           this.inventoryToEdit.numbers = res;
+          callback(this.inventoryToEdit);
         });
-        callback();
+
       },
       (error) => {
         console.log("Error: " + error);
