@@ -14,6 +14,7 @@ import { PurchasesComponent } from '../corp/main/trade/purchases/purchases.compo
 import { ServiceComponent } from '../corp/main/trade/service/service.component';
 import { InventoryComponent } from '../corp/main/trade/inventory/inventory.component';
 import { InventoryChangeComponent } from '../corp/main/trade/inventory/inventory-change/inventory-change.component';
+import { ManufacturersComponent } from '../corp/main/trade/inventory/manufacturers/manufacturers.component';
 
 
 
@@ -44,19 +45,15 @@ const appRoutes: Routes = [
               { path: "purchases", component: PurchasesComponent },
               { path: "service", component: ServiceComponent },
               {
-                path: "inventory",
+                path: "inventory", component: InventoryComponent,
                 children: [
-                  { path: "", component: InventoryComponent },
+                  { path: "manufacturers", component: ManufacturersComponent },
                   {
                     path: "change",
-
-                          component: InventoryChangeComponent
-      
+                    component: InventoryChangeComponent
                   }
                 ]
               }
-
-
             ]
           },
           { path: "store", component: StoreComponent }

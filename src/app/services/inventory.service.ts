@@ -58,10 +58,12 @@ export class InventoryService {
       (response) => {
         // console.log(response);
         this.inventoryToEdit = response[0];
+        this.inventoryToEdit.description = {text: this.inventoryToEdit.description};
         this.inventoryToEdit.numbers=[];
         // this.inventoryToEdit.numbers = [{id:2,number: '12123',manufcaturer:'Caterpillar',manufacturerId:1},{id:1,number: '222',manufacturer:'Cummins',manufacturerId:2,main:1}];
         this.getInventoryNumbers(invenventoryId,(res)=>{
           this.inventoryToEdit.numbers = res;
+
           callback(this.inventoryToEdit);
         });
 
@@ -138,6 +140,21 @@ export class InventoryService {
       (error) => {
         console.log("Error: " + error);
         this.alertService.addAlert({alertClass: 'danger',text: 'ERROR',comment: '',});
+        return false;
+      }
+      );
+  }
+
+  updateInventoryDescription(invenventoryId, newDescription, callback) {
+    this.serverService.updateInventoryDescription(this.companyService.company.id, invenventoryId, newDescription)
+      .subscribe(
+      (response) => {
+        // console.log(response);
+
+        callback(response[0]);
+      },
+      (error) => {
+        console.log("Error: " + error);
         return false;
       }
       );

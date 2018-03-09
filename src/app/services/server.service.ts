@@ -16,7 +16,7 @@ export class ServerService {
   }
 
   checkCompany(company: any) {
-    console.log(company);
+    // console.log(company);
     return this.http.get(`http://localhost:5555/api/company/exists/${company}/`)
       .map((response: Response) => {
         const data = response.json();
@@ -99,6 +99,15 @@ export class ServerService {
 
   deleteInventoryNumber(company, numberId) {
         return this.http.delete(`http://localhost:5555/api/deleteinventorynumber/company/${company}/numberid/${numberId}`,{})
+      .map((response: Response) => {
+        const data = response.json();
+        // console.log(data);
+        return data;
+      });
+  }
+
+  updateInventoryDescription(company, invenventoryId, newDescription) {
+    return this.http.put(`http://localhost:5555/api/updateinventorydescription/company/${company}/inventoryid/${invenventoryId}/newdescription/${newDescription}`,{})
       .map((response: Response) => {
         const data = response.json();
         // console.log(data);

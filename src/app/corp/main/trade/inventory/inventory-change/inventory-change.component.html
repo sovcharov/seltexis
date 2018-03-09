@@ -1,8 +1,6 @@
 <div class = "inventory">
   <div class= "inventory-menu col-sm-12">
     <button class="btn btn-default" type="submit" (click)="getInventory()">Обновить</button>
-    <button class="btn btn-default" type="submit" (click)="saveInventory()">Сохранить</button>
-    <button class="btn btn-default" type="submit" (click)="closeInventory()">Закрыть</button>
   </div>
   <div>
     <div *ngIf = "loading || !inventoryService.inventoryToEdit.description" class = "flex-center-vertically text-center">
@@ -14,18 +12,40 @@
       <div  class = "col-md-12">
         <div class = "">
           <!-- <span class="col-md-1 control-label label label-default" style="font-size:12px"> </span> -->
-          <div class="" style="">
-            <label class="control-label">Наименование в 1С:</label>
-            {{inventoryService.inventoryToEdit.description}}
-          </div>
-          <div class="" style="">
-            <label class="control-label">Наименование для сайта:</label>
-            {{inventoryService.inventoryToEdit.descriptionWeb}}
-          </div>
           <div class="">
             <label class="control-label">id:</label>
             {{inventoryService.inventoryToEdit.id}}
           </div>
+          <div class="" style="">
+            <label class="control-label">Наименование в 1С:</label>
+            {{inventoryService.inventoryToEdit.description1s}}
+          </div>
+          <div class="" style="">
+            <label class="control-label">Наименование для сайта:</label>
+          </div>
+          <form class="form-horizontal col-md-12">
+            <div class="form-group form-group-sm">
+              <div class="input-group">
+
+                <input class = "" type="text" id="" class="form-control" *ngIf = "!inventoryService.inventoryToEdit.description.editing" name="number"
+                 value="{{inventoryService.inventoryToEdit.description.text}}" disabled>
+                 <input class = "" type="text" id="" class="form-control" *ngIf = "inventoryService.inventoryToEdit.description.editing" name="number"
+                  [(ngModel)]="inventoryService.inventoryToEdit.description.text">
+                <span class="input-group-btn" *ngIf = "!inventoryService.inventoryToEdit.description.editing && !inventoryService.inventoryToEdit.description.saving">
+                  <button class="btn btn-default btn-sm" type="button" (click) = "editDescriptionBegin()">Изменить</button>
+                </span>
+                <span class="input-group-btn" *ngIf = "inventoryService.inventoryToEdit.description.editing && !inventoryService.inventoryToEdit.description.saving">
+                  <button class="btn btn-default btn-sm" type="button" (click) = "editDescriptionSave()">Сохранить</button>
+                  <button class="btn btn-default btn-sm" type="button" (click) = "editDescriptionCancel()">Отменить</button>
+                </span>
+                <span class="input-group-btn" *ngIf = "inventoryService.inventoryToEdit.description.saving">
+                  <button class="btn btn-default btn-sm" type="button" (click) = "editDescriptionBegin()"><i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
+                                <span class="sr-only">Loading...</span></button>
+                </span>
+
+              </div>
+            </div>
+          </form>
         </div>
         <div class = "">
           <div class="">

@@ -29,8 +29,8 @@ export class InventoryChangeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.id = this.inventoryService.inventoryToEdit.id;
-    // this.getInventory();
+    this.id = 1;//this.inventoryService.inventoryToEdit.id;
+    this.getInventory();
   }
 
   getInventory(): void {
@@ -165,6 +165,27 @@ export class InventoryChangeComponent implements OnInit {
   }
   changeSelect(x){
     console.log(x);
+  }
+
+  editDescriptionBegin(){
+    this.inventoryService.inventoryToEdit.description.editing=true;
+    this.inventoryService.inventoryToEdit.description.tempText = this.inventoryService.inventoryToEdit.description.text;
+
+  }
+
+  editDescriptionSave(){
+    this.inventoryService.inventoryToEdit.description.saving = true;
+    this.inventoryService.inventoryToEdit.description.editing=false;
+    this.inventoryService.updateInventoryDescription(this.id, this.inventoryService.inventoryToEdit.description.text, (res) => {
+      this.inventoryService.inventoryToEdit.description = res;
+    });
+
+
+  }
+
+  editDescriptionCancel(){
+    this.inventoryService.inventoryToEdit.description.editing=false;
+    this.inventoryService.inventoryToEdit.description.text = this.inventoryService.inventoryToEdit.description.tempText;
   }
 
 }

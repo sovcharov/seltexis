@@ -41,6 +41,7 @@ import { ErrorComponent } from './corp/auth/error/error.component';
 import { ServiceComponent } from './corp/main/trade/service/service.component';
 import { InventoryComponent } from './corp/main/trade/inventory/inventory.component';
 import { InventoryChangeComponent } from './corp/main/trade/inventory/inventory-change/inventory-change.component';
+import { ManufacturersComponent } from './corp/main/trade/inventory/manufacturers/manufacturers.component';
 
 
 
@@ -62,7 +63,8 @@ import { InventoryChangeComponent } from './corp/main/trade/inventory/inventory-
     ErrorComponent,
     ServiceComponent,
     InventoryComponent,
-    InventoryChangeComponent
+    InventoryChangeComponent,
+    ManufacturersComponent
   ],
   imports: [
     AlertModule.forRoot(),
