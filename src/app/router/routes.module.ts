@@ -45,8 +45,10 @@ const appRoutes: Routes = [
               { path: "purchases", component: PurchasesComponent },
               { path: "service", component: ServiceComponent },
               {
-                path: "inventory", component: InventoryComponent,
+                path: "inventory",
                 children: [
+                  { path: "", component: InventoryComponent },
+
                   { path: "manufacturers", component: ManufacturersComponent },
                   {
                     path: "change",

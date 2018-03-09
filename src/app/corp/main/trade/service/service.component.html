@@ -12,6 +12,7 @@
       </div>
       <div class="panel-body">
         <p><a [routerLink]='"/" + companyService.company.name + "/inventory"' (click)="addTab('Номенклатура','inventory')"><i class="fa fa-list" aria-hidden="true"></i>  Вся номенклатура</a></p>
+        <p><a [routerLink]='"/" + companyService.company.name + "/inventory/manufacturers"' (click)="addTab('Производители','inventory/manufacturers')"><i class="fa fa-list" aria-hidden="true"></i>  Производители</a></p>
       </div>
     </div>
     <div class="panel panel-primary">
