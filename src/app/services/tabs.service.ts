@@ -42,7 +42,7 @@ export class Tabs {
       this.tabsVisitingOrder[this.tabsVisitingOrder.length] = href;
     }
     // console.log(href)
-    console.log(this.tabsVisitingOrder);
+    // console.log(this.tabsVisitingOrder);
     this.router.navigate([href]);
   }
 
@@ -61,12 +61,11 @@ export class Tabs {
     for (let i: number = 0; i < this.tabsVisitingOrder.length; i += 1) {
       if (this.tabsVisitingOrder[i] === tab.href) {
         this.tabsVisitingOrder.splice(i, 1);
-        console.log(i, this.tabsVisitingOrder);
+        // console.log(i, this.tabsVisitingOrder);
         this.tabsVisitingOrder[this.tabsVisitingOrder.length] = tab.href;
       }
     }
-    console.log(this.tabsVisitingOrder);
-
+    // console.log(this.tabsVisitingOrder);
   }
 
 
