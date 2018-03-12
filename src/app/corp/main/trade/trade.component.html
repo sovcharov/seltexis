@@ -1,8 +1,8 @@
 <div>
 <ul class="nav nav-tabs">
 
-  <li role="presentation" [ngClass] = "{'active': homeIsActive()}"><a routerLink=''>Home</a></li>
-  <li role="presentation" *ngFor = "let tab of tabs.main; let i = index" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><a [routerLink]="[tab.href]">{{tab.name}} <a (click)="closeTab(i)" routerLink=''><i class="fa fa-times" aria-hidden="true"></i></a></a></li>
+  <!-- <li role="presentation" [ngClass] = "{'active': homeIsActive()}"><a routerLink=''>Home</a></li> -->
+  <li role="presentation" *ngFor = "let tab of tabs.main; let i = index" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><a [routerLink]="[tab.href]" (click)="tabs.changeOrder(tab)">{{tab.name}} <a (click)="closeTab(i)" *ngIf = "tab.name != 'Home'" routerLink><i class="fa fa-times" aria-hidden="true"></i></a></a></li>
 </ul>
 <router-outlet></router-outlet>
 </div>
