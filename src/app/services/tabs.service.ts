@@ -32,9 +32,7 @@ export class Tabs {
     for (let i: number = 0; i < this.main.length; i += 1) {
       if (this.main[i].href === href) {
         inTabs = true;
-        this.tabsVisitingOrder.splice(i, 1);
-        this.tabsVisitingOrder[this.tabsVisitingOrder.length] = href;
-
+        this.changeOrder(href);
       }
     }
     if (!inTabs) {
@@ -57,12 +55,12 @@ export class Tabs {
     this.router.navigate([this.tabsVisitingOrder[this.tabsVisitingOrder.length-1]]);
   }
 
-  changeOrder(tab) {
+  changeOrder(href) {
     for (let i: number = 0; i < this.tabsVisitingOrder.length; i += 1) {
-      if (this.tabsVisitingOrder[i] === tab.href) {
+      if (this.tabsVisitingOrder[i] === href) {
         this.tabsVisitingOrder.splice(i, 1);
         // console.log(i, this.tabsVisitingOrder);
-        this.tabsVisitingOrder[this.tabsVisitingOrder.length] = tab.href;
+        this.tabsVisitingOrder[this.tabsVisitingOrder.length] = href;
       }
     }
     // console.log(this.tabsVisitingOrder);
