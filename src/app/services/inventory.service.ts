@@ -61,10 +61,11 @@ export class InventoryService {
         this.inventoryToEdit = response[0];
         this.inventoryToEdit.description = {text: this.inventoryToEdit.description};
         this.inventoryToEdit.numbers=[];
+        this.inventoryToEdit.loadingNumbers = true;
         // this.inventoryToEdit.numbers = [{id:2,number: '12123',manufcaturer:'Caterpillar',manufacturerId:1},{id:1,number: '222',manufacturer:'Cummins',manufacturerId:2,main:1}];
         this.getInventoryNumbers(invenventoryId,(res)=>{
           this.inventoryToEdit.numbers = res;
-
+          this.inventoryToEdit.loadingNumbers = false;
           callback(this.inventoryToEdit);
         });
 

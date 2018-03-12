@@ -58,6 +58,10 @@
       <div class="col-md-8">
         <label class="control-label">Прочие номера:</label>
       </div>
+      <p class = "col-md-12 text-center" *ngIf = "inventoryService.inventoryToEdit.loadingNumbers">
+        <i class="fa fa-cog fa-spin fa-2x fa-fw"></i>
+        <span class="sr-only">Loading...</span>
+      </p>
       <div class = "col-md-12">
         <ng-container *ngFor = "let number of inventoryService.inventoryToEdit.numbers; let i = index" >
           <form class="form-inline" style="margin-bottom:4px;">
