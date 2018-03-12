@@ -29,13 +29,13 @@ export class InventoryChangeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.id = 1;//this.inventoryService.inventoryToEdit.id;
-    this.getInventory();
+    // this.inventoryService.inventoryToEdit.id = this.inventoryService.inventoryToEdit.id;
+    // this.getInventory();
   }
 
   getInventory(): void {
     this.loading = true;
-    this.inventoryService.getInventory(this.id, () => {
+    this.inventoryService.getInventory(this.inventoryService.inventoryToEdit.id, () => {
       this.loading = false;
     });
   }
@@ -92,7 +92,7 @@ export class InventoryChangeComponent implements OnInit {
   changeMainSave(index){
     this.inventoryService.inventoryToEdit.numbers[index].saving = true;
     this.changingMain = true;
-    this.inventoryService.updateInventoryMainNumber(this.inventoryService.inventoryToEdit.numbers[index].id, this.id, (res) => {
+    this.inventoryService.updateInventoryMainNumber(this.inventoryService.inventoryToEdit.numbers[index].id, this.inventoryService.inventoryToEdit.id, (res) => {
       // console.log(res);
       this.inventoryService.inventoryToEdit.numbers[index].changeMain = false;
       for (let i = 0; i < this.inventoryService.inventoryToEdit.numbers.length; i+=1){
@@ -118,7 +118,7 @@ export class InventoryChangeComponent implements OnInit {
 
   addNumberSave () {
     this.numberToAdd.saving = true;
-    this.inventoryService.saveInventoryNewNumber(this.id, this.numberToAdd.number, this.numberToAdd.manufacturerId, (res) => {
+    this.inventoryService.saveInventoryNewNumber(this.inventoryService.inventoryToEdit.id, this.numberToAdd.number, this.numberToAdd.manufacturerId, (res) => {
       // console.log(res);
       this.inventoryService.inventoryToEdit.numbers[this.inventoryService.inventoryToEdit.numbers.length] = res[0];
       this.numberToAdd.number = '';
@@ -170,17 +170,14 @@ export class InventoryChangeComponent implements OnInit {
   editDescriptionBegin(){
     this.inventoryService.inventoryToEdit.description.editing=true;
     this.inventoryService.inventoryToEdit.description.tempText = this.inventoryService.inventoryToEdit.description.text;
-
   }
 
   editDescriptionSave(){
     this.inventoryService.inventoryToEdit.description.saving = true;
     this.inventoryService.inventoryToEdit.description.editing=false;
-    this.inventoryService.updateInventoryDescription(this.id, this.inventoryService.inventoryToEdit.description.text, (res) => {
+    this.inventoryService.updateInventoryDescription(this.inventoryService.inventoryToEdit.id, this.inventoryService.inventoryToEdit.description.text, (res) => {
       this.inventoryService.inventoryToEdit.description = res;
     });
-
-
   }
 
   editDescriptionCancel(){

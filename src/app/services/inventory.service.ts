@@ -26,7 +26,7 @@ export class InventoryService {
     this.serverService.getManufacturers(this.companyService.company.id)
       .subscribe(
       (response) => {
-        // console.log(response);
+        console.log(response);
         this.manufacturers = response;
       },
       (error) => {
@@ -53,6 +53,7 @@ export class InventoryService {
   }
 
   getInventory(invenventoryId, callback) {
+    // this.inventoryToEdit = [];
     this.serverService.getInventory(this.companyService.company.id, invenventoryId)
       .subscribe(
       (response) => {
@@ -135,11 +136,9 @@ export class InventoryService {
       .subscribe(
       (response) => {
         callback(response);
-        this.alertService.addAlert({alertClass: 'success',text: 'Deleted',comment: '',});
       },
       (error) => {
         console.log("Error: " + error);
-        this.alertService.addAlert({alertClass: 'danger',text: 'ERROR',comment: '',});
         return false;
       }
       );
@@ -152,6 +151,48 @@ export class InventoryService {
         // console.log(response);
 
         callback(response[0]);
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+      );
+  }
+
+  updateManufacturer(id, name, fullName, callback){
+    this.serverService.updateManufacturer(this.companyService.company.id, id, name, fullName)
+      .subscribe(
+      (response) => {
+        // console.log(response);
+
+        callback(response[0]);
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+      );
+  }
+
+  deleteManufacturer(id, callback) {
+    this.serverService.deleteManufacturer(this.companyService.company.id, id)
+      .subscribe(
+      (response) => {
+        callback(response);
+      },
+      (error) => {
+        console.log("Error: " + error);
+        this.alertService.addAlert({alertClass: 'danger',text: 'ERROR',comment: '',});
+        return false;
+      }
+      );
+  }
+
+  addManufacturer(name, fullName, callback) {
+    this.serverService.addManufacturer(this.companyService.company.id, name, fullName)
+      .subscribe(
+      (response) => {
+        callback(response);
       },
       (error) => {
         console.log("Error: " + error);

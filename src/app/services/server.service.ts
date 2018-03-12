@@ -71,7 +71,7 @@ export class ServerService {
   }
 
   updateInventoryNumber(company, invenventoryNumberId, newNumber, newManufacturer) {
-    return this.http.put(`http://localhost:5555/api/updateinventorynumber/company/${company}/numberid/${invenventoryNumberId}/newnumber/${newNumber}/newManufacturer/${newManufacturer}`,{})
+    return this.http.put(`http://localhost:5555/api/updateinventorynumber/company/${company}/numberid/${invenventoryNumberId}/newManufacturer/${newManufacturer}`,{newNumber:newNumber})
       .map((response: Response) => {
         const data = response.json();
         // console.log(data);
@@ -89,7 +89,7 @@ export class ServerService {
   }
 
   saveInventoryNewNumber(company, invenventoryId, newNumber, newManufacturer) {
-        return this.http.post(`http://localhost:5555/api/saveinventorynewnumber/company/${company}/partid/${invenventoryId}/newnumber/${newNumber}/newManufacturer/${newManufacturer}`,{})
+        return this.http.post(`http://localhost:5555/api/saveinventorynewnumber/company/${company}/partid/${invenventoryId}/newManufacturer/${newManufacturer}`,{newNumber:newNumber})
       .map((response: Response) => {
         const data = response.json();
         // console.log(data);
@@ -107,7 +107,7 @@ export class ServerService {
   }
 
   updateInventoryDescription(company, invenventoryId, newDescription) {
-    return this.http.put(`http://localhost:5555/api/updateinventorydescription/company/${company}/inventoryid/${invenventoryId}/newdescription/${newDescription}`,{})
+    return this.http.put(`http://localhost:5555/api/updateinventorydescription/company/${company}/inventoryid/${invenventoryId}`,{newDescription:newDescription})
       .map((response: Response) => {
         const data = response.json();
         // console.log(data);
@@ -115,6 +115,32 @@ export class ServerService {
       });
   }
 
+  updateManufacturer(company,id, name, fullName) {
+    return this.http.put(`http://localhost:5555/api/updatemanufacturer/company/${company}/id/${id}`,{name:name, fullName:fullName})
+      .map((response: Response) => {
+        const data = response.json();
+        // console.log(data);
+        return data;
+      });
+  }
 
+  deleteManufacturer(company, id) {
+        return this.http.delete(`http://localhost:5555/api/deletemanufacturer/company/${company}/id/${id}`,{})
+      .map((response: Response) => {
+        const data = response.json();
+        // console.log(data);
+        return data;
+      });
+  }
+
+  addManufacturer(company, name, fullName) {
+        return this.http.post(
+          `http://localhost:5555/api/addmanufacturer/company/${company}`,{name: name, fullName: fullName})
+      .map((response: Response) => {
+        const data = response.json();
+        // console.log(data);
+        return data;
+      });
+  }
 
 }
