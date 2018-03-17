@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { AlertModule } from 'ngx-bootstrap';
 import { HttpModule } from '@angular/http';
+import { Ng2ImgMaxModule } from 'ng2-img-max';
 
 // import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { CookieModule } from 'ngx-cookie';
@@ -72,7 +73,8 @@ import { ManufacturersComponent } from './corp/main/trade/inventory/manufacturer
     BrowserModule,
     FormsModule,
     RoutesModule,
-    HttpModule
+    HttpModule,
+    Ng2ImgMaxModule
   ],
   providers: [
     CompanyService,

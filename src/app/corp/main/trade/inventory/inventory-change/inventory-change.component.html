@@ -138,6 +138,36 @@
         <div class="col-sm-2">
           {{inventoryService.inventoryToEdit.ordered}}
         </div>
+        <div class="col-md-8">
+          <label class="control-label">Изображение:</label>
+        </div>
+      </div>
+      <div class = "col-md-12 text-center"  *ngIf = "!inventoryService.inventoryToEdit.image.loading">
+        <form class="form" style="margin-bottom:4px;">
+          <div class = "form-group">
+
+            <button type="button" class="btn btn-default" (click)="editImageStart()" *ngIf = "!inventoryService.inventoryToEdit.image.editing">Изменить</button>
+            <label class="btn btn-default btn-file" *ngIf = "inventoryService.inventoryToEdit.image.editing">
+                Выбрать файл<input type="file" name="file" style="display: none;" (change)=onImageChange($event)>
+            </label>
+            <button type="button" class="btn btn-default" (click)="updateImage()" *ngIf = "inventoryService.inventoryToEdit.image.editing && inventoryService.inventoryToEdit.image.readyToSave">Сохранить</button>
+            <button type="button" class="btn btn-default" (click)="editImageCancel()" *ngIf = "inventoryService.inventoryToEdit.image.editing">Отменить</button>
+
+          </div>
+            <!-- <button type="button" class="btn btn-default" >Добавить</button> -->
+          <!-- <span class = "form-group">
+            <button type="submit" class="btn btn-default" >Добавить</button>
+          </span> -->
+
+        </form>
+
+      </div>
+      <p class = "col-md-12 text-center" *ngIf = "inventoryService.inventoryToEdit.image.loading">
+        <i class="fa fa-cog fa-spin fa-2x fa-fw"></i>
+        <span class="sr-only">Loading...</span>
+      </p>
+      <div class = "col-md-12 inventory-image"  *ngIf = "!inventoryService.inventoryToEdit.image.loading">
+        <img class="img-rounded img-responsive center-image" style = "" [src]="domSanitizer.bypassSecurityTrustUrl(inventoryService.inventoryToEdit.image.data)" />
       </div>
     </div>
   </div>

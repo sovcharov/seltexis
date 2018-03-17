@@ -20,3 +20,16 @@
 .inventory-menu{
   margin: 10px;
 }
+
+.center-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 500px;
+    width: 500px;
+
+}
+
+.inventory-image{
+  height:520px;
+}

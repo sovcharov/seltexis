@@ -70,6 +70,15 @@ export class ServerService {
       });
   }
 
+  getInventoryImage(company, id) {
+    return this.http.get(`http://localhost:5555/api/getinventoryimage/company/${company}/id/${id}`)
+      .map((response: Response) => {
+        const data = response.json();
+        // console.log(data);
+        return data;
+      });
+  }
+
   updateInventoryNumber(company, invenventoryNumberId, newNumber, newManufacturer) {
     return this.http.put(`http://localhost:5555/api/updateinventorynumber/company/${company}/numberid/${invenventoryNumberId}/newManufacturer/${newManufacturer}`,{newNumber:newNumber})
       .map((response: Response) => {
@@ -136,6 +145,16 @@ export class ServerService {
   addManufacturer(company, name, fullName) {
         return this.http.post(
           `http://localhost:5555/api/addmanufacturer/company/${company}`,{name: name, fullName: fullName})
+      .map((response: Response) => {
+        const data = response.json();
+        // console.log(data);
+        return data;
+      });
+  }
+
+  updateImage(company, image, partId) {
+        return this.http.post(
+          `http://localhost:5555/api/updateimage/company/${company}`,{image: image, partId: partId})
       .map((response: Response) => {
         const data = response.json();
         // console.log(data);
