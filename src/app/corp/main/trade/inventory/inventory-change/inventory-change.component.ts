@@ -38,7 +38,7 @@ export class InventoryChangeComponent implements OnInit {
 
   ngOnInit() {
     // this.inventoryService.inventoryToEdit.id = this.inventoryService.inventoryToEdit.id;
-    this.inventoryService.getInventory(1,()=>{});
+    // this.inventoryService.getInventory(1,()=>{});
   }
 
   getInventory(): void {
