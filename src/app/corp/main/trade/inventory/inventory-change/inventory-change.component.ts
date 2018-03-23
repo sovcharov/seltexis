@@ -29,7 +29,7 @@ export class InventoryChangeComponent implements OnInit {
   // inventoryToEdit: any;
 
   constructor(
-    private inventoryService: InventoryService,
+    public inventoryService: InventoryService,
     private companyService: CompanyService,
     private route: ActivatedRoute,
     private domSanitizer: DomSanitizer,

@@ -17,7 +17,7 @@ export class InventoryComponent implements OnInit {
 
   loading: boolean;
   constructor(
-    private inventoryService: InventoryService,
+    public inventoryService: InventoryService,
     private router: Router,
     private activaterRoute: ActivatedRoute,
     private companyService: CompanyService,

@@ -20,7 +20,7 @@ export class ManufacturersComponent implements OnInit {
   // i
 
   constructor(
-    private inventoryService: InventoryService,
+    public inventoryService: InventoryService,
     private alertService: AlertService,
   ) { }
 

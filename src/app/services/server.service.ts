@@ -5,7 +5,7 @@ import 'rxjs/Rx';
 @Injectable()
 export class ServerService {
   constructor(private http: Http) { }
-  private host: string = 'http://localhost:5555';
+  private host: string = 'http://52.23.88.1:3001';
 
   logInUser(email, password, company) {
     return this.http.get(`${this.host}/api/logInUser/${email}/${password}/${company}`)

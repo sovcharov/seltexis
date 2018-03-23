@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Injectable } from '@angular/core';
 import { MyCookieService } from './my-cookie.service';
 import { ServerService } from './server.service';
 import { CompanyService } from './company.service'
@@ -7,6 +7,7 @@ import {
   ActivatedRoute,
   Router
 } from '@angular/router';
+
 
 interface Right {
   companyId: number,
@@ -22,9 +23,10 @@ export interface User {
   authenticated: boolean,
   rights: Right[]
 }
+@Injectable()
 
-@Component({
-})
+// @Component({
+// })
 export class UserService {
 
   user: User = {

@@ -25,7 +25,7 @@ export class LoginComponentCorp implements OnInit {
     private route: ActivatedRoute,
     private authService: AuthService,
     private alertService: AlertService,
-    private companyService: CompanyService,
+    public companyService: CompanyService,
     private userService: UserService
   ) {
   }

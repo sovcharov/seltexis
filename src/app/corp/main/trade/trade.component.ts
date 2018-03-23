@@ -15,7 +15,7 @@ import { Tabs } from '../../../services/tabs.service'
 export class TradeComponent implements OnInit {
 
   constructor(private router: Router, private route: ActivatedRoute,
-    private tabs: Tabs
+    public tabs: Tabs
   ) {
   }
 
