@@ -41,7 +41,7 @@ export class InventoryChangeComponent implements OnInit {
     // this.inventoryService.getInventory(1,()=>{});
   }
 
-  getInventory(): void {
+  getInventory() {
     this.loading = true;
     this.inventoryService.getInventory(this.inventoryService.inventoryToEdit.id, () => {
       this.loading = false;
@@ -192,6 +192,81 @@ export class InventoryChangeComponent implements OnInit {
       this.inventoryService.inventoryToEdit.description.editing=false;
       this.inventoryService.inventoryToEdit.description.text = this.inventoryService.inventoryToEdit.description.tempText;
     }
+
+
+    editCommentBegin(){
+      this.inventoryService.inventoryToEdit.comment.editing=true;
+      this.inventoryService.inventoryToEdit.comment.tempText = this.inventoryService.inventoryToEdit.comment.text;
+    }
+
+    editCommentSave(){
+      this.inventoryService.inventoryToEdit.comment.saving = true;
+      this.inventoryService.inventoryToEdit.comment.editing=false;
+      this.inventoryService.updateInventoryComment(this.inventoryService.inventoryToEdit.id, this.inventoryService.inventoryToEdit.comment.text, (res) => {
+        this.inventoryService.inventoryToEdit.comment = res;
+      });
+    }
+
+    editCommentCancel(){
+      this.inventoryService.inventoryToEdit.comment.editing=false;
+      this.inventoryService.inventoryToEdit.comment.text = this.inventoryService.inventoryToEdit.comment.tempText;
+    }
+
+    editWeightBegin(){
+      this.inventoryService.inventoryToEdit.weight.editing=true;
+      this.inventoryService.inventoryToEdit.weight.tempText = this.inventoryService.inventoryToEdit.weight.text;
+    }
+
+    editWeightSave(){
+      this.inventoryService.inventoryToEdit.weight.saving = true;
+      this.inventoryService.inventoryToEdit.weight.editing=false;
+
+      this.weightCheck(this.inventoryService.inventoryToEdit.weight.text, (err) => {
+
+        if(err) {
+          this.inventoryService.inventoryToEdit.weight.saving = false;
+          this.inventoryService.inventoryToEdit.weight.text = this.inventoryService.inventoryToEdit.weight.tempText;
+        } else {
+          let newWeight = this.getNumberFromText(this.inventoryService.inventoryToEdit.weight.text);
+          this.inventoryService.updateInventoryWeight(this.inventoryService.inventoryToEdit.id, newWeight, (res) => {
+            this.inventoryService.inventoryToEdit.weight = res;
+          });
+        }
+
+      });
+
+    }
+
+    private getNumberFromText(text) {
+      text = text.toString();
+      const regex = /^([0-9]+)(,|.([0-9]+))?$/;
+      let matches = text.match(regex);
+      let number;
+      if(matches[3]) {
+        if(matches[3].length > 2){
+          matches[3] = matches[3].substring(0,2);
+        }
+        number = `${matches[1]}.${matches[3]}`;
+      } else {
+        number = `${matches[1]}`;
+      }
+      return parseFloat(number);
+    }
+
+    private weightCheck(weight, callback) {
+      const regex = /^([0-9]+)(,|.([0-9]+))?$/;
+      if(regex.test(weight)){
+        callback(false);
+      } else {
+        callback(true)
+      };
+    }
+
+    editWeightCancel(){
+      this.inventoryService.inventoryToEdit.weight.editing=false;
+      this.inventoryService.inventoryToEdit.weight.text = this.inventoryService.inventoryToEdit.weight.tempText;
+    }
+
     fileAdded(event){
       console.log(event.target.files[0]);
     }

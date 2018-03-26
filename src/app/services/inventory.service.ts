@@ -61,6 +61,8 @@ export class InventoryService {
         this.inventoryToEdit = response[0];
         this.inventoryToEdit.image = {loading:true};
         this.inventoryToEdit.description = {text: this.inventoryToEdit.description};
+        this.inventoryToEdit.comment = {text: this.inventoryToEdit.comment};
+        this.inventoryToEdit.weight = {text: this.inventoryToEdit.weight};
         this.inventoryToEdit.numbers=[];
         this.inventoryToEdit.loadingNumbers = true;
         // this.inventoryToEdit.numbers = [{id:2,number: '12123',manufcaturer:'Caterpillar',manufacturerId:1},{id:1,number: '222',manufacturer:'Cummins',manufacturerId:2,main:1}];
@@ -170,6 +172,36 @@ deleteInventoryNumber(numberId, callback) {
 
 updateInventoryDescription(invenventoryId, newDescription, callback) {
   this.serverService.updateInventoryDescription(this.companyService.company.id, invenventoryId, newDescription)
+  .subscribe(
+    (response) => {
+      // console.log(response);
+
+      callback(response[0]);
+    },
+    (error) => {
+      console.log("Error: " + error);
+      return false;
+    }
+  );
+}
+
+updateInventoryComment(invenventoryId, newComment, callback) {
+  this.serverService.updateInventoryComment(this.companyService.company.id, invenventoryId, newComment)
+  .subscribe(
+    (response) => {
+      // console.log(response);
+
+      callback(response[0]);
+    },
+    (error) => {
+      console.log("Error: " + error);
+      return false;
+    }
+  );
+}
+
+updateInventoryWeight(invenventoryId, newWeight, callback) {
+  this.serverService.updateInventoryWeight(this.companyService.company.id, invenventoryId, newWeight)
   .subscribe(
     (response) => {
       // console.log(response);

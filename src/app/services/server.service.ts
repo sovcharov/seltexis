@@ -5,7 +5,9 @@ import 'rxjs/Rx';
 @Injectable()
 export class ServerService {
   constructor(private http: Http) { }
+  // private host: string = 'http://localhost:3001';
   private host: string = 'http://52.23.88.1:3001';
+
 
   logInUser(email, password, company) {
     return this.http.get(`${this.host}/api/logInUser/${email}/${password}/${company}`)
@@ -118,6 +120,24 @@ export class ServerService {
 
   updateInventoryDescription(company, invenventoryId, newDescription) {
     return this.http.put(`${this.host}/api/updateinventorydescription/company/${company}/inventoryid/${invenventoryId}`,{newDescription:newDescription})
+      .map((response: Response) => {
+        const data = response.json();
+        // console.log(data);
+        return data;
+      });
+  }
+
+  updateInventoryComment(company, invenventoryId, newComment) {
+    return this.http.put(`${this.host}/api/updateinventorycomment/company/${company}/inventoryid/${invenventoryId}`,{newComment: newComment})
+      .map((response: Response) => {
+        const data = response.json();
+        // console.log(data);
+        return data;
+      });
+  }
+
+  updateInventoryWeight(company, invenventoryId, newWeight) {
+    return this.http.put(`${this.host}/api/updateinventoryweight/company/${company}/inventoryid/${invenventoryId}`,{newWeight: newWeight})
       .map((response: Response) => {
         const data = response.json();
         // console.log(data);
