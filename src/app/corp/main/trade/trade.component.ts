@@ -22,12 +22,8 @@ export class TradeComponent implements OnInit {
   ngOnInit() {
   }
 
-  homeIsActive() {
-    if (('/' + this.route.snapshot.params.company) === this.router.url) {
-      return true;
-    } else {
-      return false;
-    }
+  openTab(tabName, id) {
+    this.tabs.openTab(tabName, id);
   }
 
   closeTab(index) {

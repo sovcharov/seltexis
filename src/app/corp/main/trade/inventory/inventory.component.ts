@@ -44,7 +44,7 @@ export class InventoryComponent implements OnInit {
     this.inventoryService.inventoryToEdit = {id: id};
     this.inventoryService.getInventory(id,()=>{});
     // this.router.navigate([`/${this.companyService.company.name}/inventory/change`]);
-    this.tabs.addTab(`Редактор`, `inventory/change`);
+    this.tabs.openTab(`Редактор`, `app-inventory-change`);
     // console.log(this.tabs);
   }
 

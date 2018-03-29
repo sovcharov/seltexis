@@ -11,6 +11,7 @@ export class Tabs {
 
   main: any[];
   tabsVisitingOrder: any = [];
+  active: string;
 
   constructor(
     private router: Router,
@@ -18,54 +19,57 @@ export class Tabs {
   ) {
     this.main = [{
       name: 'Home',
-      href: `/${companyService.company.name}`
+      id: `app-home`
     }
     ];
-    this.tabsVisitingOrder = [`/${companyService.company.name}`]
+    this.active = this.main[0].id;
+    this.tabsVisitingOrder = [this.active];
+
   }
 
-
-  addTab(name, href) {
-    href = `/${this.companyService.company.name}/${href}`;
+  openTab(name, id) {
     let inTabs: boolean = false;
-    // console.log(href, name);
     for (let i: number = 0; i < this.main.length; i += 1) {
-      if (this.main[i].href === href) {
+      if (this.main[i].id === id) {
         inTabs = true;
-        this.changeOrder(href);
+        this.changeOrder(id);
       }
     }
     if (!inTabs) {
-      this.main[this.main.length] = { name: name, href: href };
-      this.tabsVisitingOrder[this.tabsVisitingOrder.length] = href;
+      this.main[this.main.length] = { name: name, id: id };
+      this.tabsVisitingOrder[this.tabsVisitingOrder.length] = id;
     }
-    // console.log(href)
-    // console.log(this.tabsVisitingOrder);
-    this.router.navigate([href]);
+    this.active = id;
   }
 
   closeTab(i) {
-    let href = this.main[i].href;
+    let id = this.main[i].id;
     this.main.splice(i, 1);
     for (let j: number = 0; j < this.tabsVisitingOrder.length; j += 1) {
-      if (this.tabsVisitingOrder[j] === href) {
+      if (this.tabsVisitingOrder[j] === id) {
         this.tabsVisitingOrder.splice(j, 1);
       }
     }
-    this.router.navigate([this.tabsVisitingOrder[this.tabsVisitingOrder.length-1]]);
+    this.active = this.tabsVisitingOrder[this.tabsVisitingOrder.length-1];
   }
 
-  changeOrder(href) {
+  changeOrder(id) {
     for (let i: number = 0; i < this.tabsVisitingOrder.length; i += 1) {
-      if (this.tabsVisitingOrder[i] === href) {
+      if (this.tabsVisitingOrder[i] === id) {
         this.tabsVisitingOrder.splice(i, 1);
         // console.log(i, this.tabsVisitingOrder);
-        this.tabsVisitingOrder[this.tabsVisitingOrder.length] = href;
+        this.tabsVisitingOrder[this.tabsVisitingOrder.length] = id;
       }
     }
     // console.log(this.tabsVisitingOrder);
   }
 
-
+  isActive(tab) {
+    if (tab == this.active) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
 }

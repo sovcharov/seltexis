@@ -25,8 +25,8 @@ export class ServiceComponent implements OnInit {
 
   }
 
-  public addTab(name, href) {
-    this.tabs.addTab(name, href);
+  public addTab(name, id) {
+    this.tabs.openTab(name, id);
   }
 
 }

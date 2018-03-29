@@ -14,8 +14,8 @@ export class HomeComponent implements OnInit {
 
   }
 
-  public addTab(name, href) {
-    this.tabs.addTab(name, href);
+  public openTab(name, id) {
+    this.tabs.openTab(name, id);
   }
 
 }
