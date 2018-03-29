@@ -128,7 +128,7 @@
           <input class = "" *ngIf = "numberToAdd.editing" type="text" id="" class="form-control" name="number" [(ngModel)]="numberToAdd.number">
         </div>
         <select *ngIf = "numberToAdd.editing" class="form-control" [(ngModel)]="numberToAdd.manufacturerId" name="manufacturer">
-          <option *ngFor="let manufacturer of inventoryService.manufacturers; let j = index" [ngValue]="manufacturer.id">{{manufacturer.fullName}}</option>
+          <option *ngFor="let manufacturer of inventoryService.manufacturers; let j = index" [selected]="manufacturer.id == inventoryService.inventoryToEdit.manufacturerOld" [ngValue]="manufacturer.id">{{manufacturer.fullName}}</option>
         </select>
         <span *ngIf = "numberToAdd.saving">
           <i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
@@ -143,7 +143,7 @@
     <div class="col-xs-12 weight">
       <form class="form-inline">
         <div class="form-group form-group-sm">
-          <label>Вес:</label>
+          <label>Вес, kg:</label>
 
           <div class="input-group">
             <input class = "" type="text" id="" class="form-control" *ngIf = "!inventoryService.inventoryToEdit.weight.editing" name="number"

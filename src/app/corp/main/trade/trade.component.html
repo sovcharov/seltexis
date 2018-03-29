@@ -5,4 +5,5 @@
   <li role="presentation" *ngFor = "let tab of tabs.main; let i = index" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><a [routerLink]="[tab.href]" (click)="tabs.changeOrder(tab.href)">{{tab.name}} <a (click)="closeTab(i)" *ngIf = "tab.name != 'Home'" routerLink><i class="fa fa-times" aria-hidden="true"></i></a></a></li>
 </ul>
 <router-outlet></router-outlet>
+<!-- <app-service *ngIf = ""></app-service> -->
 </div>
