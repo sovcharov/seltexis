@@ -7,7 +7,7 @@
 <!-- <router-outlet></router-outlet> -->
 <app-home  *ngIf = "tabs.isActive('app-home')"></app-home>
 <app-service *ngIf = "tabs.isActive('app-service')"></app-service>
-<app-inventory *ngIf = "tabs.isActive('app-inventory')"></app-inventory>
+<app-inventory [hidden] = "!tabs.isActive('app-inventory')"></app-inventory>
 <app-inventory-change *ngIf = "tabs.isActive('app-inventory-change')"></app-inventory-change>
 <app-manufacturers *ngIf = "tabs.isActive('app-manufacturers')"></app-manufacturers>
 
