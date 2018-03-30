@@ -171,9 +171,6 @@ export class InventoryChangeComponent implements OnInit {
       }
       return '';
     }
-    changeSelect(x){
-      console.log(x);
-    }
 
     editDescriptionBegin(){
       this.inventoryService.inventoryToEdit.description.editing=true;
@@ -265,26 +262,6 @@ export class InventoryChangeComponent implements OnInit {
     editWeightCancel(){
       this.inventoryService.inventoryToEdit.weight.editing=false;
       this.inventoryService.inventoryToEdit.weight.text = this.inventoryService.inventoryToEdit.weight.tempText;
-    }
-
-    fileAdded(event){
-      console.log(event.target.files[0]);
-    }
-
-    changeListener($event) : void {
-      this.readThis($event.target);
-      console.log($event.target.files);
-    }
-
-    readThis(inputValue: any): void {
-      var file:File = inputValue.files[0];
-      var myReader:FileReader = new FileReader();
-
-      myReader.onloadend = (e) => {
-        this.image = myReader.result;
-        // console.log(myReader.result);
-      }
-      myReader.readAsDataURL(file);
     }
 
     onImageChange(event) {
