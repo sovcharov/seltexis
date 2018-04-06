@@ -116,6 +116,20 @@ getInventoryImage(invenventoryId, callback) {
   );
 }
 
+searchInventory(search, callback) {
+  this.serverService.searchInventory(this.companyService.company.id, search)
+  .subscribe(
+    (response) => {
+      this.inventory = response;
+      callback();
+    },
+    (error) => {
+      console.log("Error: " + error);
+      return false;
+    }
+  );
+}
+
 updateInventoryNumber(invenventoryNumberId, newNumber, newManufacturer, callback) {
   this.serverService.updateInventoryNumber(this.companyService.company.id, invenventoryNumberId, newNumber, newManufacturer)
   .subscribe(

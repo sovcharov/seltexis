@@ -2,9 +2,9 @@
   <div class= "inventory-menu col-sm-12">
     <form class="col-sm-3" role="search" style="height:" onsubmit="this.action='/catalog/'+this.part.value;" method="get">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Поиск в каталоге" name="part">
+        <input type="text" class="form-control" placeholder="Поиск в каталоге" name="part" [(ngModel)]="inventoryToSearch">
         <span class="input-group-btn">
-          <button class="btn btn-warning my-search-button" type="submit">Поиск</button>
+          <button class="btn btn-warning my-search-button" type="submit" (click)="searchInventory()">Поиск</button>
         </span>
       </div>
     </form>

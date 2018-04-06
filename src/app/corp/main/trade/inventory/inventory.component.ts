@@ -15,6 +15,7 @@ import { Tabs } from '../../../../services/tabs.service'
 export class InventoryComponent implements OnInit {
 
   loading: boolean;
+  inventoryToSearch: string = "";
   constructor(
     public inventoryService: InventoryService,
     private router: Router,
@@ -39,6 +40,13 @@ export class InventoryComponent implements OnInit {
     this.inventoryService.inventoryToEdit = {id: id};
     this.inventoryService.getInventory(id,()=>{});
     this.tabs.openTab(`Редактор`, `app-inventory-change`);
+  }
+
+  public searchInventory() {
+    this.loading = true;
+    this.inventoryService.searchInventory(this.inventoryToSearch, () => {
+      this.loading = false;
+    });
   }
 
 }
