@@ -8,6 +8,7 @@ import { InventoryService } from '../../../../../services/inventory.service';
 })
 export class AnalogsComponent implements OnInit {
 
+  loading: boolean = false;
   constructor(
     public inventoryService: InventoryService
   ) { }
