@@ -34,4 +34,8 @@ export class MyCookieService {
     this.cookieService.putObject('company', company, { expires: date });
   }
 
+  deleteUser(){
+    this.cookieService.remove('user');
+  }
+
 }

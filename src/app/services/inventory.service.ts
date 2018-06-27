@@ -26,11 +26,16 @@ export class InventoryService {
     this.serverService.getManufacturers(this.companyService.company.id)
     .subscribe(
       (response) => {
-        console.log(response);
-        this.manufacturers = response;
+        // console.log(response);
+        if(!response) {
+          this.getManufacturers();
+        } else {
+          this.manufacturers = response;
+        }
       },
       (error) => {
-        console.log("Error: " + error);
+        this.getManufacturers();
+        console.log("Error in getManufacturers: " + error);
         return false;
       }
     );
@@ -39,6 +44,21 @@ export class InventoryService {
 
   getAllInventory(callback) {
     this.serverService.getAllInventory(this.companyService.company.id)
+    .subscribe(
+      (response) => {
+        // console.log(response);
+        this.inventory = response;
+        callback();
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
+
+  getLast100Inventory(callback) {
+    this.serverService.getLast100Inventory(this.companyService.company.id)
     .subscribe(
       (response) => {
         // console.log(response);
@@ -276,6 +296,35 @@ updateImage(image, partId, callback) {
   .subscribe(
     (response) => {
       callback(response);
+    },
+    (error) => {
+      console.log("Error: " + error);
+      return false;
+    }
+  );
+}
+
+getAllAnalogs(callback) {
+  this.serverService.tempFunc()
+  .subscribe(
+    (response) => {
+      console.log(response);
+      callback(response);
+    },
+    (error) => {
+      console.log("Error: " + error);
+      return false;
+    }
+  );
+}
+
+createXLPrice(callback) {
+  this.serverService.createXLPrice()
+  .subscribe(
+    (response) => {
+      // console.log(response);
+      callback(response);
+      this.alertService.addAlert({alertClass: 'success',text: 'Прайс обновляется', comment: ''});
     },
     (error) => {
       console.log("Error: " + error);

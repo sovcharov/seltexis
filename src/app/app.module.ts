@@ -43,6 +43,8 @@ import { ServiceComponent } from './corp/main/trade/service/service.component';
 import { InventoryComponent } from './corp/main/trade/inventory/inventory.component';
 import { InventoryChangeComponent } from './corp/main/trade/inventory/inventory-change/inventory-change.component';
 import { ManufacturersComponent } from './corp/main/trade/inventory/manufacturers/manufacturers.component';
+import { AnalogsComponent } from './corp/main/trade/inventory/analogs/analogs.component';
+import { PriceListComponent } from './corp/main/trade/inventory/price-list/price-list.component';
 
 
 
@@ -65,7 +67,9 @@ import { ManufacturersComponent } from './corp/main/trade/inventory/manufacturer
     ServiceComponent,
     InventoryComponent,
     InventoryChangeComponent,
-    ManufacturersComponent
+    ManufacturersComponent,
+    AnalogsComponent,
+    PriceListComponent
   ],
   imports: [
     AlertModule.forRoot(),

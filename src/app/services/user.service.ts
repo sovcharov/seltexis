@@ -81,4 +81,8 @@ export class UserService {
     this.myCookieService.putUser(this.user)
   }
 
+  deleteUserCookie() {
+    this.myCookieService.deleteUser();
+  }
+
 }

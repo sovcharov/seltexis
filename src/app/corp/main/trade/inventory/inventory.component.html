@@ -8,7 +8,10 @@
         </span>
       </div>
     </form>
-    <button class="btn btn-default" type="submit" (click)="getAllInventory()">Показать все</button>
+    <div  class="col-sm-9" style="">
+      <button class="btn btn-default" type="submit" (click)="getAllInventory()">Показать все</button>
+      <button class="btn btn-default" type="submit" (click)="getLast100Inventory()">Показать последние</button>
+    </div>
   </div>
   <div>
     <div *ngIf = "loading" class = "flex-center-vertically text-center">

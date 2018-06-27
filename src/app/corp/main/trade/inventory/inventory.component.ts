@@ -49,4 +49,12 @@ export class InventoryComponent implements OnInit {
     });
   }
 
+  public getLast100Inventory() {
+    this.loading = true;
+    this.inventoryService.inventory = [];
+    this.inventoryService.getLast100Inventory(() => {
+      this.loading = false;
+    });
+  }
+
 }

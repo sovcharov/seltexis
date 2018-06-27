@@ -32,6 +32,7 @@ export class MainComponent implements OnInit {
   exitApp() {
     this.securityService.stopCheckUser();
     this.userService.user.authenticated = false;
+    this.userService.deleteUserCookie();
     this.router.navigate([`/${this.companyService.company.name}/login`]);
   }
 

@@ -55,6 +55,15 @@ export class ServerService {
       });
   }
 
+  getLast100Inventory(company) {
+    return this.http.get(`${this.host}/api/getLast100inventory/company/${company}`)
+      .map((response: Response) => {
+        const data = response.json();
+        // console.log(data);
+        return data;
+      });
+  }
+
   getInventory(company, id) {
     return this.http.get(`${this.host}/api/getinventory/company/${company}/id/${id}`)
       .map((response: Response) => {
@@ -185,6 +194,26 @@ export class ServerService {
   updateImage(company, image, partId) {
         return this.http.post(
           `${this.host}/api/updateimage/company/${company}`,{image: image, partId: partId})
+      .map((response: Response) => {
+        const data = response.json();
+        // console.log(data);
+        return data;
+      });
+  }
+
+  tempFunc() {
+        return this.http.get(
+          `${this.host}/api/tempfunc`)
+      .map((response: Response) => {
+        const data = response.json();
+        console.log(data);
+        return data;
+      });
+  }
+
+  createXLPrice() {
+        return this.http.get(
+          `${this.host}/api/createxlprice`)
       .map((response: Response) => {
         const data = response.json();
         // console.log(data);

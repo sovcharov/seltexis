@@ -20,9 +20,14 @@ export class Tabs {
     this.main = [{
       name: 'Home',
       id: `app-home`
-    }
+    }/*,{
+      name: 'Аналоги',
+      id: 'app-analogs'
+    }*/
     ];
+    // this.active = this.main[1].id;
     this.active = this.main[0].id;
+
     this.tabsVisitingOrder = [this.active];
 
   }
