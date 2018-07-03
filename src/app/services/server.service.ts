@@ -5,8 +5,8 @@ import 'rxjs/Rx';
 @Injectable()
 export class ServerService {
   constructor(private http: Http) { }
-  private host: string = 'http://localhost:3001'; //comment for production
-  // private host: string = 'http://52.23.88.1:3001'; //uncomment for production
+  // private host: string = 'http://localhost:3001'; //comment for production
+  private host: string = 'http://52.23.88.1:3001'; //uncomment for production
 
 
   logInUser(email, password, company) {
@@ -214,6 +214,16 @@ export class ServerService {
   createXLPrice() {
         return this.http.get(
           `${this.host}/api/createxlprice`)
+      .map((response: Response) => {
+        const data = response.json();
+        // console.log(data);
+        return data;
+      });
+  }
+
+  getPriceListCreateGetStatus() {
+        return this.http.get(
+          `${this.host}/api/pricelistcreatestatus`)
       .map((response: Response) => {
         const data = response.json();
         // console.log(data);

@@ -8,20 +8,49 @@ import { InventoryService } from '../../../../../services/inventory.service';
 })
 export class PriceListComponent implements OnInit {
 
-  loading: boolean = false;
+  loading: boolean = true;
+  myInterval;
   constructor(
     public inventoryService: InventoryService
 
   ) { }
 
   ngOnInit() {
+    this.inventoryService.getPriceListCreateGetStatus((data)=>{
+      if (data[0].value === "0") {
+        this.loading = false;
+      } else {
+        this.startCheckPriceList();
+      }
+    });
+  }
+
+
+  startCheckPriceList() {
+    this.myInterval = setInterval(() => {
+      this.inventoryService.getPriceListCreateGetStatus((data)=>{
+        if (data[0].value === "0") {
+          this.loading = false;
+          this.stopCheckPriceList();
+        }
+        // console.log(data);
+      });
+    }, 10000);
+  }
+
+  stopCheckPriceList() {
+    clearInterval(this.myInterval);
   }
 
   public createXL () {
     this.loading = true;
     this.inventoryService.createXLPrice((data)=>{
-      console.log(data)
-      this.loading = false;
+      // console.log(data)
+      this.startCheckPriceList();
+      // this.loading = false;
     })
   }
+
+
+
 }
