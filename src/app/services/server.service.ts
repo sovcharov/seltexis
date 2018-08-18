@@ -6,7 +6,7 @@ import 'rxjs/Rx';
 export class ServerService {
   constructor(private http: Http) { }
   // private host: string = 'http://localhost:3001'; //comment for production
-  private host: string = 'http://52.23.88.1:3001'; //uncomment for production
+  private host: string = 'https://seltex.ru:3001'; //uncomment for production
 
 
   logInUser(email, password, company) {
@@ -221,9 +221,9 @@ export class ServerService {
       });
   }
 
-  getPriceListCreateGetStatus() {
+  getPriceListUpdateDate() {
         return this.http.get(
-          `${this.host}/api/pricelistcreatestatus`)
+          `${this.host}/api/getpricelistupdatedate`)
       .map((response: Response) => {
         const data = response.json();
         // console.log(data);

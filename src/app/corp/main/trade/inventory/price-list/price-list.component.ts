@@ -9,6 +9,7 @@ import { InventoryService } from '../../../../../services/inventory.service';
 export class PriceListComponent implements OnInit {
 
   loading: boolean = true;
+  askToUpdatePrice: boolean = false;
   myInterval;
   constructor(
     public inventoryService: InventoryService
@@ -16,38 +17,28 @@ export class PriceListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.inventoryService.getPriceListCreateGetStatus((data)=>{
-      if (data[0].value === "0") {
-        this.loading = false;
-      } else {
-        this.startCheckPriceList();
-      }
+    this.inventoryService.getPriceListUpdateDate((data)=>{
+      console.log(data);
+      this.loading = false;
     });
   }
 
 
-  startCheckPriceList() {
-    this.myInterval = setInterval(() => {
-      this.inventoryService.getPriceListCreateGetStatus((data)=>{
-        if (data[0].value === "0") {
-          this.loading = false;
-          this.stopCheckPriceList();
-        }
-        // console.log(data);
-      });
-    }, 10000);
+  createXLStart() {
+    this.askToUpdatePrice = true;
   }
 
-  stopCheckPriceList() {
-    clearInterval(this.myInterval);
+  createXLCancel() {
+    this.askToUpdatePrice = false;
   }
 
   public createXL () {
     this.loading = true;
     this.inventoryService.createXLPrice((data)=>{
-      // console.log(data)
-      this.startCheckPriceList();
-      // this.loading = false;
+      this.inventoryService.getPriceListUpdateDate((data)=>{
+        this.loading = false;
+        this.askToUpdatePrice = false;
+      });
     })
   }
 

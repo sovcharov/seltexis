@@ -333,8 +333,8 @@ createXLPrice(callback) {
   );
 }
 
-getPriceListCreateGetStatus(callback) {
-  this.serverService.getPriceListCreateGetStatus()
+getPriceListUpdateDate(callback) {
+  this.serverService.getPriceListUpdateDate()
   .subscribe(
     (response) => {
       // console.log(response);
