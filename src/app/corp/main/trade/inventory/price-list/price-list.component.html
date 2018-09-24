@@ -1,8 +1,12 @@
 <div class = "inventory">
   <div *ngIf = "!loading" class= "inventory-menu col-sm-12" style="margin-top:10px;">
-    <button *ngIf = "!askToUpdatePrice" class="btn btn-default" type="submit" (click)="createXL()">Обновить прайс</button>
+    <button *ngIf = "!askToUpdatePrice" class="btn btn-default" type="submit" (click)="createXLStart()">Обновить прайс</button>
+    <button *ngIf = "!askToUpdatePrice" class="btn btn-default" type="submit" (click)="getPriceListUpdateDate()">Проверить дату обновления</button>
     <button *ngIf = "askToUpdatePrice" class="btn btn-default" type="submit" (click)="createXL()">Обновить</button>
-    <button *ngIf = "askToUpdatePrice" class="btn btn-default" type="submit" (click)="createXL()">Отменить</button>
+    <button *ngIf = "askToUpdatePrice" class="btn btn-default" type="submit" (click)="createXLCancel()">Отменить</button>
+    <p>Последнее обновление: {{dateUpdated}} +3 часа!</p>
+    <p><a href="https://s3.amazonaws.com/pricelist.seltex.ru/SeltexPrice.xlsx">ЗАГРУЗИТЬ ПРАЙС</a></p>
+    <p><a href="https://s3.amazonaws.com/pricelist.seltex.ru/SeltexCross.xlsx">ЗАГРУЗИТЬ КРОСС</a></p>
   </div>
   <div>
     <div *ngIf = "loading" class = "flex-center-vertically text-center">

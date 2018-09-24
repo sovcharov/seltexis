@@ -10,6 +10,7 @@ export class PriceListComponent implements OnInit {
 
   loading: boolean = true;
   askToUpdatePrice: boolean = false;
+  dateUpdated: string = "";
   myInterval;
   constructor(
     public inventoryService: InventoryService
@@ -17,12 +18,17 @@ export class PriceListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.inventoryService.getPriceListUpdateDate((data)=>{
-      console.log(data);
-      this.loading = false;
-    });
+    this.getPriceListUpdateDate();
   }
 
+
+ getPriceListUpdateDate() {
+   this.loading = true;
+   this.inventoryService.getPriceListUpdateDate((data)=>{
+     this.dateUpdated = data.LastModified;
+     this.loading = false;
+   });
+ }
 
   createXLStart() {
     this.askToUpdatePrice = true;
@@ -35,10 +41,9 @@ export class PriceListComponent implements OnInit {
   public createXL () {
     this.loading = true;
     this.inventoryService.createXLPrice((data)=>{
-      this.inventoryService.getPriceListUpdateDate((data)=>{
-        this.loading = false;
-        this.askToUpdatePrice = false;
-      });
+      this.dateUpdated = data.data.LastModified;
+      this.askToUpdatePrice = false;
+      this.loading = false;
     })
   }
 

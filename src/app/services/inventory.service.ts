@@ -324,7 +324,7 @@ createXLPrice(callback) {
     (response) => {
       // console.log(response);
       callback(response);
-      this.alertService.addAlert({alertClass: 'success',text: 'Прайс обновляется', comment: ''});
+      this.alertService.addAlert({alertClass: 'success',text: 'Прайс обновлен', comment: ''});
     },
     (error) => {
       console.log("Error: " + error);
