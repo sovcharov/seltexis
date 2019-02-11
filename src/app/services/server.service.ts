@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import 'rxjs/Rx';
+// import { SISConfig } from '../../../../seltexisconfig/sisconfig';
+
 
 @Injectable()
 export class ServerService {

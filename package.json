@@ -33,10 +33,12 @@
     "ngx-cookie": "^3.0.1",
     "popper.js": "^1.14.6",
     "rxjs": "^5.5.12",
+    "tslib": "^1.9.0",
     "web-animations-js": "^2.3.1",
     "zone.js": "^0.8.28"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "~0.12.0",
     "@angular/cli": "^7.2.2",
     "@angular/compiler-cli": "^5.2.11",
     "@angular/language-service": "^5.2.11",

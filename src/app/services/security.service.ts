@@ -16,7 +16,7 @@ export class SecurityService {
   startCheckUser() {
     this.myInterval = setInterval(() => {
       this.userService.checkUserLoggedIn();
-    }, 10000);
+    }, 60000);
   }
 
   stopCheckUser() {
