@@ -264,6 +264,24 @@ export class InventoryChangeComponent implements OnInit {
       this.inventoryService.inventoryToEdit.weight.text = this.inventoryService.inventoryToEdit.weight.tempText;
     }
 
+    editUrlBegin(){
+      this.inventoryService.inventoryToEdit.url.editing=true;
+      this.inventoryService.inventoryToEdit.url.tempText = this.inventoryService.inventoryToEdit.url.text;
+      console.log(this.inventoryService.inventoryToEdit.url)
+      
+    }
+    editUrlSave(){
+      this.inventoryService.inventoryToEdit.url.saving = true;
+      this.inventoryService.inventoryToEdit.url.editing=false;
+      // this.inventoryService.updateInventoryDescription(this.inventoryService.inventoryToEdit.id, this.inventoryService.inventoryToEdit.url.text, (res) => {
+      //   this.inventoryService.inventoryToEdit.url = res;
+      // });
+    }
+    editUrlCancel(){
+      this.inventoryService.inventoryToEdit.url.editing=false;
+      this.inventoryService.inventoryToEdit.url.text = this.inventoryService.inventoryToEdit.url.tempText;
+    }
+
     onImageChange(event) {
       this.inventoryService.inventoryToEdit.image.loading = true;
       let image = event.target.files[0];

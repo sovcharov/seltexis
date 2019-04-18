@@ -25,8 +25,10 @@
           <tr>
             <td [ngClass]="{'last-edited':inventory.id == inventoryService.inventoryToEdit.id}">
               <div>
+                <a routerLink="" (click)="openInventoryId(inventory.id)"><i class="fa fa-edit" style="font-size: 24px;"></i></a>
                 <label class="control-label">id:</label>
-                {{inventory.id}}. {{inventory.description}} - {{inventory.numbers}} <a routerLink="" (click)="openInventoryId(inventory.id)"><i class="fa fa-edit" style="font-size: 24px;"></i></a>
+                {{inventory.id}}. {{inventory.description}} - {{inventory.numbers}}
+                {{inventory.stock}} - {{inventory.msk}} - {{inventory.ordered}}
               </div>
 
               <!-- <div class="col-md-6">

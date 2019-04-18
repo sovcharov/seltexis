@@ -83,6 +83,7 @@ export class InventoryService {
         this.inventoryToEdit.description = {text: this.inventoryToEdit.description};
         this.inventoryToEdit.comment = {text: this.inventoryToEdit.comment};
         this.inventoryToEdit.weight = {text: this.inventoryToEdit.weight};
+        this.inventoryToEdit.url = {text: this.inventoryToEdit.url};
         this.inventoryToEdit.numbers=[];
         this.inventoryToEdit.loadingNumbers = true;
         // this.inventoryToEdit.numbers = [{id:2,number: '12123',manufcaturer:'Caterpillar',manufacturerId:1},{id:1,number: '222',manufacturer:'Cummins',manufacturerId:2,main:1}];

@@ -171,6 +171,34 @@
       </form>
     </div>
 
+    <div class="col-xs-12 url" style="clear: both">
+      <div class="" style="">
+        <label class="control-label">URL:</label>
+      </div>
+      <form class="form-horizontal col-md-12">
+        <div class="form-group form-group-sm">
+          <div class="input-group">
+
+            <span class="input-group-btn" *ngIf = "!inventoryService.inventoryToEdit.url.saving">
+              <button class="btn btn-default btn-sm" type="button" *ngIf = "!inventoryService.inventoryToEdit.url.editing" (click) = "editUrlBegin()">Изменить</button>
+              <button class="btn btn-default btn-sm" *ngIf = "inventoryService.inventoryToEdit.url.editing" type="submit" (click) = "editUrlSave()">Сохранить</button>
+              <button class="btn btn-default btn-sm" type="button" *ngIf = "inventoryService.inventoryToEdit.url.editing" (click) = "editUrlCancel()">Отменить</button>
+            </span>
+            <span class="input-group-btn" *ngIf = "inventoryService.inventoryToEdit.url.saving">
+              <button class="btn btn-default btn-sm" type="button"><i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
+                            <span class="sr-only">Loading...</span></button>
+            </span>
+            <input class = "" type="text" id="" class="form-control" *ngIf = "!inventoryService.inventoryToEdit.url.editing" name="number"
+             value="{{inventoryService.inventoryToEdit.url.text}}" disabled>
+            <input class = "" type="text" id="" class="form-control" *ngIf = "inventoryService.inventoryToEdit.url.editing" name="number"
+              [(ngModel)]="inventoryService.inventoryToEdit.url.text">
+
+          </div>
+        </div>
+      </form>
+    </div>
+
+
     <!-- <div class = "col-md-12">
       <div class="col-md-8">
         <label class="control-label">Аналоги:</label>
