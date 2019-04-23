@@ -24,13 +24,19 @@
           <!-- <div style = "height:1px; background-color:gray;width:100%"></div> -->
           <tr>
             <td [ngClass]="{'last-edited':inventory.id == inventoryService.inventoryToEdit.id}">
-              <div>
+              <div class="col-md-10">
                 <a routerLink="" (click)="openInventoryId(inventory.id)"><i class="fa fa-edit" style="font-size: 24px;"></i></a>
-                <label class="control-label">id:</label>
+                 <label class="control-label">id:</label>
                 {{inventory.id}}. {{inventory.description}} - {{inventory.numbers}}
-                {{inventory.stock}} - {{inventory.msk}} - {{inventory.ordered}}
+                <!-- <span style="color:#006622; font-weight:bold">{{inventory.price}} р. {{inventory.stock}} - {{inventory.msk}} - {{inventory.ordered}}</span> -->
               </div>
 
+              <div class="col-md-1">
+                {{inventory.price}}
+              </div>
+              <div class="col-md-1">
+                {{inventory.msk}} - {{inventory.stock}} - {{inventory.ordered}}
+              </div>
               <!-- <div class="col-md-6">
                 <label class="control-label">Производитель:</label>
                 {{inventory.manufacturerFullName}}
