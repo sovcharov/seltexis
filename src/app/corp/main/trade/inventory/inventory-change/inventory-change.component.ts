@@ -267,19 +267,43 @@ export class InventoryChangeComponent implements OnInit {
     editUrlBegin(){
       this.inventoryService.inventoryToEdit.url.editing=true;
       this.inventoryService.inventoryToEdit.url.tempText = this.inventoryService.inventoryToEdit.url.text;
-      console.log(this.inventoryService.inventoryToEdit.url)
-      
+      // console.log(this.inventoryService.inventoryToEdit.url)
+
     }
     editUrlSave(){
       this.inventoryService.inventoryToEdit.url.saving = true;
       this.inventoryService.inventoryToEdit.url.editing=false;
-      // this.inventoryService.updateInventoryDescription(this.inventoryService.inventoryToEdit.id, this.inventoryService.inventoryToEdit.url.text, (res) => {
-      //   this.inventoryService.inventoryToEdit.url = res;
-      // });
+      this.inventoryService.updateInventoryUrl(this.inventoryService.inventoryToEdit.id, this.inventoryService.inventoryToEdit.url.text, (res) => {
+        console.log(res);
+        this.inventoryService.inventoryToEdit.url.text = res.url;
+        this.inventoryService.inventoryToEdit.url.saving = false;
+
+      });
     }
     editUrlCancel(){
       this.inventoryService.inventoryToEdit.url.editing=false;
       this.inventoryService.inventoryToEdit.url.text = this.inventoryService.inventoryToEdit.url.tempText;
+    }
+
+    recommendUrlPull(){
+      this.inventoryService.inventoryToEdit.url.pulling=true;
+      this.inventoryService.getRecommendedUrlForItem(this.inventoryService.inventoryToEdit, (res) => {
+        this.inventoryService.inventoryToEdit.url.textToRecommend = res.text;
+
+        this.inventoryService.inventoryToEdit.url.pulling=false;
+      });
+    }
+    recommendUrlPut(){
+      this.inventoryService.inventoryToEdit.url.tempText = this.inventoryService.inventoryToEdit.url.text;
+      this.inventoryService.inventoryToEdit.url.text = this.inventoryService.inventoryToEdit.url.textToRecommend;
+      this.inventoryService.inventoryToEdit.url.editing=true;
+    }
+    isEqual () {
+      if (this.inventoryService.inventoryToEdit.url.text === this.inventoryService.inventoryToEdit.url.textToRecommend) {
+        return "совпадает с рекомендованным"
+      } else {
+        return "НЕ совпадает с рекомендованным"
+      }
     }
 
     onImageChange(event) {
@@ -338,5 +362,7 @@ export class InventoryChangeComponent implements OnInit {
       this.inventoryService.inventoryToEdit.image.data = this.inventoryService.inventoryToEdit.image.tempData;
 
     }
+
+
 
   }

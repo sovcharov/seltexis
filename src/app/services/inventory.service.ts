@@ -250,6 +250,21 @@ updateInventoryWeight(invenventoryId, newWeight, callback) {
   );
 }
 
+updateInventoryUrl(invenventoryId, newUrl, callback) {
+  this.serverService.updateInventoryUrl(this.companyService.company.id, invenventoryId, newUrl)
+  .subscribe(
+    (response) => {
+      // console.log(response);
+
+      callback(response[0]);
+    },
+    (error) => {
+      console.log("Error: " + error);
+      return false;
+    }
+  );
+}
+
 updateManufacturer(id, name, fullName, callback){
   this.serverService.updateManufacturer(this.companyService.company.id, id, name, fullName)
   .subscribe(
@@ -348,5 +363,21 @@ getPriceListUpdateDate(callback) {
     }
   );
 }
+
+getRecommendedUrlForItem(description, callback) {
+  this.serverService.getRecommendedUrlForItem(this.companyService.company.id, description)
+  .subscribe(
+    (response) => {
+      // console.log(response);
+      callback(response);
+      // this.alertService.addAlert({alertClass: 'success',text: 'Прайс обновляется', comment: ''});
+    },
+    (error) => {
+      console.log("Error: " + error);
+      return false;
+    }
+  );
+}
+
 
 }

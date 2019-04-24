@@ -173,7 +173,7 @@
 
     <div class="col-xs-12 url" style="clear: both">
       <div class="" style="">
-        <label class="control-label">URL:</label>
+        <label class="control-label">URL:</label> {{isEqual()}}
       </div>
       <form class="form-horizontal col-md-12">
         <div class="form-group form-group-sm">
@@ -193,6 +193,23 @@
             <input class = "" type="text" id="" class="form-control" *ngIf = "inventoryService.inventoryToEdit.url.editing" name="number"
               [(ngModel)]="inventoryService.inventoryToEdit.url.text">
 
+          </div>
+        </div>
+      </form>
+
+      <form class="form-horizontal col-md-12">
+        <div class="form-group form-group-sm">
+          <div class="input-group">
+            <span class="input-group-btn" *ngIf = "!inventoryService.inventoryToEdit.url.pulling">
+              <button class="btn btn-default btn-sm" type="button" *ngIf = "!inventoryService.inventoryToEdit.url.textToRecommend" (click) = "recommendUrlPull()">Запросить рекомендуемый</button>
+              <button class="btn btn-default btn-sm" *ngIf = "inventoryService.inventoryToEdit.url.textToRecommend" type="submit" (click) = "recommendUrlPut()">Подставить вместо текущего</button>
+            </span>
+            <span class="input-group-btn" *ngIf = "inventoryService.inventoryToEdit.url.pulling">
+              <button class="btn btn-default btn-sm" type="button"><i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
+                            <span class="sr-only">Loading...</span></button>
+            </span>
+            <input class = "" type="text" id="" class="form-control" name="number"
+             value="{{inventoryService.inventoryToEdit.url.textToRecommend}}" disabled>
           </div>
         </div>
       </form>

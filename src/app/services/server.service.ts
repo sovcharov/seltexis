@@ -165,6 +165,15 @@ export class ServerService {
       });
   }
 
+  updateInventoryUrl(company, invenventoryId, newUrl) {
+    return this.http.put(`${this.host}/api/updateinventoryurl/company/${company}/inventoryid/${invenventoryId}`,{newUrl: newUrl})
+      .map((response: Response) => {
+        const data = response.json();
+        // console.log(data);
+        return data;
+      });
+  }
+
   updateManufacturer(company,id, name, fullName) {
     return this.http.put(`${this.host}/api/updatemanufacturer/company/${company}/id/${id}`,{name:name, fullName:fullName})
       .map((response: Response) => {
@@ -226,6 +235,16 @@ export class ServerService {
   getPriceListUpdateDate() {
         return this.http.get(
           `${this.host}/api/getpricelistupdatedate`)
+      .map((response: Response) => {
+        const data = response.json();
+        // console.log(data);
+        return data;
+      });
+  }
+
+  getRecommendedUrlForItem(company, inventory) {
+        return this.http.post(
+          `${this.host}/api/getrecommendedurlforitem/company/${company}/description/1`, {inventory:inventory})
       .map((response: Response) => {
         const data = response.json();
         // console.log(data);
