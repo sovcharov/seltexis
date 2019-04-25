@@ -45,6 +45,7 @@ import { InventoryChangeComponent } from './corp/main/trade/inventory/inventory-
 import { ManufacturersComponent } from './corp/main/trade/inventory/manufacturers/manufacturers.component';
 import { AnalogsComponent } from './corp/main/trade/inventory/analogs/analogs.component';
 import { PriceListComponent } from './corp/main/trade/inventory/price-list/price-list.component';
+import { ItComponent } from './corp/main/trade/it/it.component';
 
 
 
@@ -69,7 +70,8 @@ import { PriceListComponent } from './corp/main/trade/inventory/price-list/price
     InventoryChangeComponent,
     ManufacturersComponent,
     AnalogsComponent,
-    PriceListComponent
+    PriceListComponent,
+    ItComponent
   ],
   imports: [
     AlertModule.forRoot(),

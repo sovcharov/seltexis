@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Tabs } from '../../../../services/tabs.service'
+import { UserService } from '../../../../services/user.service';
+
 
 @Component({
   selector: 'app-home',
@@ -8,7 +10,7 @@ import { Tabs } from '../../../../services/tabs.service'
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private tabs: Tabs) { }
+  constructor(private tabs: Tabs, private userService: UserService) { }
 
   ngOnInit() {
 

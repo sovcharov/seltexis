@@ -274,7 +274,6 @@ export class InventoryChangeComponent implements OnInit {
       this.inventoryService.inventoryToEdit.url.saving = true;
       this.inventoryService.inventoryToEdit.url.editing=false;
       this.inventoryService.updateInventoryUrl(this.inventoryService.inventoryToEdit.id, this.inventoryService.inventoryToEdit.url.text, (res) => {
-        console.log(res);
         this.inventoryService.inventoryToEdit.url.text = res.url;
         this.inventoryService.inventoryToEdit.url.saving = false;
 
@@ -289,7 +288,6 @@ export class InventoryChangeComponent implements OnInit {
       this.inventoryService.inventoryToEdit.url.pulling=true;
       this.inventoryService.getRecommendedUrlForItem(this.inventoryService.inventoryToEdit, (res) => {
         this.inventoryService.inventoryToEdit.url.textToRecommend = res.text;
-
         this.inventoryService.inventoryToEdit.url.pulling=false;
       });
     }
