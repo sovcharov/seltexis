@@ -19,15 +19,17 @@ export class InventoryService {
     private alertService: AlertService,
     private userService: UserService
   ) {
-    this.getManufacturers();
+    // this.getManufacturers();
   }
 
   getManufacturers() {
+    this.manufacturers =  [];
     this.serverService.getManufacturers(this.companyService.company.id)
     .subscribe(
       (response) => {
         // console.log(response);
         if(!response) {
+          this.alertService.addAlert({alertClass: 'danger',text: 'ERROR',comment: 'in get manufacturers',});
           this.getManufacturers();
         } else {
           this.manufacturers = response;
@@ -36,6 +38,7 @@ export class InventoryService {
       (error) => {
         this.getManufacturers();
         console.log("Error in getManufacturers: " + error);
+        this.alertService.addAlert({alertClass: 'danger',text: 'ERROR',comment: 'in get manufacturers',});
         return false;
       }
     );
@@ -74,6 +77,9 @@ export class InventoryService {
 
   getInventory(invenventoryId, callback) {
     // this.inventoryToEdit = [];
+    if (!this.manufacturers.length) {
+      this.getManufacturers();
+    }
     this.serverService.getInventory(this.companyService.company.id, invenventoryId)
     .subscribe(
       (response) => {

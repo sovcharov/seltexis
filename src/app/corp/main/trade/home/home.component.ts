@@ -10,7 +10,7 @@ import { UserService } from '../../../../services/user.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private tabs: Tabs, private userService: UserService) { }
+  constructor(private tabs: Tabs, public userService: UserService) { }
 
   ngOnInit() {
 

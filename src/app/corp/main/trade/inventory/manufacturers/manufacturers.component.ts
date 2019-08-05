@@ -25,10 +25,12 @@ export class ManufacturersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if(!this.inventoryService.manufacturers.length) {
+      this.inventoryService.getManufacturers();
+    }
   }
 
   getManufacturers(){
-    this.inventoryService.manufacturers = [];
     this.inventoryService.getManufacturers();
   }
 
