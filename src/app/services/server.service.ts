@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import 'rxjs/Rx';
-// import { SISConfig } from '../../../../seltexisconfig/sisconfig';
+import { ConfigService } from './config.service';
 
 
 @Injectable()
 export class ServerService {
-  constructor(private http: Http) { }
-  private host: string = 'https://seltex.ru:3001'; //uncomment for production
-  // private host: string = 'http://localhost:3001'; //comment for production
-
-
+  private host: string = "";
+  constructor(private http: Http, private configService: ConfigService) {
+    this.host = configService.config.host;
+  }
 
   logInUser(email, password, company) {
     return this.http.get(`${this.host}/api/logInUser/${email}/${password}/${company}`)
@@ -22,9 +21,8 @@ export class ServerService {
   }
 
   checkCompany(company: any) {
-    console.log(company);
+    // console.log(company);
     console.log(this.host);
-
     return this.http.get(`${this.host}/api/company/exists/${company}/`)
       .map((response: Response) => {
         const data = response.json();

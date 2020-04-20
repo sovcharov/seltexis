@@ -22,6 +22,8 @@ import { MyCookieService } from './services/my-cookie.service';
 import { SecurityService } from './services/security.service';
 import { Tabs } from './services/tabs.service';
 import { InventoryService } from './services/inventory.service';
+import { ConfigService } from './services/config.service';
+
 
 
 
@@ -96,7 +98,8 @@ import { PermalinkComponent } from './corp/main/trade/it/permalink/permalink.com
     MyCookieService,
     SecurityService,
     Tabs,
-    InventoryService
+    InventoryService,
+    ConfigService
   ],
   bootstrap: [AppComponent]
 })
