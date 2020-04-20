@@ -49,6 +49,7 @@ import { AnalogsComponent } from './corp/main/trade/inventory/analogs/analogs.co
 import { PriceListComponent } from './corp/main/trade/inventory/price-list/price-list.component';
 import { ItComponent } from './corp/main/trade/it/it.component';
 import { PermalinkComponent } from './corp/main/trade/it/permalink/permalink.component';
+import { SitemapComponent } from './corp/main/trade/it/sitemap/sitemap.component';
 
 
 
@@ -75,7 +76,8 @@ import { PermalinkComponent } from './corp/main/trade/it/permalink/permalink.com
     AnalogsComponent,
     PriceListComponent,
     ItComponent,
-    PermalinkComponent
+    PermalinkComponent,
+    SitemapComponent
   ],
   imports: [
     AlertModule.forRoot(),

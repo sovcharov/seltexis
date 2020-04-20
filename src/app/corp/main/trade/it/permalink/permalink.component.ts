@@ -65,6 +65,7 @@ export class PermalinkComponent implements OnInit {
   }
 
   checkAllItems () {
+    console.log(this.checkAll);
     for(let i = 0; i < this.inventoryService.inventoryPermalinks.length; i += 1) {
       this.inventoryService.inventoryPermalinks[i].checked = this.checkAll;
     }
