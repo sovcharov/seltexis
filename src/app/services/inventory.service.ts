@@ -13,6 +13,7 @@ export class InventoryService {
   inventory: any = [];
   inventoryToEdit: any = {};
   manufacturers: any = [];
+  inventoryPermalinks: any = [];
   constructor(
     private serverService: ServerService,
     private companyService: CompanyService,
@@ -29,7 +30,7 @@ export class InventoryService {
       (response) => {
         // console.log(response);
         if(!response) {
-          this.alertService.addAlert({alertClass: 'danger',text: 'ERROR',comment: 'in get manufacturers',});
+          this.alertService.addAlert({alertClass: 'danger',text: 'ERROR response',comment: 'in get manufacturers',});
           this.getManufacturers();
         } else {
           this.manufacturers = response;
@@ -38,7 +39,7 @@ export class InventoryService {
       (error) => {
         this.getManufacturers();
         console.log("Error in getManufacturers: " + error);
-        this.alertService.addAlert({alertClass: 'danger',text: 'ERROR',comment: 'in get manufacturers',});
+        this.alertService.addAlert({alertClass: 'danger',text: 'ERROR error',comment: 'in get manufacturers',});
         return false;
       }
     );
@@ -106,284 +107,300 @@ export class InventoryService {
 
           }
         });
-    },
-    (error) => {
-      console.log("Error: " + error);
-      return false;
-    }
-  );
-}
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
 
-getInventoryNumbers(invenventoryId, callback) {
-  this.serverService.getInventoryNumbers(this.companyService.company.id, invenventoryId)
-  .subscribe(
-    (response) => {
-      // console.log(response);
-      callback(response);
-    },
-    (error) => {
-      console.log("Error: " + error);
-      return false;
-    }
-  );
-}
+  getInventoryNumbers(invenventoryId, callback) {
+    this.serverService.getInventoryNumbers(this.companyService.company.id, invenventoryId)
+    .subscribe(
+      (response) => {
+        // console.log(response);
+        callback(response);
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
 
 
-getInventoryImage(invenventoryId, callback) {
-  this.serverService.getInventoryImage(this.companyService.company.id, invenventoryId)
-  .subscribe(
-    (response) => {
-      // console.log(response);
-      callback(response);
-    },
-    (error) => {
-      console.log("Error: " + error);
-      return false;
-    }
-  );
-}
+  getInventoryImage(invenventoryId, callback) {
+    this.serverService.getInventoryImage(this.companyService.company.id, invenventoryId)
+    .subscribe(
+      (response) => {
+        // console.log(response);
+        callback(response);
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
 
-searchInventory(search, callback) {
-  this.serverService.searchInventory(this.companyService.company.id, search)
-  .subscribe(
-    (response) => {
-      this.inventory = response;
-      callback();
-    },
-    (error) => {
-      console.log("Error: " + error);
-      return false;
-    }
-  );
-}
+  searchInventory(search, callback) {
+    this.serverService.searchInventory(this.companyService.company.id, search)
+    .subscribe(
+      (response) => {
+        this.inventory = response;
+        callback();
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
 
-updateInventoryNumber(invenventoryNumberId, newNumber, newManufacturer, callback) {
-  this.serverService.updateInventoryNumber(this.companyService.company.id, invenventoryNumberId, newNumber, newManufacturer)
-  .subscribe(
-    (response) => {
-      // console.log(response);
+  updateInventoryNumber(invenventoryNumberId, newNumber, newManufacturer, callback) {
+    this.serverService.updateInventoryNumber(this.companyService.company.id, invenventoryNumberId, newNumber, newManufacturer)
+    .subscribe(
+      (response) => {
+        // console.log(response);
 
-      callback(response[0]);
-    },
-    (error) => {
-      console.log("Error: " + error);
-      return false;
-    }
-  );
-}
+        callback(response[0]);
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
 
-updateInventoryMainNumber(invenventoryNumberId, inventoryId, callback) {
-  this.serverService.updateInventoryMainNumber(this.companyService.company.id, invenventoryNumberId, inventoryId)
-  .subscribe(
-    (response) => {
-      callback(response[0].main);
-    },
-    (error) => {
-      console.log("Error: " + error);
-      return false;
-    }
-  );
-}
+  updateInventoryMainNumber(invenventoryNumberId, inventoryId, callback) {
+    this.serverService.updateInventoryMainNumber(this.companyService.company.id, invenventoryNumberId, inventoryId)
+    .subscribe(
+      (response) => {
+        callback(response[0].main);
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
 
-saveInventoryNewNumber(invenventoryId, newNumber, newManufacturer, callback) {
-  this.serverService.saveInventoryNewNumber(this.companyService.company.id, invenventoryId, newNumber, newManufacturer)
-  .subscribe(
-    (response) => {
-      callback(response);
-    },
-    (error) => {
-      console.log("Error: " + error);
-      return false;
-    }
-  );
-}
+  saveInventoryNewNumber(invenventoryId, newNumber, newManufacturer, callback) {
+    this.serverService.saveInventoryNewNumber(this.companyService.company.id, invenventoryId, newNumber, newManufacturer)
+    .subscribe(
+      (response) => {
+        callback(response);
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
 
-deleteInventoryNumber(numberId, callback) {
-  this.serverService.deleteInventoryNumber(this.companyService.company.id, numberId)
-  .subscribe(
-    (response) => {
-      callback(response);
-    },
-    (error) => {
-      console.log("Error: " + error);
-      return false;
-    }
-  );
-}
+  deleteInventoryNumber(numberId, callback) {
+    this.serverService.deleteInventoryNumber(this.companyService.company.id, numberId)
+    .subscribe(
+      (response) => {
+        callback(response);
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
 
-updateInventoryDescription(invenventoryId, newDescription, callback) {
-  this.serverService.updateInventoryDescription(this.companyService.company.id, invenventoryId, newDescription)
-  .subscribe(
-    (response) => {
-      // console.log(response);
+  updateInventoryDescription(invenventoryId, newDescription, callback) {
+    this.serverService.updateInventoryDescription(this.companyService.company.id, invenventoryId, newDescription)
+    .subscribe(
+      (response) => {
+        // console.log(response);
 
-      callback(response[0]);
-    },
-    (error) => {
-      console.log("Error: " + error);
-      return false;
-    }
-  );
-}
+        callback(response[0]);
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
 
-updateInventoryComment(invenventoryId, newComment, callback) {
-  this.serverService.updateInventoryComment(this.companyService.company.id, invenventoryId, newComment)
-  .subscribe(
-    (response) => {
-      // console.log(response);
+  updateInventoryComment(invenventoryId, newComment, callback) {
+    this.serverService.updateInventoryComment(this.companyService.company.id, invenventoryId, newComment)
+    .subscribe(
+      (response) => {
+        // console.log(response);
 
-      callback(response[0]);
-    },
-    (error) => {
-      console.log("Error: " + error);
-      return false;
-    }
-  );
-}
+        callback(response[0]);
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
 
-updateInventoryWeight(invenventoryId, newWeight, callback) {
-  this.serverService.updateInventoryWeight(this.companyService.company.id, invenventoryId, newWeight)
-  .subscribe(
-    (response) => {
-      // console.log(response);
+  updateInventoryWeight(invenventoryId, newWeight, callback) {
+    this.serverService.updateInventoryWeight(this.companyService.company.id, invenventoryId, newWeight)
+    .subscribe(
+      (response) => {
+        // console.log(response);
 
-      callback(response[0]);
-    },
-    (error) => {
-      console.log("Error: " + error);
-      return false;
-    }
-  );
-}
+        callback(response[0]);
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
 
-updateInventoryUrl(invenventoryId, newUrl, callback) {
-  this.serverService.updateInventoryUrl(this.companyService.company.id, invenventoryId, newUrl)
-  .subscribe(
-    (response) => {
-      // console.log(response);
+  updateInventoryUrl(invenventoryId, newUrl, callback) {
+    this.serverService.updateInventoryUrl(this.companyService.company.id, invenventoryId, newUrl)
+    .subscribe(
+      (response) => {
+        // console.log(response);
 
-      callback(response[0]);
-    },
-    (error) => {
-      console.log("Error: " + error);
-      return false;
-    }
-  );
-}
+        callback(response[0]);
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
 
-updateManufacturer(id, name, fullName, callback){
-  this.serverService.updateManufacturer(this.companyService.company.id, id, name, fullName)
-  .subscribe(
-    (response) => {
-      // console.log(response);
+  updateManufacturer(id, name, fullName, callback){
+    this.serverService.updateManufacturer(this.companyService.company.id, id, name, fullName)
+    .subscribe(
+      (response) => {
+        // console.log(response);
 
-      callback(response[0]);
-    },
-    (error) => {
-      console.log("Error: " + error);
-      return false;
-    }
-  );
-}
+        callback(response[0]);
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
 
-deleteManufacturer(id, callback) {
-  this.serverService.deleteManufacturer(this.companyService.company.id, id)
-  .subscribe(
-    (response) => {
-      callback(response);
-    },
-    (error) => {
-      console.log("Error: " + error);
-      this.alertService.addAlert({alertClass: 'danger',text: 'ERROR',comment: '',});
-      return false;
-    }
-  );
-}
+  deleteManufacturer(id, callback) {
+    this.serverService.deleteManufacturer(this.companyService.company.id, id)
+    .subscribe(
+      (response) => {
+        callback(response);
+      },
+      (error) => {
+        console.log("Error: " + error);
+        this.alertService.addAlert({alertClass: 'danger',text: 'ERROR',comment: '',});
+        return false;
+      }
+    );
+  }
 
-addManufacturer(name, fullName, callback) {
-  this.serverService.addManufacturer(this.companyService.company.id, name, fullName)
-  .subscribe(
-    (response) => {
-      callback(response);
-    },
-    (error) => {
-      console.log("Error: " + error);
-      return false;
-    }
-  );
-}
+  addManufacturer(name, fullName, callback) {
+    this.serverService.addManufacturer(this.companyService.company.id, name, fullName)
+    .subscribe(
+      (response) => {
+        callback(response);
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
 
-updateImage(image, partId, callback) {
-  this.serverService.updateImage(this.companyService.company.id, image, partId)
-  .subscribe(
-    (response) => {
-      callback(response);
-    },
-    (error) => {
-      console.log("Error: " + error);
-      return false;
-    }
-  );
-}
+  updateImage(image, partId, callback) {
+    this.serverService.updateImage(this.companyService.company.id, image, partId)
+    .subscribe(
+      (response) => {
+        callback(response);
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
 
-getAllAnalogs(callback) {
-  this.serverService.tempFunc()
-  .subscribe(
-    (response) => {
-      console.log(response);
-      callback(response);
-    },
-    (error) => {
-      console.log("Error: " + error);
-      return false;
-    }
-  );
-}
+  getAllAnalogs(callback) {
+    this.serverService.tempFunc()
+    .subscribe(
+      (response) => {
+        console.log(response);
+        callback(response);
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
 
-createXLPrice(callback) {
-  this.serverService.createXLPrice()
-  .subscribe(
-    (response) => {
-      // console.log(response);
-      callback(response);
-      this.alertService.addAlert({alertClass: 'success',text: 'Прайс обновлен', comment: ''});
-    },
-    (error) => {
-      console.log("Error: " + error);
-      return false;
-    }
-  );
-}
+  createXLPrice(callback) {
+    this.serverService.createXLPrice()
+    .subscribe(
+      (response) => {
+        // console.log(response);
+        callback(response);
+        this.alertService.addAlert({alertClass: 'success',text: 'Прайс обновлен', comment: ''});
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
 
-getPriceListUpdateDate(callback) {
-  this.serverService.getPriceListUpdateDate()
-  .subscribe(
-    (response) => {
-      // console.log(response);
-      callback(response);
-      // this.alertService.addAlert({alertClass: 'success',text: 'Прайс обновляется', comment: ''});
-    },
-    (error) => {
-      console.log("Error: " + error);
-      return false;
-    }
-  );
-}
+  getPriceListUpdateDate(callback) {
+    this.serverService.getPriceListUpdateDate()
+    .subscribe(
+      (response) => {
+        // console.log(response);
+        callback(response);
+        // this.alertService.addAlert({alertClass: 'success',text: 'Прайс обновляется', comment: ''});
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
 
-getRecommendedUrlForItem(description, callback) {
-  this.serverService.getRecommendedUrlForItem(this.companyService.company.id, description)
-  .subscribe(
-    (response) => {
-      // console.log(response);
-      callback(response);
-      // this.alertService.addAlert({alertClass: 'success',text: 'Прайс обновляется', comment: ''});
-    },
-    (error) => {
-      console.log("Error: " + error);
-      return false;
-    }
-  );
-}
+  getRecommendedUrlForItem(description, callback) {
+    this.serverService.getRecommendedUrlForItem(this.companyService.company.id, description)
+    .subscribe(
+      (response) => {
+        // console.log(response);
+        callback(response);
+        // this.alertService.addAlert({alertClass: 'success',text: 'Прайс обновляется', comment: ''});
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
+
+  getInventoryForPermalinks(callback) {
+    this.serverService.getInventoryForPermalinks(this.companyService.company.id)
+    .subscribe(
+      (response) => {
+        // console.log(response);
+        this.inventoryPermalinks = response;
+        callback();
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
+
 
 
 }

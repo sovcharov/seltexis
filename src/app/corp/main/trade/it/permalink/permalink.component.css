@@ -1,0 +1,15 @@
+.inventory {
+  margin: 5px;
+}
+
+.inventory-menu{
+  margin: 10px;
+}
+.my-table{
+  overflow: auto;
+  max-height: 90vh;
+   /* overflow-y:scroll; */
+   width: 100%;
+   /* height:1000px; */
+   /* display:block; */
+}

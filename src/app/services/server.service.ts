@@ -7,8 +7,9 @@ import 'rxjs/Rx';
 @Injectable()
 export class ServerService {
   constructor(private http: Http) { }
-  // private host: string = 'http://localhost:3001'; //comment for production
-  private host: string = 'https://seltex.ru:3001'; //uncomment for production
+  // private host: string = 'https://seltex.ru:3001'; //uncomment for production
+  private host: string = 'http://localhost:3001'; //comment for production
+
 
 
   logInUser(email, password, company) {
@@ -21,7 +22,9 @@ export class ServerService {
   }
 
   checkCompany(company: any) {
-    // console.log(company);
+    console.log(company);
+    console.log(this.host);
+
     return this.http.get(`${this.host}/api/company/exists/${company}/`)
       .map((response: Response) => {
         const data = response.json();
@@ -59,6 +62,15 @@ export class ServerService {
 
   getLast100Inventory(company) {
     return this.http.get(`${this.host}/api/getLast100inventory/company/${company}`)
+      .map((response: Response) => {
+        const data = response.json();
+        // console.log(data);
+        return data;
+      });
+  }
+
+  getInventoryForPermalinks(company) {
+    return this.http.get(`${this.host}/api/getinventoryforpermalinks/company/${company}`)
       .map((response: Response) => {
         const data = response.json();
         // console.log(data);

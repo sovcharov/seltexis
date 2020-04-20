@@ -46,6 +46,7 @@ import { ManufacturersComponent } from './corp/main/trade/inventory/manufacturer
 import { AnalogsComponent } from './corp/main/trade/inventory/analogs/analogs.component';
 import { PriceListComponent } from './corp/main/trade/inventory/price-list/price-list.component';
 import { ItComponent } from './corp/main/trade/it/it.component';
+import { PermalinkComponent } from './corp/main/trade/it/permalink/permalink.component';
 
 
 
@@ -71,7 +72,8 @@ import { ItComponent } from './corp/main/trade/it/it.component';
     ManufacturersComponent,
     AnalogsComponent,
     PriceListComponent,
-    ItComponent
+    ItComponent,
+    PermalinkComponent
   ],
   imports: [
     AlertModule.forRoot(),
