@@ -2,6 +2,7 @@
   <div *ngIf = "!loading" class= "inventory-menu col-sm-12" style="margin-top:10px;">
     <button class="btn btn-default" type="submit" (click)="createSiteMap()">Обновить SiteMap</button>
     <p>Последнее обновление: {{dateUpdated}} +3 часа!</p>
+    <p><a href="https://s3.amazonaws.com/pricelist.seltex.ru/sitemap.xml">ЗАГРУЗИТЬ ПРАЙС</a></p>
   </div>
   <div>
     <div *ngIf = "loading" class = "flex-center-vertically text-center">

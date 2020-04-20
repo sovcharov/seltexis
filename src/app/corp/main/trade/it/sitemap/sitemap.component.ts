@@ -15,9 +15,12 @@ export class SitemapComponent implements OnInit {
   }
 
   public createSiteMap () {
+    console.log("Hi");
+
     this.loading = true;
     this.inventoryService.createSiteMap((data)=>{
-      this.dateUpdated = data.data.LastModified;
+      console.log(data);
+      // this.dateUpdated = data.data.LastModified;
       // this.askToUpdatePrice = false;
       this.loading = false;
     })
