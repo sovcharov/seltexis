@@ -7,8 +7,8 @@ import 'rxjs/Rx';
 @Injectable()
 export class ServerService {
   constructor(private http: Http) { }
-  // private host: string = 'https://seltex.ru:3001'; //uncomment for production
-  private host: string = 'http://localhost:3001'; //comment for production
+  private host: string = 'https://seltex.ru:3001'; //uncomment for production
+  // private host: string = 'http://localhost:3001'; //comment for production
 
 
 
