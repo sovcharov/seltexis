@@ -1,8 +1,14 @@
 <div class = "inventory">
   <div class= "inventory-menu col-sm-12">
     <div  class="col-sm-9" style="">
-      <button class="btn btn-default" type="submit" (click)="getInventory()">Показать все необработанные</button>
-      <button *ngIf = "inventoryService.inventoryPermalinks.length" class="btn btn-default" type="submit" (click)="generateLinks()">Обработать</button>
+      <button class="btn btn-default" type="submit" (click)="getInventory()">Показать необработанные</button>
+      <button *ngIf = "inventoryService.inventoryPermalinks.length" class="btn btn-default" type="submit" (click)="generatePermaLinks()">Показать PermaLinks</button>
+      <button *ngIf = "inventoryService.inventoryPermalinks.length" class="btn btn-default" type="submit" (click)="savePermaLinks()">Сохранить PermaLinks</button>
+      QTY: {{inventoryService.inventoryPermalinks.length}}
+      <input
+        type="checkbox"
+        [checked]="checkAll"
+        (change)="checkAll = !ckeckAll; checkAllItems();"/> check all
     </div>
   </div>
   <div>
@@ -17,17 +23,33 @@
           <tr>
             <td>
               <div class="col-md-10">
-                <a routerLink="" (click)="openInventoryId(inventory.id)"><i class="fa fa-edit" style="font-size: 24px;"></i></a>
+                <!-- <a routerLink="" (click)="openInventoryId(inventory.id)"><i class="fa fa-edit" style="font-size: 24px;"></i></a> -->
+                <input
+                  type="checkbox"
+                  [checked]="inventory.checked"
+                  (change)="inventory.checked = !inventory.checked;"/>
                  <label class="control-label">id:</label>
-                {{inventory.id}}. {{inventory.description}} - {{inventory.comment}}
+                {{inventory.id}}. {{inventory.description.text}} - {{inventory.comment.text}} - {{inventory.number}} - {{inventory.manufacturerFullName}}
                 <!-- <span style="color:#006622; font-weight:bold">{{inventory.price}} р. {{inventory.stock}} - {{inventory.msk}} - {{inventory.ordered}}</span> -->
               </div>
             </td>
           </tr>
           <tr>
             <td>
+
               <div class="col-md-10">
-                {{inventory.numbers}}
+                All numbers: {{inventory.numbersString}}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div *ngIf = "inventory.permalink.loading" class = "flex-center-vertically text-center">
+                <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+                <span class="sr-only">Loading...</span>
+              </div>
+              <div *ngIf = "!inventory.permalink.loading" class="col-md-10">
+                Suggested parmalink: <span style="color:red">{{inventory.permalink.text}}</span>
               </div>
             </td>
           </tr>
