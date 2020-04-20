@@ -262,4 +262,14 @@ export class ServerService {
       });
   }
 
+  createSiteMap() {
+        return this.http.get(
+          `${this.host}/api/createsitemap`)
+      .map((response: Response) => {
+        const data = response.json();
+        // console.log(data);
+        return data;
+      });
+  }
+
 }

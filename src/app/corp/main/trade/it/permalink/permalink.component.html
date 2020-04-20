@@ -4,8 +4,6 @@
       <button class="btn btn-default" type="submit" (click)="getInventory()">Показать необработанные</button>
       <button *ngIf = "inventoryService.inventoryPermalinks.length" class="btn btn-default" type="submit" (click)="generatePermaLinks()">Показать PermaLinks</button>
       <button *ngIf = "inventoryService.inventoryPermalinks.length" class="btn btn-default" type="submit" (click)="savePermaLinks()">Сохранить PermaLinks</button>
-
-
     </div>
   </div>
   <div>

@@ -401,6 +401,21 @@ export class InventoryService {
     );
   }
 
+  createSiteMap(callback) {
+    this.serverService.createSiteMap()
+    .subscribe(
+      (response) => {
+        // console.log(response);
+        callback(response);
+        this.alertService.addAlert({alertClass: 'success',text: 'SiteMap обновлен', comment: ''});
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
+
 
 
 }

@@ -1,3 +1,12 @@
-<p>
-  sitemap works!
-</p>
+<div class = "inventory">
+  <div *ngIf = "!loading" class= "inventory-menu col-sm-12" style="margin-top:10px;">
+    <button class="btn btn-default" type="submit" (click)="createSiteMap()">Обновить SiteMap</button>
+    <p>Последнее обновление: {{dateUpdated}} +3 часа!</p>
+  </div>
+  <div>
+    <div *ngIf = "loading" class = "flex-center-vertically text-center">
+      <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</div>
