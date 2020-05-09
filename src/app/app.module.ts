@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AlertModule } from 'ngx-bootstrap';
 import { HttpModule } from '@angular/http';
 import { Ng2ImgMaxModule } from 'ng2-img-max';
+import { RecaptchaModule } from 'ng-recaptcha';
 
 // import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { CookieModule } from 'ngx-cookie';
@@ -50,6 +51,7 @@ import { PriceListComponent } from './corp/main/trade/inventory/price-list/price
 import { ItComponent } from './corp/main/trade/it/it.component';
 import { PermalinkComponent } from './corp/main/trade/it/permalink/permalink.component';
 import { SitemapComponent } from './corp/main/trade/it/sitemap/sitemap.component';
+import { RecaptchaComponent } from './corp/auth/login/recaptcha/recaptcha.component';
 
 
 
@@ -77,7 +79,8 @@ import { SitemapComponent } from './corp/main/trade/it/sitemap/sitemap.component
     PriceListComponent,
     ItComponent,
     PermalinkComponent,
-    SitemapComponent
+    SitemapComponent,
+    RecaptchaComponent
   ],
   imports: [
     AlertModule.forRoot(),
@@ -86,7 +89,8 @@ import { SitemapComponent } from './corp/main/trade/it/sitemap/sitemap.component
     FormsModule,
     RoutesModule,
     HttpModule,
-    Ng2ImgMaxModule
+    Ng2ImgMaxModule,
+    RecaptchaModule
   ],
   providers: [
     CompanyService,
