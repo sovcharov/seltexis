@@ -49,8 +49,16 @@ export class LoginComponentCorp implements OnInit {
     if (this.checkUserInput(user)) {
       this.authService.logIn(user, (res) => {
         if (res.error) {
-          this.router.navigate(['/server/error']);
-          console.log(res.error);
+          let alert: Alert = {
+            alertClass: 'danger',
+            text: 'res.error',
+            comment: '',
+            life: 10,
+            waitForClick: false
+          }
+          this.alertService.addAlert(alert);
+          // this.router.navigate(['/server/error']);
+          // console.log(res.error);
         } else if (res.items) {
           this.userService.user = res.items;
           this.userService.user.authenticated = true;
