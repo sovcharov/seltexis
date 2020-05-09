@@ -51,7 +51,7 @@ export class LoginComponentCorp implements OnInit {
         if (res.error) {
           let alert: Alert = {
             alertClass: 'danger',
-            text: 'res.error',
+            text: res.error,
             comment: '',
             life: 10,
             waitForClick: false
