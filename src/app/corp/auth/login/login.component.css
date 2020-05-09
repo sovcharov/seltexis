@@ -1,4 +1,9 @@
 .my-login-formgroup {
     margin: 0 auto;
-    width:380px;
+    width:304px; /*fit to recaptcha*/
+}
+
+.my-recaptcha {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

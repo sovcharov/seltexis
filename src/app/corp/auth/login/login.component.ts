@@ -20,6 +20,8 @@ import { UserService } from '../../../services/user.service';
 
 export class LoginComponentCorp implements OnInit {
 
+  captchaResponse: string = "";
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -41,7 +43,8 @@ export class LoginComponentCorp implements OnInit {
   logIn(form: NgForm) {
     let user = {
       email: form.value.email,
-      password: form.value.password
+      password: form.value.password,
+      captchaResponse: this.captchaResponse || "no"
     };
     if (this.checkUserInput(user)) {
       this.authService.logIn(user, (res) => {
@@ -56,8 +59,8 @@ export class LoginComponentCorp implements OnInit {
         } else {
           let alert: Alert = {
             alertClass: 'danger',
-            text: 'wrong user',
-            comment: 'check credential and retry',
+            text: 'wrong input',
+            comment: 'check credentials and retry',
             life: 10,
             waitForClick: false
           }
@@ -75,6 +78,11 @@ export class LoginComponentCorp implements OnInit {
   checkUserAtServer(user) {
     this.router.navigate(['/main']);
     return true;
+  }
+
+  resolved(captchaResponse: string) {
+    this.captchaResponse = captchaResponse;
+    // console.log(`Resolved captcha with response: ${captchaResponse}`);
   }
 
 }

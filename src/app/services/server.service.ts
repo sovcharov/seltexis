@@ -11,8 +11,8 @@ export class ServerService {
     this.host = configService.config.host;
   }
 
-  logInUser(email, password, company) {
-    return this.http.get(`${this.host}/api/logInUser/${email}/${password}/${company}`)
+  logInUser(email, password, captchaResponse, company) {
+    return this.http.get(`${this.host}/api/logInUser/${email}/${password}/${captchaResponse}/${company}`)
       .map((response: Response) => {
         const data = response.json();
         // console.log(data);

@@ -68,7 +68,7 @@ export class AuthService {
   }
 
   logIn(user, callback) {
-    this.serverService.logInUser(user.email, user.password, this.companyService.company.id)
+    this.serverService.logInUser(user.email, user.password, user.captchaResponse ,this.companyService.company.id)
       .subscribe(
       (response) => {
         callback(response);

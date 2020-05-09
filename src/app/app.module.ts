@@ -51,7 +51,6 @@ import { PriceListComponent } from './corp/main/trade/inventory/price-list/price
 import { ItComponent } from './corp/main/trade/it/it.component';
 import { PermalinkComponent } from './corp/main/trade/it/permalink/permalink.component';
 import { SitemapComponent } from './corp/main/trade/it/sitemap/sitemap.component';
-import { RecaptchaComponent } from './corp/auth/login/recaptcha/recaptcha.component';
 
 
 
@@ -79,8 +78,7 @@ import { RecaptchaComponent } from './corp/auth/login/recaptcha/recaptcha.compon
     PriceListComponent,
     ItComponent,
     PermalinkComponent,
-    SitemapComponent,
-    RecaptchaComponent
+    SitemapComponent
   ],
   imports: [
     AlertModule.forRoot(),
