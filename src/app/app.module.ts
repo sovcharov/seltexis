@@ -24,6 +24,7 @@ import { SecurityService } from './services/security.service';
 import { Tabs } from './services/tabs.service';
 import { InventoryService } from './services/inventory.service';
 import { ConfigService } from './services/config.service';
+import { LoadAnimationService } from './services/load-animation.service';
 
 
 
@@ -51,6 +52,7 @@ import { PriceListComponent } from './corp/main/trade/inventory/price-list/price
 import { ItComponent } from './corp/main/trade/it/it.component';
 import { PermalinkComponent } from './corp/main/trade/it/permalink/permalink.component';
 import { SitemapComponent } from './corp/main/trade/it/sitemap/sitemap.component';
+import { LoadAnimationComponent } from './corp/load-animation/load-animation.component';
 
 
 
@@ -78,7 +80,8 @@ import { SitemapComponent } from './corp/main/trade/it/sitemap/sitemap.component
     PriceListComponent,
     ItComponent,
     PermalinkComponent,
-    SitemapComponent
+    SitemapComponent,
+    LoadAnimationComponent
   ],
   imports: [
     AlertModule.forRoot(),
@@ -103,7 +106,8 @@ import { SitemapComponent } from './corp/main/trade/it/sitemap/sitemap.component
     SecurityService,
     Tabs,
     InventoryService,
-    ConfigService
+    ConfigService,
+    LoadAnimationService
   ],
   bootstrap: [AppComponent]
 })

@@ -8,6 +8,7 @@ import { AuthService } from '../../../services/auth.service';
 import { AlertService, Alert } from '../../../services/alert.service';
 import { Company, CompanyService } from '../../../services/company.service';
 import { UserService } from '../../../services/user.service';
+import { LoadAnimationService } from '../../../services/load-animation.service';
 
 
 
@@ -21,7 +22,7 @@ import { UserService } from '../../../services/user.service';
 export class LoginComponentCorp implements OnInit {
 
   public captchaResponse: string = "";
-  public loading: boolean = false;
+  // public loading: boolean = false;
 
   constructor(
     private router: Router,
@@ -29,7 +30,9 @@ export class LoginComponentCorp implements OnInit {
     private authService: AuthService,
     private alertService: AlertService,
     public companyService: CompanyService,
-    private userService: UserService
+    private userService: UserService,
+    private loadAnimationService: LoadAnimationService
+
   ) {
   }
 
@@ -48,7 +51,7 @@ export class LoginComponentCorp implements OnInit {
       captchaResponse: this.captchaResponse || "no"
     };
     if (this.checkUserInput(user)) {
-      this.loading = true;
+      this.loadAnimationService.loading = true;
       this.authService.logIn(user, (res) => {
         if (res.error) {
           let alert: Alert = {
@@ -59,13 +62,14 @@ export class LoginComponentCorp implements OnInit {
             waitForClick: false
           }
           this.alertService.addAlert(alert);
+          this.loadAnimationService.loading = false;
           // this.router.navigate(['/server/error']);
           // console.log(res.error);
         } else if (res.items) {
           this.userService.user = res.items;
           this.userService.user.authenticated = true;
           this.userService.saveUserCookie();
-          this.loading = false;
+          this.loadAnimationService.loading = false;
           this.router.navigate(['/' + this.route.snapshot.params.company]);
         } else {
           let alert: Alert = {
@@ -76,6 +80,7 @@ export class LoginComponentCorp implements OnInit {
             waitForClick: false
           }
           this.alertService.addAlert(alert);
+          this.loadAnimationService.loading = false;
         }
       });
 
