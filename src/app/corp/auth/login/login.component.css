@@ -1,9 +1,11 @@
 .my-login-formgroup {
     margin: 0 auto;
-    width:304px; /*fit to recaptcha*/
+    width:304px; /*took from recaptcha widget width*/
 }
 
 .my-recaptcha {
+    margin: 0 auto;
+    width: 304px; /*took from recaptcha widget width*/
     margin-top: 10px;
     margin-bottom: 10px;
 }

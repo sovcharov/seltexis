@@ -22,7 +22,7 @@ export class ServerService {
 
   checkCompany(company: any) {
     // console.log(company);
-    console.log(this.host);
+    // console.log(this.host);
     return this.http.get(`${this.host}/api/company/exists/${company}/`)
       .map((response: Response) => {
         const data = response.json();

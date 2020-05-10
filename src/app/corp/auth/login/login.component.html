@@ -1,5 +1,8 @@
 <h1 class="text-center">{{companyService.company.fullName}}</h1>
-<form (ngSubmit)="logIn(f)" #f="ngForm" class="form-group form-group-lg my-login-formgroup">
+<div class="my-recaptcha">
+  <re-captcha (resolved)="resolved($event)" siteKey="6LecUQUTAAAAAN49g1x5t4Oz7r65ZTNbMUMs28AN"></re-captcha>
+</div>
+<form *ngIf="captchaResponse" (ngSubmit)="logIn(f)" #f="ngForm" class="form-group form-group-lg my-login-formgroup">
     <div class="form-group">
         <!-- <label class="sr-only" for="exampleInputEmail3">Email address</label> -->
         <input type="email" class="form-control" id="email" placeholder="Enter email" name = "email" ngModel required>
@@ -7,9 +10,6 @@
     <div class="form-group">
         <!-- <label class="sr-only" for="exampleInputPassword3">Password</label> -->
         <input type="password" class="form-control" id="password" placeholder="Password" name = "password" ngModel required>
-    </div>
-    <div class="my-recaptcha">
-      <re-captcha (resolved)="resolved($event)" siteKey="6LecUQUTAAAAAN49g1x5t4Oz7r65ZTNbMUMs28AN"></re-captcha>
     </div>
     <button type="submit" class="btn btn-primary active btn-lg btn-block">Sign in</button>
 </form>
