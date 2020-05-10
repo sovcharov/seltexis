@@ -20,7 +20,8 @@ import { UserService } from '../../../services/user.service';
 
 export class LoginComponentCorp implements OnInit {
 
-  captchaResponse: string = "";
+  public captchaResponse: string = "";
+  public loading: boolean = false;
 
   constructor(
     private router: Router,
@@ -47,6 +48,7 @@ export class LoginComponentCorp implements OnInit {
       captchaResponse: this.captchaResponse || "no"
     };
     if (this.checkUserInput(user)) {
+      this.loading = true;
       this.authService.logIn(user, (res) => {
         if (res.error) {
           let alert: Alert = {
@@ -63,6 +65,7 @@ export class LoginComponentCorp implements OnInit {
           this.userService.user = res.items;
           this.userService.user.authenticated = true;
           this.userService.saveUserCookie();
+          this.loading = false;
           this.router.navigate(['/' + this.route.snapshot.params.company]);
         } else {
           let alert: Alert = {

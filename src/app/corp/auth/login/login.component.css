@@ -1,3 +1,5 @@
+
+
 .my-login-formgroup {
     margin: 0 auto;
     width:304px; /*took from recaptcha widget width*/
@@ -8,4 +10,24 @@
     width: 304px; /*took from recaptcha widget width*/
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.my-loader {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  background: rgba(0, 0, 0, 0.6);
+  vertical-align: middle;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+}
+
+.my-cog {
+  width: 100%;
 }
