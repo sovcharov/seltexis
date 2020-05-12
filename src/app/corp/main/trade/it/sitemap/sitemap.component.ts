@@ -12,6 +12,16 @@ export class SitemapComponent implements OnInit {
   constructor( public inventoryService: InventoryService ) { }
 
   ngOnInit() {
+    this.getSiteMapUpdateDate();
+  }
+
+  public getSiteMapUpdateDate() {
+    this.loading = true;
+    this.inventoryService.getSiteMapUpdateDate((data)=>{
+      console.log(data);
+      this.dateUpdated = data.LastModified;
+      this.loading = false;
+    });
   }
 
   public createSiteMap () {
@@ -20,10 +30,12 @@ export class SitemapComponent implements OnInit {
     this.loading = true;
     this.inventoryService.createSiteMap((data)=>{
       console.log(data);
-      // this.dateUpdated = data.data.LastModified;
+      this.dateUpdated = data.data.LastModified;
       // this.askToUpdatePrice = false;
       this.loading = false;
     })
   }
+
+
 
 }

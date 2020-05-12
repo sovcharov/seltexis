@@ -416,6 +416,21 @@ export class InventoryService {
     );
   }
 
+  getSiteMapUpdateDate(callback) {
+    this.serverService.getSiteMapUpdateDate()
+    .subscribe(
+      (response) => {
+        // console.log(response);
+        callback(response);
+        // this.alertService.addAlert({alertClass: 'success',text: 'Прайс обновляется', comment: ''});
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
+
 
 
 }

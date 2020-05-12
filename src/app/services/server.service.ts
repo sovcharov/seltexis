@@ -272,4 +272,14 @@ export class ServerService {
       });
   }
 
+  getSiteMapUpdateDate() {
+        return this.http.get(
+          `${this.host}/api/getsitemapupdatedate`)
+      .map((response: Response) => {
+        const data = response.json();
+        // console.log(data);
+        return data;
+      });
+  }
+
 }
