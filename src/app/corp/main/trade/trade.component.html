@@ -1,20 +1,20 @@
 <div>
-<ul class="nav nav-tabs">
-
-  <!-- <li role="presentation" [ngClass] = "{'active': homeIsActive()}"><a routerLink=''>Home</a></li> -->
-  <li role="presentation" *ngFor = "let tab of tabs.main; let i = index" [ngClass] = "{'active': tabs.isActive(tab.id)}"><a [routerLink]="" (click)="tabs.openTab(tab.name, tab.id)">{{tab.name}} <a (click)="closeTab(i)" *ngIf = "tab.name != 'Home'" [routerLink]><i class="fa fa-times" aria-hidden="true"></i></a></a></li>
-</ul>
-<!-- <router-outlet></router-outlet> -->
-<app-home  *ngIf = "tabs.isActive('app-home')"></app-home>
-<app-service *ngIf = "tabs.isActive('app-service')"></app-service>
-<app-inventory [hidden] = "!tabs.isActive('app-inventory')"></app-inventory>
-<app-inventory-change *ngIf = "tabs.isActive('app-inventory-change')"></app-inventory-change>
-<app-manufacturers *ngIf = "tabs.isActive('app-manufacturers')"></app-manufacturers>
-<app-analogs *ngIf = "tabs.isActive('app-analogs')"></app-analogs>
-<app-price-list *ngIf = "tabs.isActive('app-price-list')"></app-price-list>
-<app-it *ngIf = "tabs.isActive('app-it')"></app-it>
-<app-permalink *ngIf = "tabs.isActive('app-permalink')"></app-permalink>
-<app-sitemap *ngIf = "tabs.isActive('app-sitemap')"></app-sitemap>
-<app-sales *ngIf = "tabs.isActive('app-sales')"></app-sales>
-
+  <ul class="nav nav-tabs">
+    <!-- <li role="presentation" [ngClass] = "{'active': homeIsActive()}"><a routerLink=''>Home</a></li> -->
+    <li role="presentation" *ngFor="let tab of tabs.main; let i = index" [ngClass]="{'active': tabs.isActive(tab.id)}">
+      <a [routerLink]="" (click)="tabs.openTab(tab.name, tab.id)">{{tab.name}} <a (click)="closeTab(i)"
+          *ngIf="tab.name != 'Home'" [routerLink]><i class="fa fa-times" aria-hidden="true"></i></a></a></li>
+  </ul>
+  <!-- <router-outlet></router-outlet> -->
+  <app-home *ngIf="tabs.isActive('app-home')"></app-home>
+  <app-service *ngIf="tabs.isActive('app-service')"></app-service>
+  <app-inventory [hidden]="!tabs.isActive('app-inventory')"></app-inventory>
+  <app-inventory-change *ngIf="tabs.isActive('app-inventory-change')"></app-inventory-change>
+  <app-manufacturers *ngIf="tabs.isActive('app-manufacturers')"></app-manufacturers>
+  <app-analogs *ngIf="tabs.isActive('app-analogs')"></app-analogs>
+  <app-price-list *ngIf="tabs.isActive('app-price-list')"></app-price-list>
+  <app-it *ngIf="tabs.isActive('app-it')"></app-it>
+  <app-permalink *ngIf="tabs.isActive('app-permalink')"></app-permalink>
+  <app-sitemap *ngIf="tabs.isActive('app-sitemap')"></app-sitemap>
+  <app-sales *ngIf="tabs.isActive('app-sales')"></app-sales>
 </div>
