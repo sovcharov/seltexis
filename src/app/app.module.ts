@@ -27,8 +27,6 @@ import { ConfigService } from './services/config.service';
 import { LoadAnimationService } from './services/load-animation.service';
 
 
-
-
 //components
 import { AppComponent } from './app.component';
 import { LoginComponentCorp } from './corp/auth/login/login.component';
@@ -53,8 +51,6 @@ import { ItComponent } from './corp/main/trade/it/it.component';
 import { PermalinkComponent } from './corp/main/trade/it/permalink/permalink.component';
 import { SitemapComponent } from './corp/main/trade/it/sitemap/sitemap.component';
 import { LoadAnimationComponent } from './corp/load-animation/load-animation.component';
-
-
 
 
 

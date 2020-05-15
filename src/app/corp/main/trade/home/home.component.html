@@ -1,8 +1,7 @@
-
 <div class="">
   <div class="col-md-12">
     <!-- <h4><small><i class="glyphicon glyphicon-wrench"></i> Инструменты</small></h4> -->
-    <br/>
+    <br />
   </div>
   <!-- <div class="col-md-8">
 
@@ -14,13 +13,18 @@
         <h3 class="panel-title">Торговля</h3>
       </div>
       <div class="panel-body">
-        <p><a [routerLink] (click)="openTab('Продажи','app-sales')"><i class="glyphicon glyphicon-usd"></i>  Продажи</a></p>
+        <p>
+          <a [routerLink] (click)="openTab('Продажи','app-sales')"><i class="glyphicon glyphicon-usd"></i> Продажи</a>
+        </p>
+        <p>
+          <a [routerLink] (click)="openTab('Сервис', 'app-service')"><i class="glyphicon glyphicon-wrench"></i>
+            Сервис</a>
+        </p>
         <!-- <p><a routerLink='purchases' (click)="addTab('Закупки','purchases')"><i class="glyphicon glyphicon-shopping-cart"></i>  Закупки</a></p>
         <p><a routerLink='payments' (click)="addTab('Оплаты','payments')"><i class="fa fa-credit-card" aria-hidden="true"></i>  Оплаты</a></p> -->
-        <p><a [routerLink] (click)="openTab('Сервис', 'app-service')"><i class="glyphicon glyphicon-wrench"></i>  Сервис</a></p>
       </div>
     </div>
-    <div class="panel panel-primary" *ngIf = "userService.user.id === 1">
+    <div class="panel panel-primary" *ngIf="userService.user.id === 1">
       <div class="panel-heading">
         <h3 class="panel-title">Администрирование</h3>
       </div>
@@ -28,7 +32,7 @@
         <!-- <p><a routerLink='sales' (click)="addTab('Продажи','sales')"><i class="glyphicon glyphicon-usd"></i>  Продажи</a></p>
         <p><a routerLink='purchases' (click)="addTab('Закупки','purchases')"><i class="glyphicon glyphicon-shopping-cart"></i>  Закупки</a></p>
         <p><a routerLink='payments' (click)="addTab('Оплаты','payments')"><i class="fa fa-credit-card" aria-hidden="true"></i>  Оплаты</a></p> -->
-        <p><a [routerLink] (click)="openTab('IT', 'app-it')"><i class="glyphicon glyphicon-wrench"></i>  IT</a></p>
+        <p><a [routerLink] (click)="openTab('IT', 'app-it')"><i class="glyphicon glyphicon-wrench"></i> IT</a></p>
       </div>
     </div>
     <!-- <div class="panel panel-primary">
