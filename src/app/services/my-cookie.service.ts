@@ -1,11 +1,8 @@
-import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie';
 import { Injectable } from '@angular/core';
 
 
 @Injectable()
-// @Component({
-// })
 export class MyCookieService {
 
   constructor(

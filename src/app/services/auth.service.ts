@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 import { ServerService } from './server.service';
@@ -37,7 +37,7 @@ export class AuthService {
 
       this.serverService.checkCompany(company)
         .subscribe(
-        (response) => {
+        (response: any) => {
           if (response.error) {
             resolve(response);
           } else if (response.items) {

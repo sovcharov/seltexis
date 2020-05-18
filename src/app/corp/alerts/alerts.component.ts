@@ -9,7 +9,7 @@ import { AlertService, Alert } from '../../services/alert.service'
 export class AlertsComponent implements OnInit {
   alerts: Alert[] = [];
 
-  constructor(private alertService: AlertService) {
+  constructor(public alertService: AlertService) {
   }
 
   ngOnInit() {

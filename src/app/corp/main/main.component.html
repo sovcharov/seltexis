@@ -1,30 +1,42 @@
-<nav class="navbar navbar-inverse my-navbar">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand">Seltex</a>
-        </div>
-        <div class="collapse navbar-collapse" id = "bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <!-- <li><a>{{commonDate}}</a></li> -->
-                <!-- <li ng-if="access.toToolsPage()"><a ui-sref="main.tools">Инструменты</a></li>
-                <li><a href="/mainOld/" target="_blank">Старая версия</a></li> -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Меню <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a routerLink="passwordChange">Сменить пароль</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a routerLink="" (click)="exitApp()" >Выход</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" routerLink="home">
+      <!-- <img src="./assets/images/pizza.png" width="30" height="30" class="d-inline-block align-top" alt=""> -->
+      Seltex
+    </a>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Menu
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" routerLink="passwordChange">Сменить пароль</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" routerLink="" (click)="exitApp()">Выход</a>
+            </div>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" routerLink="home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="menu">Menu</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="orders">Orders</a>
+        </li> -->
+        <!-- <li class="nav-item"><a class="nav-link" routerLink="passwordChange">Сменить пароль</a></li>
+        <li  class="nav-item" role="separator" class="divider"></li>
+        <li  class="nav-item"><a class="nav-link"  routerLink="" (click)="exitApp()" >Выход</a></li> -->
+      </ul>
+    </div>
+    <span class="navbar-text" style = "font-size:12px">
+        <fa-icon  style="font-size:16px"  [icon]="faUserCircle"></fa-icon> {{getUserFullName()}}
+    </span>
+    <a class="nav-link" routerLink="cart">
+      <fa-icon  style="font-size:22px"  [icon]="faShoppingCart"></fa-icon><span *ngIf = "getCartLength()" class="my-cart-label">{{getCartLength()}}</span>
+    </a>
+  </nav>
 <router-outlet></router-outlet>

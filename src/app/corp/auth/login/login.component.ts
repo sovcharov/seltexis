@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+// import { NgForm, EmailValidator,  } from '@angular/forms';
 import {
   ActivatedRoute,
   Router
@@ -9,6 +9,7 @@ import { AlertService, Alert } from '../../../services/alert.service';
 import { Company, CompanyService } from '../../../services/company.service';
 import { UserService } from '../../../services/user.service';
 import { LoadAnimationService } from '../../../services/load-animation.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
 
@@ -22,7 +23,7 @@ import { LoadAnimationService } from '../../../services/load-animation.service';
 export class LoginComponentCorp implements OnInit {
 
   public captchaResponse: string = "";
-  // public loading: boolean = false;
+  public logInForm: FormGroup;
 
   constructor(
     private router: Router,
@@ -32,8 +33,15 @@ export class LoginComponentCorp implements OnInit {
     public companyService: CompanyService,
     private userService: UserService,
     private loadAnimationService: LoadAnimationService
-
   ) {
+    this.logInForm = new FormGroup({
+      "email": new FormControl(null, [
+        Validators.email,
+        Validators.required,
+        Validators.pattern('^.*[.][A-Za-z]{2,4}$') //email should be with second level domain and not allowed intranet emails without subdomain
+      ]),
+      'password': new FormControl(null, Validators.required)
+    });
   }
 
 
@@ -44,13 +52,14 @@ export class LoginComponentCorp implements OnInit {
   }
 
 
-  logIn(form: NgForm) {
-    let user = {
-      email: form.value.email,
-      password: form.value.password,
-      captchaResponse: this.captchaResponse || "no"
-    };
-    if (this.checkUserInput(user)) {
+  logIn() {
+
+    if (this.checkUserInput()) {
+      let user = {
+        email: this.logInForm.value.email,
+        password: this.logInForm.value.password,
+        captchaResponse: this.captchaResponse || "no"
+      };
       this.loadAnimationService.loading = true;
       this.authService.logIn(user, (res) => {
         if (res.error) {
@@ -87,8 +96,12 @@ export class LoginComponentCorp implements OnInit {
     };
   }
 
-  checkUserInput(user) {
-    return true;
+  private checkUserInput(): boolean {
+    if (this.emailValid() && this.passwordValid()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   checkUserAtServer(user) {
@@ -96,9 +109,35 @@ export class LoginComponentCorp implements OnInit {
     return true;
   }
 
-  resolved(captchaResponse: string) {
+  public resolved(captchaResponse: string): void {
     this.captchaResponse = captchaResponse;
-    // console.log(`Resolved captcha with response: ${captchaResponse}`);
   }
+
+  public emailValid (): boolean {
+    if(this.logInForm.controls.email.errors) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  public passwordValid (): boolean {
+    if(this.logInForm.controls.password.errors) {
+      return false;
+    } else {
+      return true;
+    }
+    // these lines to check for minimum password at the registration:
+    // let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^(){}\-+=_,.<>?:;|\[\]\\`~"'])[A-Za-z\d@$!%*?&#^(){}\-+=_,.<>?:;|\[\]\\`~"']{6,15}$/;
+    // return regex.test(this.logInForm.value.password);
+  }
+
+  // public onSubmit() {
+  //   console.log(this.logInForm.value);
+  //   console.log(this.logInForm.controls.email.errors);
+    // console.log(this.logInForm.controls.password.errors);
+    // let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,15}$/;
+    // console.log(regex.test(this.logInForm.value.password));
+  // }
 
 }

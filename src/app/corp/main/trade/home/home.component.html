@@ -1,41 +1,35 @@
-<div class="">
-  <div class="col-md-12">
-    <!-- <h4><small><i class="glyphicon glyphicon-wrench"></i> Инструменты</small></h4> -->
-    <br />
-  </div>
-  <!-- <div class="col-md-8">
-
-  </div> -->
-
-  <div class="col-md-4">
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Торговля</h3>
-      </div>
-      <div class="panel-body">
-        <p>
-          <a [routerLink] (click)="openTab('Продажи','app-sales')"><i class="glyphicon glyphicon-usd"></i> Продажи</a>
-        </p>
-        <p>
-          <a [routerLink] (click)="openTab('Сервис', 'app-service')"><i class="glyphicon glyphicon-wrench"></i>
-            Сервис</a>
-        </p>
-        <!-- <p><a routerLink='purchases' (click)="addTab('Закупки','purchases')"><i class="glyphicon glyphicon-shopping-cart"></i>  Закупки</a></p>
+<div class="" style = "padding: 10px;">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+        <h5 class="card-header">
+          Торговля
+        </h5>
+        <div class="card-body border-secondary">
+          <p class="card-text">
+            <a class="card-link text-info" [routerLink] (click)="openTab('Продажи','app-sales')">Продажи</a>
+          </p>
+          <p class="card-text">
+            <a class="card-link text-info" [routerLink] (click)="openTab('Сервис', 'app-service')">Сервис</a>
+          </p>
+          <!-- <p><a routerLink='purchases' (click)="addTab('Закупки','purchases')"><i class="glyphicon glyphicon-shopping-cart"></i>  Закупки</a></p>
         <p><a routerLink='payments' (click)="addTab('Оплаты','payments')"><i class="fa fa-credit-card" aria-hidden="true"></i>  Оплаты</a></p> -->
+        </div>
       </div>
     </div>
-    <div class="panel panel-primary" *ngIf="userService.user.id === 1">
-      <div class="panel-heading">
-        <h3 class="panel-title">Администрирование</h3>
-      </div>
-      <div class="panel-body">
-        <!-- <p><a routerLink='sales' (click)="addTab('Продажи','sales')"><i class="glyphicon glyphicon-usd"></i>  Продажи</a></p>
+    <div class="col-sm-4">
+      <div class="card" *ngIf="userService.user.id === 1">
+        <h5 class="card-header">Администрирование</h5>
+        <div class="card-body">
+          <!-- <p><a routerLink='sales' (click)="addTab('Продажи','sales')"><i class="glyphicon glyphicon-usd"></i>  Продажи</a></p>
         <p><a routerLink='purchases' (click)="addTab('Закупки','purchases')"><i class="glyphicon glyphicon-shopping-cart"></i>  Закупки</a></p>
         <p><a routerLink='payments' (click)="addTab('Оплаты','payments')"><i class="fa fa-credit-card" aria-hidden="true"></i>  Оплаты</a></p> -->
-        <p><a [routerLink] (click)="openTab('IT', 'app-it')"><i class="glyphicon glyphicon-wrench"></i> IT</a></p>
+          <p class="card-text">
+            <a class="card-link text-info" [routerLink] (click)="openTab('IT', 'app-it')">IT</a>
+          </p>
+        </div>
       </div>
-    </div>
-    <!-- <div class="panel panel-primary">
+      <!-- <div class="panel panel-primary">
       <div class="panel-heading">
         <h3 class="panel-title">Аналитика</h3>
       </div>
@@ -51,5 +45,6 @@
         <p ng-if="access.toUsersManagementPage()"><a ui-sref="main.usersManagement"><i class="glyphicon glyphicon-user"></i>  Управление пользователями</a></p>
       </div>
     </div> -->
+    </div>
   </div>
 </div>

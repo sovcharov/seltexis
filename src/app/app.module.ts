@@ -1,14 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
-import { AlertModule } from 'ngx-bootstrap';
-import { HttpModule } from '@angular/http';
-import { Ng2ImgMaxModule } from 'ng2-img-max';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+// import { Routes, RouterModule } from '@angular/router';
+// import { AlertModule } from 'ngx-bootstrap';
+// import { HttpModule } from '@angular/http';
+// import { Ng2ImgMaxModule } from 'ng2-img-max';
 import { RecaptchaModule } from 'ng-recaptcha';
 
 // import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { CookieModule } from 'ngx-cookie';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 //modules and services
 import { CompanyService } from './services/company.service';
@@ -80,13 +82,16 @@ import { LoadAnimationComponent } from './corp/load-animation/load-animation.com
     LoadAnimationComponent
   ],
   imports: [
-    AlertModule.forRoot(),
+    // AlertModule.forRoot(),
     CookieModule.forRoot(),
     BrowserModule,
     FormsModule,
     RoutesModule,
-    HttpModule,
-    Ng2ImgMaxModule,
+    HttpClientModule,
+    FontAwesomeModule,
+    ReactiveFormsModule,
+    // HttpModule,
+    // Ng2ImgMaxModule,
     RecaptchaModule
   ],
   providers: [

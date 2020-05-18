@@ -57,7 +57,7 @@ export class UserService {
   checkUserLoggedIn() {
     this.serverService.checkUserLoggedIn(this.user, this.companyService.company)
       .subscribe(
-      (response) => {
+      (response: any) => {
         if (response.error || response.items.FALSE === 0) {
           this.user.authenticated = false;
           this.router.navigate([`/${this.companyService.company.name}/login`]);

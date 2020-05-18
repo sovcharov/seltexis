@@ -1,40 +1,24 @@
-<div class="">
-  <div class="col-md-12">
-    <!-- <h4><small><i class="glyphicon glyphicon-wrench"></i> Инструменты</small></h4> -->
-    <br/>
-  </div>
-
-
-  <div class="col-md-4">
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Работа с базой данных</h3>
-      </div>
-      <div class="panel-body">
-        <p><a [routerLink] (click)="addTab('Номенклатура','app-inventory')"><i class="fa fa-list" aria-hidden="true"></i>  Номенклатура</a></p>
-        <!-- <p><a [routerLink] (click)="addTab('Аналоги','app-analogs')"><i class="fa fa-clone" aria-hidden="true"></i>  Аналоги</a></p> -->
-        <p><a [routerLink] (click)="addTab('Производители','app-manufacturers')"><i class="fa fa-star" aria-hidden="true"></i>  Производители</a></p>
-        <p><a [routerLink] (click)="addTab('Прайс','app-price-list')"><i class="fa fa-circle" aria-hidden="true"></i>  Прайс</a></p>
+<div class="" style="padding: 10px;">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <h5 class="card-header">
+          Работа с базой данных
+        </h5>
+        <div class="card-body border-secondary">
+          <p class="card-text">
+            <a class="card-link text-info" [routerLink]
+              (click)="addTab('Номенклатура','app-inventory')">Номенклатура</a>
+          </p>
+          <p class="card-text">
+            <a class="card-link text-info" [routerLink]
+              (click)="addTab('Производители','app-manufacturers')">Производители</a>
+          </p>
+          <p class="card-text">
+            <a class="card-link text-info" [routerLink] (click)="addTab('Прайс','app-price-list')">Прайс лист</a>
+          </p>
+        </div>
       </div>
     </div>
-    <!-- <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Аналитика</h3>
-      </div>
-      <div class="panel-body">
-        <p ng-if="access.toOrdersPage()"><a ui-sref="main.orders({bakeryID: bakeries[0].id})"><i class="glyphicon glyphicons glyphicon-wrench"></i>  Заказы</a></p>
-      </div>
-    </div> -->
-    <!-- <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Администратору</h3>
-      </div>
-      <div class="panel-body">
-        <p ng-if="access.toUsersManagementPage()"><a ui-sref="main.usersManagement"><i class="glyphicon glyphicon-user"></i>  Управление пользователями</a></p>
-      </div>
-    </div> -->
-  </div>
-  <div class="col-md-8">
-
   </div>
 </div>

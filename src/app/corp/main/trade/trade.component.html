@@ -1,9 +1,14 @@
 <div>
+  <br/>
   <ul class="nav nav-tabs">
     <!-- <li role="presentation" [ngClass] = "{'active': homeIsActive()}"><a routerLink=''>Home</a></li> -->
-    <li role="presentation" *ngFor="let tab of tabs.main; let i = index" [ngClass]="{'active': tabs.isActive(tab.id)}">
-      <a [routerLink]="" (click)="tabs.openTab(tab.name, tab.id)">{{tab.name}} <a (click)="closeTab(i)"
-          *ngIf="tab.name != 'Home'" [routerLink]><i class="fa fa-times" aria-hidden="true"></i></a></a></li>
+    <li class = "nav-item" *ngFor="let tab of tabs.main; let i = index">
+      <a [ngClass]="{'active': tabs.isActive(tab.id), 'text-info': !tabs.isActive(tab.id)}" [routerLink]="" class="nav-link" (click)="tabs.openTab(tab.name, tab.id)">{{tab.name}} 
+        <a (click)="closeTab(i)" *ngIf="tab.name != 'Home'" [routerLink] = "" class = "text-secondary my-fa-times">
+            <fa-icon [icon]="faTimes"> </fa-icon>
+        </a>
+      </a>
+    </li>
   </ul>
   <!-- <router-outlet></router-outlet> -->
   <app-home *ngIf="tabs.isActive('app-home')"></app-home>

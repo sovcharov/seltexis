@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Ng2ImgMaxService } from 'ng2-img-max';
+// import { Ng2ImgMaxService } from 'ng2-img-max';
 import { CompanyService } from '../../../../../services/company.service';
 import { InventoryService } from '../../../../../services/inventory.service';
 
@@ -32,8 +32,8 @@ export class InventoryChangeComponent implements OnInit {
     public inventoryService: InventoryService,
     private companyService: CompanyService,
     private route: ActivatedRoute,
-    private domSanitizer: DomSanitizer,
-    private ng2ImgMax: Ng2ImgMaxService
+    public domSanitizer: DomSanitizer
+    // private ng2ImgMax: Ng2ImgMaxService
   ) { }
 
   ngOnInit() {
@@ -310,17 +310,17 @@ export class InventoryChangeComponent implements OnInit {
       // this.updateImage(image)
 
 
-      this.ng2ImgMax.compressImage(image, 0.25).subscribe(
-        result => {
-          this.uploadedImage = new File([result], result.name);
-          // console.log(this.uploadedImage);
+      // this.ng2ImgMax.compressImage(image, 0.25).subscribe(
+      //   result => {
+      //     this.uploadedImage = new File([result], result.name);
+      //     // console.log(this.uploadedImage);
 
-          this.getImagePreview(this.uploadedImage);
-        },
-        error => {
-          console.log('😢 Oh no!', error);
-        }
-      );
+      //     this.getImagePreview(this.uploadedImage);
+      //   },
+      //   error => {
+      //     console.log('😢 Oh no!', error);
+      //   }
+      // );
     }
 
     getImagePreview(file: File) {

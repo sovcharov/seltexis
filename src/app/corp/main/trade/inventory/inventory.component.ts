@@ -4,6 +4,10 @@ import {
   ActivatedRoute
 } from '@angular/router';
 import { InventoryService } from '../../../../services/inventory.service';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { LoadAnimationService } from '../../../../services/load-animation.service';
+
+
 
 import { Tabs } from '../../../../services/tabs.service'
 
@@ -13,6 +17,7 @@ import { Tabs } from '../../../../services/tabs.service'
   styleUrls: ['./inventory.component.css']
 })
 export class InventoryComponent implements OnInit {
+  faEdit = faEdit;
 
   loading: boolean;
   inventoryToSearch: string = "";
@@ -20,8 +25,8 @@ export class InventoryComponent implements OnInit {
     public inventoryService: InventoryService,
     private router: Router,
     private activaterRoute: ActivatedRoute,
-    private tabs: Tabs
-
+    private tabs: Tabs,
+    private loadAnimationService: LoadAnimationService
   ) {
   }
 
@@ -29,10 +34,10 @@ export class InventoryComponent implements OnInit {
   }
 
   public getAllInventory() {
-    this.loading = true;
+    this.loadAnimationService.loading = true;
     this.inventoryService.inventory = [];
     this.inventoryService.getAllInventory(() => {
-      this.loading = false;
+      this.loadAnimationService.loading = false;
     });
   }
 
@@ -43,17 +48,17 @@ export class InventoryComponent implements OnInit {
   }
 
   public searchInventory() {
-    this.loading = true;
+    this.loadAnimationService.loading = true;
     this.inventoryService.searchInventory(this.inventoryToSearch, () => {
-      this.loading = false;
+      this.loadAnimationService.loading = false;
     });
   }
 
   public getLast100Inventory() {
-    this.loading = true;
+    this.loadAnimationService.loading = true;
     this.inventoryService.inventory = [];
     this.inventoryService.getLast100Inventory(() => {
-      this.loading = false;
+      this.loadAnimationService.loading = false;
     });
   }
 

@@ -52,7 +52,7 @@ export class PermalinkComponent implements OnInit {
     }
   }
 
-  public savePermaLinks(i) {
+  public savePermaLinks() {
     for(let i = 0; i < this.inventoryService.inventoryPermalinks.length; i += 1) {
       if (this.inventoryService.inventoryPermalinks[i].checked) {
         this.inventoryService.inventoryPermalinks[i].permalink.loading = true;

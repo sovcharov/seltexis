@@ -1,40 +1,23 @@
-<div class="">
-  <div class="col-md-12">
-    <!-- <h4><small><i class="glyphicon glyphicon-wrench"></i> Инструменты</small></h4> -->
-    <br/>
-  </div>
-
-
-  <div class="col-md-4">
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">SEO</h3>
-      </div>
-      <div class="panel-body">
-        <p><a [routerLink] (click)="addTab('Номенклатура','app-inventory')"><i class="fa fa-list" aria-hidden="true"></i>  Номенклатура</a></p>
-        <p><a [routerLink] (click)="addTab('Permalinks','app-permalink')"><i class="fa fa-list" aria-hidden="true"></i>  Permalinks</a></p>
-        <p><a [routerLink] (click)="addTab('SiteMap','app-sitemap')"><i class="fa fa-list" aria-hidden="true"></i>  SiteMap</a></p>
-
+<div class="" style="padding: 10px;">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <h5 class="card-header">
+          SEO
+        </h5>
+        <div class="card-body border-secondary">
+          <p class="card-text">
+            <a class="card-link text-info" [routerLink]
+              (click)="addTab('Номенклатура','app-inventory')">Номенклатура</a>
+          </p>
+          <p class="card-text">
+            <a class="card-link text-info" [routerLink] (click)="addTab('Permalinks','app-permalink')">Permalinks</a>
+          </p>
+          <p class="card-text">
+            <a class="card-link text-info" [routerLink] (click)="addTab('SiteMap','app-sitemap')">SiteMap</a>
+          </p>
+        </div>
       </div>
     </div>
-    <!-- <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Аналитика</h3>
-      </div>
-      <div class="panel-body">
-        <p ng-if="access.toOrdersPage()"><a ui-sref="main.orders({bakeryID: bakeries[0].id})"><i class="glyphicon glyphicons glyphicon-wrench"></i>  Заказы</a></p>
-      </div>
-    </div> -->
-    <!-- <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Администратору</h3>
-      </div>
-      <div class="panel-body">
-        <p ng-if="access.toUsersManagementPage()"><a ui-sref="main.usersManagement"><i class="glyphicon glyphicon-user"></i>  Управление пользователями</a></p>
-      </div>
-    </div> -->
-  </div>
-  <div class="col-md-8">
-
   </div>
 </div>

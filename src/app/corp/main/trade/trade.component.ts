@@ -4,6 +4,8 @@ import {
   ActivatedRoute
 } from '@angular/router';
 import { Tabs } from '../../../services/tabs.service'
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+
 
 
 
@@ -13,6 +15,7 @@ import { Tabs } from '../../../services/tabs.service'
   styleUrls: ['./trade.component.css']
 })
 export class TradeComponent implements OnInit {
+  faTimes = faTimes;
 
   constructor(private router: Router, private route: ActivatedRoute,
     public tabs: Tabs

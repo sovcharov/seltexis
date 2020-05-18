@@ -17,6 +17,10 @@
   margin: 5px;
 }
 
+.btn {
+  margin-right: 5px;
+}
+
 .inventory-menu{
   margin: 10px;
 }
@@ -31,5 +35,11 @@
 }
 
 .last-edited {
-  background-color: lightblue;
+  border-top: 2px solid gray;
+  border-bottom: 2px solid gray;
+  color: red; 
+}
+
+.my-search-button {
+  z-index: -1;
 }

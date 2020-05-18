@@ -1,4 +1,5 @@
 <div *ngIf = "getLoadingStatus()" class = "my-loader flex-center-vertically text-center">
-  <i class="my-cog fa fa-cog fa-spin fa-3x fa-fw"></i>
+  <!-- <i class="my-cog fa fa-cog fa-spin fa-3x fa-fw"></i> -->
+  <fa-icon class="my-cog" [icon]="faCog" [spin]="true"></fa-icon>
   <span class="sr-only">Loading...</span>
 </div>
