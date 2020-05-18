@@ -3,7 +3,7 @@
     <div class="col-sm-9">
       <button class="btn btn-outline-secondary" type="submit" (click)="getInventory()">Показать необработанные</button>
       <button *ngIf="inventoryService.inventoryPermalinks.length" class="btn btn-outline-secondary" type="submit"
-        (click)="generatePermaLinks()">Показать PermaLinks</button>
+        (click)="generatePermaLinks()">Сгенерировать PermaLinks</button>
       <button *ngIf="inventoryService.inventoryPermalinks.length" class="btn btn-outline-secondary" type="submit"
         (click)="savePermaLinks()">Сохранить PermaLinks</button>
     </div>
