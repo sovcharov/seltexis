@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InventoryService } from '../../../../../services/inventory.service';
+import { LoadAnimationService } from '../../../../../services/load-animation.service';
+
 
 @Component({
   selector: 'app-permalink',
@@ -13,29 +15,28 @@ export class PermalinkComponent implements OnInit {
   inventoryToSearch: string = "";
   checkAll: boolean = false;
   constructor(
-    public inventoryService: InventoryService
+    public inventoryService: InventoryService,
+    private loadAnimationService: LoadAnimationService
   ) { }
 
   ngOnInit() {
   }
 
   public getInventory() {
-    this.loading = true;
+    this.loadAnimationService.loading = true;
     this.inventoryService.inventoryPermalinks = [];
     this.inventoryService.getInventoryForPermalinks(() => {
       for(let i = 0; i < this.inventoryService.inventoryPermalinks.length; i += 1) {
         this.inventoryService.inventoryPermalinks[i].numbersString ="";
         this.inventoryService.inventoryPermalinks[i].checked = false;
         this.inventoryService.inventoryPermalinks[i].permalink = {text:"", loading: false};
-
-
         for (let j = 0; j < this.inventoryService.inventoryPermalinks[i].numbers.length; j += 1) {
             this.inventoryService.inventoryPermalinks[i].numbersString += `${this.inventoryService.inventoryPermalinks[i].numbers[j].number}-${this.inventoryService.inventoryPermalinks[i].numbers[j].manufacturerFullName} `;
 
         }
       }
       // console.log(this.inventoryService.inventoryPermalinks);
-      this.loading = false;
+      this.loadAnimationService.loading = false;
     });
   }
 
@@ -65,7 +66,6 @@ export class PermalinkComponent implements OnInit {
   }
 
   checkAllItems () {
-    console.log(this.checkAll);
     for(let i = 0; i < this.inventoryService.inventoryPermalinks.length; i += 1) {
       this.inventoryService.inventoryPermalinks[i].checked = this.checkAll;
     }
