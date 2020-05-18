@@ -42,7 +42,7 @@
             <tr>
               <td>
                 <div *ngIf="inventory.permalink.loading" class="flex-center-vertically text-center">
-                  <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+                  <fa-icon [icon]="['fas', 'cog']" [spin]="true"></fa-icon>
                   <span class="sr-only">Loading...</span>
                 </div>
                 <div *ngIf="!inventory.permalink.loading" class="col-md-10">
@@ -55,7 +55,7 @@
         </tbody>
       </table>
       <div *ngIf="loading" class="flex-center-vertically text-center">
-        <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+        <fa-icon [icon]="['fas', 'cog']" [spin]="true"></fa-icon>
         <span class="sr-only">Loading...</span>
       </div>
     </div>

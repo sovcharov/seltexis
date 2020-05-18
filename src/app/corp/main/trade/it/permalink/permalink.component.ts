@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InventoryService } from '../../../../../services/inventory.service';
 import { LoadAnimationService } from '../../../../../services/load-animation.service';
+import { IconService } from '../../../../../services/icon.service';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class PermalinkComponent implements OnInit {
   checkAll: boolean = false;
   constructor(
     public inventoryService: InventoryService,
-    private loadAnimationService: LoadAnimationService
+    private loadAnimationService: LoadAnimationService,
+    public iconService: IconService
   ) { }
 
   ngOnInit() {
@@ -35,7 +37,6 @@ export class PermalinkComponent implements OnInit {
 
         }
       }
-      // console.log(this.inventoryService.inventoryPermalinks);
       this.loadAnimationService.loading = false;
     });
   }
@@ -59,7 +60,6 @@ export class PermalinkComponent implements OnInit {
         this.inventoryService.inventoryPermalinks[i].permalink.loading = true;
         this.inventoryService.updateInventoryUrl(this.inventoryService.inventoryPermalinks[i].id, this.inventoryService.inventoryPermalinks[i].permalink.text, (res) => {
           this.inventoryService.inventoryPermalinks[i].permalink.loading = false;
-
         });
       }
     }
