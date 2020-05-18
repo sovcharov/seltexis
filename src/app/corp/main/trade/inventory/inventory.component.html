@@ -1,6 +1,6 @@
 <div class = "inventory">
   <div class= "inventory-menu col-sm-12">
-    <form class="col-sm-3" role="search" style="height:" onsubmit="this.action='/catalog/'+this.part.value;" method="get">
+    <form class="col-sm-3" role="search" onsubmit="this.action='/catalog/'+this.part.value;" method="get">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Поиск в каталоге" name="part" [(ngModel)]="inventoryToSearch">
         <span class="input-group-btn">
@@ -8,7 +8,7 @@
         </span>
       </div>
     </form>
-    <div  class="col-sm-9" style="">
+    <div  class="col-sm-9">
       <button class="btn btn-default" type="submit" (click)="getAllInventory()">Показать все</button>
       <button class="btn btn-default" type="submit" (click)="getLast100Inventory()">Показать последние</button>
     </div>
@@ -37,36 +37,6 @@
               <div class="col-md-1">
                 {{inventory.msk}} - {{inventory.stock}} - {{inventory.ordered}}
               </div>
-              <!-- <div class="col-md-6">
-                <label class="control-label">Производитель:</label>
-                {{inventory.manufacturerFullName}}
-              </div> -->
-              <!-- <div class = "col-md-12">
-                <div class="col-md-8">
-                  <label class="control-label">Прочие номера:</label>
-                  {{inventory.numbers}}
-                </div>
-              </div>
-              <div class = "col-md-12">
-                <div class="col-md-8">
-                  <label class="control-label">Аналоги:</label>
-                  {{inventory.numbers}}
-                </div>
-              </div> -->
-              <!-- <div class = "col-md-12">
-                <label class="col-sm-1 control-label">Цена:</label>
-                <div class="col-sm-2">
-                  {{inventory.price}}
-                </div>
-                <label class="col-sm-1 control-label">Склад:</label>
-                <div class="col-sm-2">
-                  {{inventory.stock}}
-                </div>
-                <label class="col-sm-1 control-label">Едет:</label>
-                <div class="col-sm-2">
-                  {{inventory.ordered}}
-                </div>
-              </div> -->
             </td>
           </tr>
         </ng-container>
