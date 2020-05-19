@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 // import { CompanyService } from '../../../../../services/company.service';
 import { InventoryService } from '../../../../../services/inventory.service';
 import { AlertService, Alert } from '../../../../../services/alert.service';
+import { IconService } from '../../../../../services/icon.service';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class ManufacturersComponent implements OnInit {
   constructor(
     public inventoryService: InventoryService,
     private alertService: AlertService,
+    public iconService: IconService
   ) { }
 
   ngOnInit() {

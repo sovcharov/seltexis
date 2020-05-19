@@ -1,59 +1,62 @@
 <div class = "inventory">
   <div class= "inventory-menu col-sm-12">
-    <button class="btn btn-default" type="submit" (click)="getManufacturers()">Обновить</button>
+    <button class="btn btn-outline-secondary" type="submit" (click)="getManufacturers()">Обновить</button>
   </div>
   <div>
     <div *ngIf = "!inventoryService.manufacturers.length" class = "flex-center-vertically text-center">
-      <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+      <fa-icon [icon]="['fas', 'cog']" [spin]="true" size="3x" style="color:gray;"></fa-icon>
       <span class="sr-only">Loading...</span>
     </div>
     <div *ngIf = "inventoryService.manufacturers.length">
-      <div style = "height:1px; background-color:gray;width:100%"></div>
       <div class="col-md-8">
         <label class="control-label">Производители:</label>
       </div>
       <div class = "col-md-12">
         <ng-container *ngFor = "let manufacturer of inventoryService.manufacturers; let i = index" >
-          <form class="form-inline" style="margin-bottom:4px;">
-            <div class = "form-group">
+          <form class="form-inline">
+            <div class = "form-group mx-1 mb-2">
               <input class = "col-md-3" *ngIf = "!manufacturer.editing" type="text" id="disabledTextInput" class="form-control" value="{{manufacturer.fullName}}" disabled>
               <input class = "col-md-3" *ngIf = "manufacturer.editing" type="text" id="" class="form-control" name="fullName" [(ngModel)]="manufacturer.fullName">
-            </div>
-            <div class = "form-group">
+            </div> 
+            <div class = "form-group mx-1 mb-2">
               <input class = "col-md-3" *ngIf = "!manufacturer.editing" type="text" id="disabledTextInput" class="form-control" value="{{manufacturer.name}}" disabled>
               <input class = "col-md-3" *ngIf = "manufacturer.editing" type="text" id="" class="form-control" name="name" [(ngModel)]="manufacturer.name">
             </div>
-            <div class = "form-group" *ngIf = "manufacturer.saving">
-              <i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
+            <div class = "form-group mx-1" *ngIf = "manufacturer.saving">
+              <fa-icon [icon]="['fas', 'cog']" [spin]="true" style="color:gray;"></fa-icon>
               <span class="sr-only">Loading...</span>
             </div>
-            <span class = "form-group" *ngIf = "!manufacturer.saving">
+            <div class = "form-group" *ngIf = "!manufacturer.saving">
               <span  *ngIf = "!manufacturer.deleting">
-                <button type="submit" class="btn btn-default" *ngIf = "!manufacturer.editing" (click) = "editManufacturerBegin(i)">Изменить</button>
-                <button type="submit" class="btn btn-default" *ngIf = "manufacturer.editing" (click) = "editManufacturerSave(i)">Сохранить</button>
-                <button type="submit" class="btn btn-default" *ngIf = "manufacturer.editing" (click) = "editManufacturerCancel(i)">Отменить</button>
+                <button type="submit" class="btn btn-outline-secondary mx-1 mb-2" *ngIf = "!manufacturer.editing" (click) = "editManufacturerBegin(i)">Изменить</button>
+                <button type="submit" class="btn btn-outline-secondary mx-1 mb-2" *ngIf = "manufacturer.editing" (click) = "editManufacturerSave(i)">Сохранить</button>
+                <button type="submit" class="btn btn-outline-danger mx-1 mb-2" *ngIf = "manufacturer.editing" (click) = "editManufacturerCancel(i)">Отменить</button>
               </span>
               <span  *ngIf = "!manufacturer.editing && !manufacturer.saving">
-                <button type="submit" class="btn btn-default" *ngIf = "!manufacturer.deleting" (click) = "deleteManufacturerBegin(i)">Удалить</button>
-                <button type="submit" class="btn btn-danger" *ngIf = "manufacturer.deleting" (click) = "deleteManufacturerSave(i)">Удалить</button>
-                <button type="submit" class="btn btn-success" *ngIf = "manufacturer.deleting" (click) = "deleteManufacturerCancel(i)">Отменить</button>
+                <button type="submit" class="btn btn-outline-secondary mx-1 mb-2" *ngIf = "!manufacturer.deleting" (click) = "deleteManufacturerBegin(i)">Удалить</button>
+                <button type="submit" class="btn btn-outline-danger mx-1 mb-2" *ngIf = "manufacturer.deleting" (click) = "deleteManufacturerSave(i)">Удалить</button>
+                <button type="submit" class="btn btn-outline-success mx-1 mb-2" *ngIf = "manufacturer.deleting" (click) = "deleteManufacturerCancel(i)">Отменить</button>
               </span>
-            </span>
+            </div>
           </form>
         </ng-container>
         <form class="form-inline" style="margin-bottom:4px;">
-          <button type="submit" class="btn btn-default" *ngIf = "!manufacturerToAdd.editing && !manufacturerToAdd.saving" (click) = "addManufacturerBegin()">Добавить</button>
-          <div class = "form-group">
-            <input class = "" *ngIf = "manufacturerToAdd.editing" type="text" id="" class="form-control" name="number" [(ngModel)]="manufacturerToAdd.fullName">
-            <input class = "" *ngIf = "manufacturerToAdd.editing" type="text" id="" class="form-control" name="number" [(ngModel)]="manufacturerToAdd.name">
+          <button type="submit" class="btn btn-outline-secondary mx-1 mb-2" *ngIf = "!manufacturerToAdd.editing && !manufacturerToAdd.saving" (click) = "addManufacturerBegin()">Добавить</button>
+          <div class="form-inline" *ngIf = "manufacturerToAdd.editing">
+            <div class = "form-group mx-1 mb-2">
+              <input type="text" id="" class="form-control" name="number" [(ngModel)]="manufacturerToAdd.fullName">
+            </div>
+            <div class = "form-group mx-1 mb-2">
+              <input type="text" id="" class="form-control" name="number" [(ngModel)]="manufacturerToAdd.name">
+            </div>
           </div>
           <span *ngIf = "manufacturerToAdd.saving">
-            <i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
+            <fa-icon [icon]="['fas', 'cog']" [spin]="true" style="color:gray;"></fa-icon>
             <span class="sr-only">Loading...</span>
           </span>
           <span *ngIf = "!manufacturerToAdd.saving">
-            <button type="submit" class="btn btn-default" *ngIf = "manufacturerToAdd.editing" (click) = "addManufacturerSave()">Сохранить</button>
-            <button type="submit" class="btn btn-default" *ngIf = "manufacturerToAdd.editing" (click) = "addManufacturerCancel()">Отменить</button>
+            <button type="submit" class="btn btn-outline-success mx-1 mb-2" *ngIf = "manufacturerToAdd.editing" (click) = "addManufacturerSave()">Сохранить</button>
+            <button type="submit" class="btn btn-outline-danger mx-1 mb-2" *ngIf = "manufacturerToAdd.editing" (click) = "addManufacturerCancel()">Отменить</button>
           </span>
         </form>
       </div>
