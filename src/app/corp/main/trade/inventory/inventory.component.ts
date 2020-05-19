@@ -5,10 +5,6 @@ import {
 } from '@angular/router';
 import { InventoryService } from '../../../../services/inventory.service';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { LoadAnimationService } from '../../../../services/load-animation.service';
-
-
-
 import { Tabs } from '../../../../services/tabs.service'
 
 @Component({
@@ -25,8 +21,7 @@ export class InventoryComponent implements OnInit {
     public inventoryService: InventoryService,
     private router: Router,
     private activaterRoute: ActivatedRoute,
-    private tabs: Tabs,
-    private loadAnimationService: LoadAnimationService
+    private tabs: Tabs
   ) {
   }
 
@@ -34,10 +29,10 @@ export class InventoryComponent implements OnInit {
   }
 
   public getAllInventory() {
-    this.loadAnimationService.loading = true;
+    this.loading = true;
     this.inventoryService.inventory = [];
     this.inventoryService.getAllInventory(() => {
-      this.loadAnimationService.loading = false;
+      this.loading = false;
     });
   }
 
@@ -48,17 +43,17 @@ export class InventoryComponent implements OnInit {
   }
 
   public searchInventory() {
-    this.loadAnimationService.loading = true;
+    this.loading = true;
     this.inventoryService.searchInventory(this.inventoryToSearch, () => {
-      this.loadAnimationService.loading = false;
+      this.loading = false;
     });
   }
 
   public getLast100Inventory() {
-    this.loadAnimationService.loading = true;
+    this.loading = true;
     this.inventoryService.inventory = [];
     this.inventoryService.getLast100Inventory(() => {
-      this.loadAnimationService.loading = false;
+      this.loading = false;
     });
   }
 

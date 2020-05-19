@@ -16,8 +16,8 @@
     </form>
   </div>
   <div class = "my-table">
-    <div *ngIf="loading" class="flex-center-vertically text-center">
-      <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+    <div *ngIf = "loading" class = "flex-center-vertically text-center">
+      <fa-icon [icon]="['fas', 'cog']" [spin]="true" size="3x" style="color:gray;"></fa-icon>
       <span class="sr-only">Loading...</span>
     </div>
     <div *ngIf="inventoryService.inventory.length">

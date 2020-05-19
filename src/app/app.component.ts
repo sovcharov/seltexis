@@ -4,6 +4,7 @@ import {
   Router,
   ActivatedRouteSnapshot
 } from '@angular/router';
+import { IconService } from './services/icon.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit {
   title = 'app';
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private iconService: IconService
   ) { }
 
   ngOnInit() {

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { InventoryService } from '../../../../../services/inventory.service';
-import { IconService } from '../../../../../services/icon.service';
 import { AlertService, Alert } from '../../../../../services/alert.service';
 
 
@@ -18,7 +17,6 @@ export class PermalinkComponent implements OnInit {
   checkAll: boolean = false;
   constructor(
     public inventoryService: InventoryService,
-    public iconService: IconService,
     private alertService: AlertService
   ) { }
 

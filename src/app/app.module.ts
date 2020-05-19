@@ -27,6 +27,7 @@ import { Tabs } from './services/tabs.service';
 import { InventoryService } from './services/inventory.service';
 import { ConfigService } from './services/config.service';
 import { LoadAnimationService } from './services/load-animation.service';
+// import { IconService } from './services/icon.service';
 
 
 //components

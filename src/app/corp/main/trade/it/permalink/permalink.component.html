@@ -10,6 +10,7 @@
   </div>
   <div *ngIf="loading" class="flex-center-vertically text-center">
     <fa-icon [icon]="['fas', 'cog']" [spin]="true" size="3x" style="color:gray;"></fa-icon>
+    <span class="sr-only">Loading...</span>
   </div>
   <div class="my-table" *ngIf="inventoryService.inventoryPermalinks.length">
     <table class="table table-sm">
