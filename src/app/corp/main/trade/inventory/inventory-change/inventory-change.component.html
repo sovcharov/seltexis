@@ -1,9 +1,9 @@
 <div class = "inventory">
   <div class= "inventory-menu">
-    <button class="btn btn-default" type="submit" (click)="getInventory()">Обновить</button>
+    <button class="btn btn-outline-secondary" type="submit" (click)="getInventory()">Обновить</button>
   </div>
   <div *ngIf = "loading || !inventoryService.inventoryToEdit.description  || !inventoryService.manufacturers.length" class = "flex-center-vertically text-center">
-    <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+    <fa-icon [icon]="['fas', 'cog']" [spin]="true" size="3x" style="color:gray;"></fa-icon>
     <span class="sr-only">Loading...</span>
   </div>
   <div *ngIf = "!loading && inventoryService.inventoryToEdit.description  && inventoryService.manufacturers.length">
@@ -13,63 +13,53 @@
           <label class="control-label">id:</label>
           {{inventoryService.inventoryToEdit.id}}
         </div>
-        <div class="" style="">
+        <div class="">
           <label class="control-label">Наименование в 1С:</label>
           {{inventoryService.inventoryToEdit.description1s}}
           <label class="control-label">Номер:</label>
           {{inventoryService.inventoryToEdit.number}}
         </div>
-        <div class="" style="">
+        <div class="">
           <label class="control-label">Наименование для сайта:</label>
         </div>
-        <form class="form-horizontal col-md-12">
-          <div class="form-group form-group-sm">
-            <div class="input-group">
-
-              <span class="input-group-btn" *ngIf = "!inventoryService.inventoryToEdit.description.saving">
-                <button class="btn btn-default btn-sm" type="button" *ngIf = "!inventoryService.inventoryToEdit.description.editing" (click) = "editDescriptionBegin()">Изменить</button>
-                <button class="btn btn-default btn-sm" *ngIf = "inventoryService.inventoryToEdit.description.editing" type="submit" (click) = "editDescriptionSave()">Сохранить</button>
-                <button class="btn btn-default btn-sm" type="button" *ngIf = "inventoryService.inventoryToEdit.description.editing" (click) = "editDescriptionCancel()">Отменить</button>
-
-              </span>
-              <span class="input-group-btn" *ngIf = "inventoryService.inventoryToEdit.description.saving">
-                <button class="btn btn-default btn-sm" type="button"><i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
-                              <span class="sr-only">Loading...</span></button>
-              </span>
-              <input class = "" type="text" id="" class="form-control" *ngIf = "!inventoryService.inventoryToEdit.description.editing" name="number"
+        <!-- <form class="form-horizontal col-md-12"> -->
+          <!-- <div class="form-group form-group-sm"> -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend" *ngIf = "!inventoryService.inventoryToEdit.description.saving">
+                <button class="btn btn-outline-secondary btn-sm" type="button" *ngIf = "!inventoryService.inventoryToEdit.description.editing" (click) = "editDescriptionBegin()">Изменить</button>
+                <button class="btn btn-outline-secondary btn-sm" *ngIf = "inventoryService.inventoryToEdit.description.editing" type="submit" (click) = "editDescriptionSave()">Сохранить</button>
+                <button class="btn btn-outline-secondary btn-sm" type="button" *ngIf = "inventoryService.inventoryToEdit.description.editing" (click) = "editDescriptionCancel()">Отменить</button>
+                <button *ngIf = "inventoryService.inventoryToEdit.description.saving" class="btn btn-outline-secondary btn-sm" type="button">
+                  <fa-icon [icon]="['fas', 'cog']" [spin]="true" style="color:gray;"></fa-icon>
+                  <span class="sr-only">Loading...</span>
+                </button>
+              </div>
+              <input class = "" type="text" class="form-control border border-secondary" *ngIf = "!inventoryService.inventoryToEdit.description.editing" name="number"
                value="{{inventoryService.inventoryToEdit.description.text}}" disabled>
-              <input class = "" type="text" id="" class="form-control" *ngIf = "inventoryService.inventoryToEdit.description.editing" name="number"
+              <input class = "" type="text" class="form-control border border-secondary" *ngIf = "inventoryService.inventoryToEdit.description.editing" name="number"
                 [(ngModel)]="inventoryService.inventoryToEdit.description.text">
 
             </div>
-          </div>
-        </form>
-        <div class="" style="">
+          <!-- </div> -->
+        <!-- </form> -->
+        <div class="">
           <label class="control-label">Применение и комментарий:</label>
         </div>
-        <form class="form-horizontal col-xs-12">
-          <div class="form-group form-group-sm">
-            <div class="input-group">
-
-              <span class="input-group-btn" *ngIf = "!inventoryService.inventoryToEdit.comment.saving">
-                <button class="btn btn-default btn-sm" type="button" *ngIf = "!inventoryService.inventoryToEdit.comment.editing" (click) = "editCommentBegin()">Изменить</button>
-                <button class="btn btn-default btn-sm" *ngIf = "inventoryService.inventoryToEdit.comment.editing" type="submit" (click) = "editCommentSave()">Сохранить</button>
-                <button class="btn btn-default btn-sm" type="button" *ngIf = "inventoryService.inventoryToEdit.comment.editing" (click) = "editCommentCancel()">Отменить</button>
-
-              </span>
-              <span class="input-group-btn" *ngIf = "inventoryService.inventoryToEdit.comment.saving">
-                <button class="btn btn-default btn-sm" type="button"><i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
-                              <span class="sr-only">Loading...</span></button>
-              </span>
-              <input class = "" type="text" id="" class="form-control" *ngIf = "!inventoryService.inventoryToEdit.comment.editing" name="number"
+            <div class="input-group mb-3">
+              <div class="input-group-prepend" *ngIf = "!inventoryService.inventoryToEdit.comment.saving">
+                <button class="btn btn-outline-secondary btn-sm" type="button" *ngIf = "!inventoryService.inventoryToEdit.comment.editing" (click) = "editCommentBegin()">Изменить</button>
+                <button class="btn btn-outline-secondary btn-sm" *ngIf = "inventoryService.inventoryToEdit.comment.editing" type="submit" (click) = "editCommentSave()">Сохранить</button>
+                <button class="btn btn-outline-secondary btn-sm" type="button" *ngIf = "inventoryService.inventoryToEdit.comment.editing" (click) = "editCommentCancel()">Отменить</button>
+                <button *ngIf = "inventoryService.inventoryToEdit.comment.saving" class="btn btn-outline-secondary btn-sm" type="button">
+                  <fa-icon [icon]="['fas', 'cog']" [spin]="true" style="color:gray;"></fa-icon>
+                  <span class="sr-only">Loading...</span>
+                </button>
+              </div>
+              <input class = "" type="text" class="form-control border border-secondary" *ngIf = "!inventoryService.inventoryToEdit.comment.editing" name="number"
                value="{{inventoryService.inventoryToEdit.comment.text}}" disabled>
-               <input class = "" type="text" id="" class="form-control" *ngIf = "inventoryService.inventoryToEdit.comment.editing" name="number"
+               <input class = "" type="text" class="form-control border border-secondary" *ngIf = "inventoryService.inventoryToEdit.comment.editing" name="number"
                 [(ngModel)]="inventoryService.inventoryToEdit.comment.text">
-
             </div>
-          </div>
-        </form>
-
       </div>
       <div class = "">
         <div class="">
@@ -82,67 +72,63 @@
         </div>
       </div>
     </div>
-
     <div class="col-md-8">
       <label class="control-label">Прочие номера:</label>
     </div>
     <p class = "col-md-12 text-center" *ngIf = "inventoryService.inventoryToEdit.loadingNumbers">
-      <i class="fa fa-cog fa-spin fa-2x fa-fw"></i>
+      <fa-icon [icon]="['fas', 'cog']" [spin]="true" style="color:gray;"></fa-icon>
       <span class="sr-only">Loading...</span>
     </p>
     <div class = "col-md-12">
       <ng-container *ngFor = "let number of inventoryService.inventoryToEdit.numbers; let i = index" >
         <form class="form-inline" style="margin-bottom:4px;">
-          <div class = "form-group">
-            <input class = "col-md-3" *ngIf = "!number.editing" type="text" id="disabledTextInput" class="form-control" value="{{number.number}}" disabled>
-            <input class = "col-md-3" *ngIf = "number.editing" type="text" id="" class="form-control" name="number" [(ngModel)]="number.number">
-            <select *ngIf = "number.editing" class="form-control" [(ngModel)]="number.manufacturerId" name="manufacturer">
+          <div class = "form-inline mb-2">
+            <input class = "form-control col-md-3 mx-1 mb-2 border border-secondary" *ngIf = "!number.editing" type="text" id="disabledTextInput" value="{{number.number}}" disabled>
+            <input class = "form-control col-md-3 mx-1 mb-2 border border-secondary" *ngIf = "number.editing" type="text" name="number" [(ngModel)]="number.number">
+            <select class="form-control mx-1 border border-secondary" *ngIf = "number.editing" [(ngModel)]="number.manufacturerId" name="manufacturer">
               <option *ngFor="let manufacturer of inventoryService.manufacturers; let j = index" [selected]="manufacturer.id == number.manufacturerId" [ngValue]="manufacturer.id">{{manufacturer.fullName}}</option>
             </select>
-            <select *ngIf = "!number.editing" class="form-control" name="manufacturer" disabled>
+            <select class="form-control mx-1 border border-secondary" *ngIf = "!number.editing" name="manufacturer" disabled>
               <option *ngFor="let manufacturer of inventoryService.manufacturers; let j = index" [selected]="manufacturer.id == number.manufacturerId" [ngValue]="manufacturer.id">{{manufacturer.fullName}}</option>
             </select>
           </div>
-          <div class = "form-group" *ngIf = "number.saving || changingMain">
-            <i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
-            <span class="sr-only">Loading...</span>
-          </div>
-          <span class = "form-group" *ngIf = "!number.saving && !changingMain">
+          <span class = "form-group mb-2" *ngIf = "!number.saving && !changingMain">
             <span  *ngIf = "!number.changeMain && !number.deleting">
-              <button type="submit" class="btn btn-default" *ngIf = "!number.editing" (click) = "editNumberBegin(i)">Изменить</button>
-              <button type="submit" class="btn btn-default" *ngIf = "number.editing" (click) = "editNumberSave(i)">Сохранить</button>
-              <button type="submit" class="btn btn-default" *ngIf = "number.editing" (click) = "editNumberCancel(i)">Отменить</button>
+              <button type="submit" class="btn btn-outline-secondary mx-1" *ngIf = "!number.editing" (click) = "editNumberBegin(i)">Изменить</button>
+              <button type="submit" class="btn btn-outline-secondary mx-1" *ngIf = "number.editing" (click) = "editNumberSave(i)">Сохранить</button>
+              <button type="submit" class="btn btn-outline-secondary mx-1" *ngIf = "number.editing" (click) = "editNumberCancel(i)">Отменить</button>
             </span>
             <span  *ngIf = "!number.changeMain && !number.editing">
-              <button type="submit" class="btn btn-default" *ngIf = "!number.deleting" (click) = "deleteNumberBegin(i)">Удалить</button>
-              <button type="submit" class="btn btn-danger" *ngIf = "number.deleting" (click) = "deleteNumberSave(i)">Удалить</button>
-              <button type="submit" class="btn btn-success" *ngIf = "number.deleting" (click) = "deleteNumberCancel(i)">Отменить</button>
+              <button type="submit" class="btn btn-outline-secondary mx-1" *ngIf = "!number.deleting" (click) = "deleteNumberBegin(i)">Удалить</button>
+              <button type="submit" class="btn btn-outline-danger mx-1" *ngIf = "number.deleting" (click) = "deleteNumberSave(i)">Удалить</button>
+              <button type="submit" class="btn btn-outline-success mx-1" *ngIf = "number.deleting" (click) = "deleteNumberCancel(i)">Отменить</button>
             </span>
             <span  *ngIf = "!number.editing && !number.deleting">
-              <button *ngIf = "!number.main && !number.changeMain" type="submit" class="btn btn-default" (click) = "changeMainBegin(i)">Сделать основным</button>
-              <button type="submit" class="btn btn-default
-              " *ngIf = "number.changeMain" (click) = "changeMainSave(i)">Подтвердить</button>
-              <button type="submit" class="btn btn-default" *ngIf = "number.changeMain" (click) = "changeMainCancel(i)">Отменить</button>
-              <span *ngIf = "number.main"> <i class="fa fa-check-square"></i> Основной</span>
+              <button type="submit" class="btn btn-outline-secondary mx-1" *ngIf = "!number.main && !number.changeMain" (click) = "changeMainBegin(i)">Сделать основным</button>
+              <button type="submit" class="btn btn-outline-secondary mx-1" *ngIf = "number.changeMain" (click) = "changeMainSave(i)">Подтвердить</button>
+              <button type="submit" class="btn btn-outline-secondary mx-1" *ngIf = "number.changeMain" (click) = "changeMainCancel(i)">Отменить</button>
+              <span *ngIf = "number.main">Основной</span>
             </span>
           </span>
+          <div class = "form-inline" *ngIf = "number.saving || changingMain">
+            <fa-icon [icon]="['fas', 'cog']" [spin]="true" style="color:gray;"></fa-icon>
+            <span class="sr-only">Loading...</span>
+          </div>
         </form>
       </ng-container>
-      <form class="form-inline" style="margin-bottom:4px;">
-        <button type="submit" class="btn btn-default" *ngIf = "!numberToAdd.editing && !numberToAdd.saving" (click) = "addNumberBegin()">Добавить</button>
-        <div class = "form-group">
-          <input class = "" *ngIf = "numberToAdd.editing" type="text" id="" class="form-control" name="number" [(ngModel)]="numberToAdd.number">
-        </div>
-        <select *ngIf = "numberToAdd.editing" class="form-control" [(ngModel)]="numberToAdd.manufacturerId" name="manufacturer">
+      <form class="form-inline mb-4">
+        <button class="btn btn-outline-secondary mx-1" *ngIf = "!numberToAdd.editing && !numberToAdd.saving" (click) = "addNumberBegin()" type="submit">Добавить</button>
+        <input class = "form-control col-md-3 mx-1 mb-2 border border-secondary" *ngIf = "numberToAdd.editing" type="text" name="number" [(ngModel)]="numberToAdd.number">
+        <select class = "form-control mx-1 mb-2 border border-secondary" *ngIf = "numberToAdd.editing" [(ngModel)]="numberToAdd.manufacturerId" name="manufacturer">
           <option *ngFor="let manufacturer of inventoryService.manufacturers; let j = index" [selected]="manufacturer.id == inventoryService.inventoryToEdit.manufacturerOld" [ngValue]="manufacturer.id">{{manufacturer.fullName}}</option>
         </select>
-        <span *ngIf = "numberToAdd.saving">
-          <i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
-          <span class="sr-only">Loading...</span>
-        </span>
         <span *ngIf = "!numberToAdd.saving">
-          <button type="submit" class="btn btn-default" *ngIf = "numberToAdd.editing" (click) = "addNumberSave()">Сохранить</button>
-          <button type="submit" class="btn btn-default" *ngIf = "numberToAdd.editing" (click) = "addNumberCancel()">Отменить</button>
+          <button type="submit" class="btn btn-outline-secondary mx-1 mb-2" *ngIf = "numberToAdd.editing" (click) = "addNumberSave()">Сохранить</button>
+          <button type="submit" class="btn btn-outline-secondary mx-1 mb-2" *ngIf = "numberToAdd.editing" (click) = "addNumberCancel()">Отменить</button>
+        </span>
+        <span *ngIf = "numberToAdd.saving">
+          <fa-icon [icon]="['fas', 'cog']" [spin]="true" style="color:gray;"></fa-icon>
+          <span class="sr-only">Loading...</span>
         </span>
       </form>
     </div>
@@ -152,17 +138,17 @@
           <label>Вес, kg:</label>
 
           <div class="input-group">
-            <input class = "" type="text" id="" class="form-control" *ngIf = "!inventoryService.inventoryToEdit.weight.editing" name="number"
+            <input class = "" type="text" class="form-control" *ngIf = "!inventoryService.inventoryToEdit.weight.editing" name="number"
              value="{{inventoryService.inventoryToEdit.weight.text}}" disabled>
-             <input class = "" type="text" id="" class="form-control" *ngIf = "inventoryService.inventoryToEdit.weight.editing" name="number"
+             <input class = "" type="text" class="form-control" *ngIf = "inventoryService.inventoryToEdit.weight.editing" name="number"
               [(ngModel)]="inventoryService.inventoryToEdit.weight.text">
             <span class="input-group-btn" *ngIf = "!inventoryService.inventoryToEdit.weight.saving">
-              <button class="btn btn-default btn-sm" type="button" *ngIf = "!inventoryService.inventoryToEdit.weight.editing" (click) = "editWeightBegin()">Изменить</button>
-              <button class="btn btn-default btn-sm" *ngIf = "inventoryService.inventoryToEdit.weight.editing" type="submit" (click) = "editWeightSave()">Сохранить</button>
-              <button class="btn btn-default btn-sm" type="button" *ngIf = "inventoryService.inventoryToEdit.weight.editing" (click) = "editWeightCancel()">Отменить</button>
+              <button class="btn btn-outline-secondary btn-sm" type="button" *ngIf = "!inventoryService.inventoryToEdit.weight.editing" (click) = "editWeightBegin()">Изменить</button>
+              <button class="btn btn-outline-secondary btn-sm" *ngIf = "inventoryService.inventoryToEdit.weight.editing" type="submit" (click) = "editWeightSave()">Сохранить</button>
+              <button class="btn btn-outline-secondary btn-sm" type="button" *ngIf = "inventoryService.inventoryToEdit.weight.editing" (click) = "editWeightCancel()">Отменить</button>
             </span>
             <span class="input-group-btn" *ngIf = "inventoryService.inventoryToEdit.weight.saving">
-              <button class="btn btn-default btn-sm" type="button"><i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
+              <button class="btn btn-outline-secondary btn-sm" type="button"><i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
                             <span class="sr-only">Loading...</span></button>
             </span>
 
@@ -172,7 +158,7 @@
     </div>
 
     <div class="col-xs-12 url" style="clear: both">
-      <div class="" style="">
+      <div>
         <label class="control-label">URL:</label> {{isEqual()}}
       </div>
       <form class="form-horizontal col-md-12">
@@ -180,17 +166,17 @@
           <div class="input-group">
 
             <span class="input-group-btn" *ngIf = "!inventoryService.inventoryToEdit.url.saving">
-              <button class="btn btn-default btn-sm" type="button" *ngIf = "!inventoryService.inventoryToEdit.url.editing" (click) = "editUrlBegin()">Изменить</button>
-              <button class="btn btn-default btn-sm" *ngIf = "inventoryService.inventoryToEdit.url.editing" type="submit" (click) = "editUrlSave()">Сохранить</button>
-              <button class="btn btn-default btn-sm" type="button" *ngIf = "inventoryService.inventoryToEdit.url.editing" (click) = "editUrlCancel()">Отменить</button>
+              <button class="btn btn-outline-secondary btn-sm" type="button" *ngIf = "!inventoryService.inventoryToEdit.url.editing" (click) = "editUrlBegin()">Изменить</button>
+              <button class="btn btn-outline-secondary btn-sm" *ngIf = "inventoryService.inventoryToEdit.url.editing" type="submit" (click) = "editUrlSave()">Сохранить</button>
+              <button class="btn btn-outline-secondary btn-sm" type="button" *ngIf = "inventoryService.inventoryToEdit.url.editing" (click) = "editUrlCancel()">Отменить</button>
             </span>
             <span class="input-group-btn" *ngIf = "inventoryService.inventoryToEdit.url.saving">
-              <button class="btn btn-default btn-sm" type="button"><i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
+              <button class="btn btn-outline-secondary btn-sm" type="button"><i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
                             <span class="sr-only">Loading...</span></button>
             </span>
-            <input class = "" type="text" id="" class="form-control" *ngIf = "!inventoryService.inventoryToEdit.url.editing" name="number"
+            <input class = "" type="text" class="form-control" *ngIf = "!inventoryService.inventoryToEdit.url.editing" name="number"
              value="{{inventoryService.inventoryToEdit.url.text}}" disabled>
-            <input class = "" type="text" id="" class="form-control" *ngIf = "inventoryService.inventoryToEdit.url.editing" name="number"
+            <input class = "" type="text" class="form-control" *ngIf = "inventoryService.inventoryToEdit.url.editing" name="number"
               [(ngModel)]="inventoryService.inventoryToEdit.url.text">
 
           </div>
@@ -201,14 +187,16 @@
         <div class="form-group form-group-sm">
           <div class="input-group">
             <span class="input-group-btn" *ngIf = "!inventoryService.inventoryToEdit.url.pulling">
-              <button class="btn btn-default btn-sm" type="button" *ngIf = "!inventoryService.inventoryToEdit.url.textToRecommend" (click) = "recommendUrlPull()">Запросить рекомендуемый</button>
-              <button class="btn btn-default btn-sm" *ngIf = "inventoryService.inventoryToEdit.url.textToRecommend" type="submit" (click) = "recommendUrlPut()">Подставить вместо текущего</button>
+              <button class="btn btn-outline-secondary btn-sm" type="button" *ngIf = "!inventoryService.inventoryToEdit.url.textToRecommend" (click) = "recommendUrlPull()">Запросить рекомендуемый</button>
+              <button class="btn btn-outline-secondary btn-sm" *ngIf = "inventoryService.inventoryToEdit.url.textToRecommend" type="submit" (click) = "recommendUrlPut()">Подставить вместо текущего</button>
             </span>
             <span class="input-group-btn" *ngIf = "inventoryService.inventoryToEdit.url.pulling">
-              <button class="btn btn-default btn-sm" type="button"><i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
-                            <span class="sr-only">Loading...</span></button>
+              <button class="btn btn-outline-secondary btn-sm" type="button">
+                <i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
+                <span class="sr-only">Loading...</span>
+              </button>
             </span>
-            <input class = "" type="text" id="" class="form-control" name="number"
+            <input class = "" type="text" class="form-control" name="number"
              value="{{inventoryService.inventoryToEdit.url.textToRecommend}}" disabled>
           </div>
         </div>
@@ -265,7 +253,7 @@
         <span class="sr-only">Loading...</span>
       </p>
       <div class = "">
-        <img class="img-rounded img-responsive center-image" style = "" [src]="domSanitizer.bypassSecurityTrustUrl(inventoryService.inventoryToEdit.image.data)" />
+        <img class="img-rounded img-responsive center-image" [src]="domSanitizer.bypassSecurityTrustUrl(inventoryService.inventoryToEdit.image.data)" />
       </div>
     </div>
   </div>

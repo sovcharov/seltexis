@@ -35,9 +35,10 @@
 }
 
 .last-edited {
-  border-top: 2px solid gray;
-  border-bottom: 2px solid gray;
-  color: red; 
+  /* border-top: 2px solid gray; */
+  /* border-bottom: 2px solid gray; */
+  /* color: red;  */
+  background-color: lightblue;
 }
 
 .my-search-button {

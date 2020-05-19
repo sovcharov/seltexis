@@ -35,7 +35,7 @@
         </thead>
         <tbody>
           <ng-container *ngFor="let inventory of inventoryService.inventory; let i = index">
-            <tr [ngClass]="{'last-edited':inventory.id == inventoryService.inventoryToEdit.id}">
+            <tr [ngClass]="{'text-danger':inventory.id == inventoryService.inventoryToEdit.id}">
               <td style="width:70%">
                 <a routerLink="" (click)="openInventoryId(inventory.id)">
                   <fa-icon [icon]="faEdit"></fa-icon>
