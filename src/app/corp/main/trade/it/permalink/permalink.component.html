@@ -2,62 +2,60 @@
   <div class="inventory-menu col-sm-12">
     <div class="col-sm-9">
       <button class="btn btn-outline-secondary" type="submit" (click)="getInventory()">Показать необработанные</button>
-      <button *ngIf="inventoryService.inventoryPermalinks.length" class="btn btn-outline-secondary" type="submit"
-        (click)="generatePermaLinks()">Сгенерировать PermaLinks</button>
-      <button *ngIf="inventoryService.inventoryPermalinks.length" class="btn btn-outline-secondary" type="submit"
-        (click)="savePermaLinks()">Сохранить PermaLinks</button>
+      <button *ngIf="inventoryService.inventoryPermalinks.length && isAnyChecked()" class="btn btn-outline-secondary" type="submit"
+        (click)="generatePermaLinks()">Сгенерировать отмеченные</button>
+      <button *ngIf="inventoryService.inventoryPermalinks.length && isAnyCheckedWithPermalink()" class="btn btn-outline-info" type="submit"
+        (click)="savePermaLinks()">Сохранить отмеченные</button>
     </div>
   </div>
-  <div>
-    <div class="my-table" *ngIf="inventoryService.inventoryPermalinks.length">
-      <table class="table table-sm">
-        <thead>
+  <div *ngIf="loading" class="flex-center-vertically text-center">
+    <fa-icon [icon]="['fas', 'cog']" [spin]="true" size="3x" style="color:gray;"></fa-icon>
+  </div>
+  <div class="my-table" *ngIf="inventoryService.inventoryPermalinks.length">
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th>
+            <input type="checkbox" [checked]="checkAll" (change)="checkAll = !checkAll; checkAllItems();" /> check all
+            (Total QTY: {{inventoryService.inventoryPermalinks.length}})
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let inventory of inventoryService.inventoryPermalinks; let i = index">
           <tr>
-            <th>
-              <input type="checkbox" [checked]="checkAll" (change)="checkAll = !checkAll; checkAllItems();" /> check all
-              (Total QTY: {{inventoryService.inventoryPermalinks.length}})
-            </th>
+            <td>
+              <div>
+                <!-- <a routerLink="" (click)="openInventoryId(inventory.id)"><i class="fa fa-edit" style="font-size: 24px;"></i></a> -->
+                <input type="checkbox" [checked]="inventory.checked"
+                  (change)="inventory.checked = !inventory.checked;" /> id: {{inventory.id}}.
+                {{inventory.description.text}} - {{inventory.comment.text}} - {{inventory.number}} -
+                {{inventory.manufacturerFullName}}
+                <!-- <span style="color:#006622; font-weight:bold">{{inventory.price}} р. {{inventory.stock}} - {{inventory.msk}} - {{inventory.ordered}}</span> -->
+              </div>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          <ng-container *ngFor="let inventory of inventoryService.inventoryPermalinks; let i = index">
-            <tr>
-              <td>
-                <div>
-                  <!-- <a routerLink="" (click)="openInventoryId(inventory.id)"><i class="fa fa-edit" style="font-size: 24px;"></i></a> -->
-                  <input type="checkbox" [checked]="inventory.checked"
-                    (change)="inventory.checked = !inventory.checked;" /> id: {{inventory.id}}. {{inventory.description.text}} - {{inventory.comment.text}} - {{inventory.number}} -
-                  {{inventory.manufacturerFullName}}
-                  <!-- <span style="color:#006622; font-weight:bold">{{inventory.price}} р. {{inventory.stock}} - {{inventory.msk}} - {{inventory.ordered}}</span> -->
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div class="col-md-10">
-                  All numbers: {{inventory.numbersString}}
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div *ngIf="inventory.permalink.loading" class="flex-center-vertically text-center">
-                  <fa-icon [icon]="['fas', 'cog']" [spin]="true"></fa-icon>
-                  <span class="sr-only">Loading...</span>
-                </div>
-                <div *ngIf="!inventory.permalink.loading" class="col-md-10">
-                  Suggested parmalink: <span style="color:red">{{inventory.permalink.text}}</span>
-                </div>
-              </td>
-            </tr>
-            <!-- <div style = "height:1px; background-color:gray;width:100%"></div> -->
-          </ng-container>
-        </tbody>
-      </table>
-      <div *ngIf="loading" class="flex-center-vertically text-center">
-        <fa-icon [icon]="['fas', 'cog']" [spin]="true"></fa-icon>
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
+          <tr>
+            <td>
+              <div class="col-md-10">
+                All numbers: {{inventory.numbersString}}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div *ngIf="inventory.permalink.loading" class="flex-center-vertically text-center">
+                <fa-icon [icon]="['fas', 'cog']" [spin]="true"></fa-icon>
+                <span class="sr-only">Loading...</span>
+              </div>
+              <div *ngIf="!inventory.permalink.loading" class="col-md-10">
+                Suggested parmalink: <span style="color:red">{{inventory.permalink.text}}</span>
+              </div>
+            </td>
+          </tr>
+          <!-- <div style = "height:1px; background-color:gray;width:100%"></div> -->
+        </ng-container>
+      </tbody>
+    </table>
   </div>
 </div>

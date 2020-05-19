@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { InventoryService } from '../../../../../services/inventory.service';
-import { LoadAnimationService } from '../../../../../services/load-animation.service';
 import { IconService } from '../../../../../services/icon.service';
 import { AlertService, Alert } from '../../../../../services/alert.service';
 
@@ -19,7 +18,6 @@ export class PermalinkComponent implements OnInit {
   checkAll: boolean = false;
   constructor(
     public inventoryService: InventoryService,
-    private loadAnimationService: LoadAnimationService,
     public iconService: IconService,
     private alertService: AlertService
   ) { }
@@ -28,7 +26,7 @@ export class PermalinkComponent implements OnInit {
   }
 
   public getInventory() {
-    this.loadAnimationService.loading = true;
+    this.loading = true;
     this.inventoryService.inventoryPermalinks = [];
     this.inventoryService.getInventoryForPermalinks(() => {
       for(let i = 0; i < this.inventoryService.inventoryPermalinks.length; i += 1) {
@@ -39,7 +37,7 @@ export class PermalinkComponent implements OnInit {
             this.inventoryService.inventoryPermalinks[i].numbersString += `${this.inventoryService.inventoryPermalinks[i].numbers[j].number}-${this.inventoryService.inventoryPermalinks[i].numbers[j].manufacturerFullName} `;
         }
       }
-      this.loadAnimationService.loading = false;
+      this.loading = false;
     });
   }
 
@@ -91,6 +89,24 @@ export class PermalinkComponent implements OnInit {
     for(let i = 0; i < this.inventoryService.inventoryPermalinks.length; i += 1) {
       this.inventoryService.inventoryPermalinks[i].checked = this.checkAll;
     }
+  }
+
+  public isAnyChecked(): boolean {
+    for(let i = 0; i < this.inventoryService.inventoryPermalinks.length; i += 1) {
+      if (this.inventoryService.inventoryPermalinks[i].checked) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public isAnyCheckedWithPermalink(): boolean {
+    for(let i = 0; i < this.inventoryService.inventoryPermalinks.length; i += 1) {
+      if (this.inventoryService.inventoryPermalinks[i].checked && this.inventoryService.inventoryPermalinks[i].permalink.text) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }
