@@ -38,7 +38,7 @@ export class LoginComponentCorp implements OnInit {
       "email": new FormControl(null, [
         Validators.email,
         Validators.required,
-        Validators.pattern('^.*[.][A-Za-z]{2,4}$') //email should be with second level domain and not allowed intranet emails without subdomain
+        Validators.pattern('^.*[.][A-Za-z]{2,10}$') //email should be with second level domain and not allowed intranet emails without subdomain
       ]),
       'password': new FormControl(null, Validators.required)
     });
