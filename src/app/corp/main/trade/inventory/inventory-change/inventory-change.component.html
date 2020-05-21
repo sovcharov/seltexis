@@ -1,12 +1,16 @@
 <div class="inventory">
+
   <div class="inventory-menu">
     <button class="btn btn-outline-secondary" type="submit" (click)="getInventory()">Обновить</button>
   </div>
+
   <div *ngIf="loading || !inventoryService.inventoryToEdit.description  || !inventoryService.manufacturers.length"
     class="flex-center-vertically text-center">
     <fa-icon [icon]="['fas', 'cog']" [spin]="true" size="3x" style="color:gray;"></fa-icon>
     <span class="sr-only">Loading...</span>
   </div>
+
+  <!-- Descriptions block START -->
   <div *ngIf="!loading && inventoryService.inventoryToEdit.description  && inventoryService.manufacturers.length">
     <div class="col-md-12">
       <div class="">
@@ -23,8 +27,6 @@
         <div class="">
           <label class="control-label">Наименование для сайта:</label>
         </div>
-        <!-- <form class="form-horizontal col-md-12"> -->
-        <!-- <div class="form-group form-group-sm"> -->
         <div class="input-group mb-3">
           <div class="input-group-prepend" *ngIf="!inventoryService.inventoryToEdit.description.saving">
             <button class="btn btn-outline-secondary btn-sm" type="button"
@@ -48,10 +50,7 @@
           <input class="" type="text" class="form-control form-control-sm border border-secondary"
             *ngIf="inventoryService.inventoryToEdit.description.editing" name="number"
             [(ngModel)]="inventoryService.inventoryToEdit.description.text">
-
         </div>
-        <!-- </div> -->
-        <!-- </form> -->
         <div class="">
           <label class="control-label">Применение и комментарий:</label>
         </div>
@@ -88,11 +87,15 @@
         </div>
       </div>
     </div>
+    <!-- Descriptions block END -->
+
+
+    <!-- All numbers block START -->
     <div class="col-md-8">
       <label class="control-label">Прочие номера:</label>
     </div>
     <p class="col-md-12 text-center" *ngIf="inventoryService.inventoryToEdit.loadingNumbers">
-      <fa-icon [icon]="['fas', 'cog']" [spin]="true" style="color:gray;"></fa-icon>
+      <fa-icon [icon]="['fas', 'cog']" [spin]="true" size="3x" style="color:gray;"></fa-icon>
       <span class="sr-only">Loading...</span>
     </p>
     <div class="col-md-12 mb-2">
@@ -172,6 +175,9 @@
         </span>
       </form>
     </div>
+    <!-- All numbers block END -->
+
+    <!-- Weight Start -->
     <div class="mb-1 col-md-12">
       <div class="row">
         <div class="col-sm-2">
@@ -201,7 +207,9 @@
         </div>
       </div>
     </div>
+    <!-- Weight End -->
 
+    <!-- Permalink Start  -->
     <div class="col-md-12 url mb-2">
       <div class="mb-2">
         <div class="">
@@ -229,14 +237,7 @@
             [(ngModel)]="inventoryService.inventoryToEdit.url.text">
         </div>
       </div>
-      <!-- <div>
-        <label class="control-label">URL:</label> {{isEqual()}}
-      </div> -->
-      <!-- <form class="form-horizontal col-md-12">
 
-      </form> -->
-
-      <!-- <form class="form-horizontal col-md-12"> -->
       <div class="input-group input-group-sm mb-2">
         <span class="input-group-prepend" *ngIf="!inventoryService.inventoryToEdit.url.pulling">
           <button class="btn btn-outline-secondary btn-sm" type="button"
@@ -253,8 +254,8 @@
         <input class="" type="text" class="form-control form-control-sm border border-secondary" name="number"
           value="{{inventoryService.inventoryToEdit.url.textToRecommend}}" disabled>
       </div>
-      <!-- </form> -->
     </div>
+    <!-- Permalink End  -->
 
     <div class="col-md-12">
       <label class="control-label">Изображение:</label>
