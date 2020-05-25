@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+// import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
-// import { Ng2ImgMaxService } from 'ng2-img-max';
-import { CompanyService } from '../../../../../services/company.service';
+import { Ng2ImgMaxService } from 'ng2-img-max';
+// import { CompanyService } from '../../../../../services/company.service';
 import { InventoryService } from '../../../../../services/inventory.service';
+import { AlertService, Alert } from '../../../../../services/alert.service';
 
 @Component({
   selector: 'app-inventory-change',
@@ -25,15 +26,17 @@ export class InventoryChangeComponent implements OnInit {
   image: any;
   uploadedImage: File;
   imageLoading: boolean = false;
-  binImage: any;
+  // binImage: any;
   // inventoryToEdit: any;
 
   constructor(
     public inventoryService: InventoryService,
-    private companyService: CompanyService,
-    private route: ActivatedRoute,
-    public domSanitizer: DomSanitizer
-    // private ng2ImgMax: Ng2ImgMaxService
+    // private companyService: CompanyService,
+    // private route: ActivatedRoute,
+    public domSanitizer: DomSanitizer,
+    private ng2ImgMax: Ng2ImgMaxService,
+    private alertService: AlertService
+
   ) { }
 
   ngOnInit() {
@@ -307,32 +310,35 @@ export class InventoryChangeComponent implements OnInit {
     onImageChange(event) {
       this.inventoryService.inventoryToEdit.image.loading = true;
       let image = event.target.files[0];
-      // this.updateImage(image)
 
+      this.ng2ImgMax.compressImage(image, 0.2).subscribe(
+        result => {
+          this.uploadedImage = new File([result], result.name);
+          this.getImagePreview(this.uploadedImage);
+        },
+        error => {
+          let alert: Alert = {
+            alertClass: 'Danger',
+            comment: ".jpg and .png only accepted",
+            text: "Compression Error!"
+          };
+          this.alertService.addAlert(alert);
+          this.editImageCancel();
+          this.inventoryService.inventoryToEdit.image.loading = false;
+          console.log('😢 Oh no!', error);
 
-      // this.ng2ImgMax.compressImage(image, 0.25).subscribe(
-      //   result => {
-      //     this.uploadedImage = new File([result], result.name);
-      //     // console.log(this.uploadedImage);
-
-      //     this.getImagePreview(this.uploadedImage);
-      //   },
-      //   error => {
-      //     console.log('😢 Oh no!', error);
-      //   }
-      // );
+        }
+      );
     }
 
     getImagePreview(file: File) {
       const reader: FileReader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        this.inventoryService.inventoryToEdit.image.loading = false;
         this.inventoryService.inventoryToEdit.image.data = reader.result;
         this.inventoryService.inventoryToEdit.image.readyToSave = true;
-
+        this.inventoryService.inventoryToEdit.image.loading = false;
         // console.log(this.image);
-
       };
     }
 
@@ -344,7 +350,6 @@ export class InventoryChangeComponent implements OnInit {
         // this.image = res;
         this.inventoryService.inventoryToEdit.image.editing = false;
         this.inventoryService.inventoryToEdit.image.loading = false;
-
       })
     }
 
@@ -356,11 +361,7 @@ export class InventoryChangeComponent implements OnInit {
     editImageCancel() {
       this.inventoryService.inventoryToEdit.image.editing = false;
       this.inventoryService.inventoryToEdit.image.readyToSave = false;
-
       this.inventoryService.inventoryToEdit.image.data = this.inventoryService.inventoryToEdit.image.tempData;
-
     }
-
-
 
   }

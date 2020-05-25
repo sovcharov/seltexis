@@ -1,17 +1,18 @@
 <div class="inventory">
 
-  <div class="inventory-menu">
-    <button class="btn btn-outline-secondary" type="submit" (click)="getInventory()">Обновить</button>
-  </div>
-
   <div *ngIf="loading || !inventoryService.inventoryToEdit.description  || !inventoryService.manufacturers.length"
     class="flex-center-vertically text-center">
     <fa-icon [icon]="['fas', 'cog']" [spin]="true" size="3x" style="color:gray;"></fa-icon>
     <span class="sr-only">Loading...</span>
   </div>
 
-  <!-- Descriptions block START -->
   <div *ngIf="!loading && inventoryService.inventoryToEdit.description  && inventoryService.manufacturers.length">
+    
+    <div class="inventory-menu">
+      <button class="btn btn-outline-secondary" type="submit" (click)="getInventory()">Обновить</button>
+    </div>
+
+    <!-- Descriptions block START -->
     <div class="col-md-12">
       <div class="">
         <div class="">
@@ -247,7 +248,7 @@
             type="submit" (click)="recommendUrlPut()">Подставить вместо текущего</button>
           <button class="btn btn-outline-secondary btn-sm" *ngIf="inventoryService.inventoryToEdit.url.pulling"
             type="button">
-            <i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
+            <fa-icon [icon]="['fas', 'cog']" [spin]="true" style="color:gray;"></fa-icon>
             <span class="sr-only">Loading...</span>
           </button>
         </span>
@@ -257,24 +258,23 @@
     </div>
     <!-- Permalink End  -->
 
+    <!-- ImageEditor Start  -->
     <div class="col-md-12">
       <label class="control-label">Изображение:</label>
     </div>
-    <div class="inventory-image">
+    <div class="inventory-image mb-4">
       <div class="col-md-12 text-center" *ngIf="!inventoryService.inventoryToEdit.image.loading">
         <form class="form" style="margin-bottom:4px;">
           <div class="form-group">
-
-            <button type="button" class="btn btn-outline-secondary btn-sm" (click)="editImageStart()"
+            <button type="button" class="btn btn-outline-secondary btn-sm mx-1" (click)="editImageStart()"
               *ngIf="!inventoryService.inventoryToEdit.image.editing">Изменить</button>
-            <label class="btn btn-default btn-file" *ngIf="inventoryService.inventoryToEdit.image.editing">
-              Выбрать файл<input type="file" name="file" style="display: none;" (change)=onImageChange($event)>
+            <label class="btn btn-outline-secondary btn-sm mt-2 mx-1" *ngIf="inventoryService.inventoryToEdit.image.editing">
+              Выбрать файл <input type="file" name="file" style="display: none;" (change)=onImageChange($event)>
             </label>
-            <button type="button" class="btn btn-default" (click)="updateImage()"
+            <button type="button" class="btn btn-outline-secondary btn-sm mx-1" (click)="updateImage()"
               *ngIf="inventoryService.inventoryToEdit.image.editing && inventoryService.inventoryToEdit.image.readyToSave">Сохранить</button>
-            <button type="button" class="btn btn-default" (click)="editImageCancel()"
+            <button type="button" class="btn btn-outline-secondary btn-sm mx-1" (click)="editImageCancel()"
               *ngIf="inventoryService.inventoryToEdit.image.editing">Отменить</button>
-
           </div>
           <!-- <button type="button" class="btn btn-default" >Добавить</button> -->
           <!-- <span class = "form-group">
@@ -282,16 +282,14 @@
           </span> -->
 
         </form>
-
       </div>
+      <img *ngIf="!inventoryService.inventoryToEdit.image.loading" class="img-rounded img-responsive center-image" [src]="domSanitizer.bypassSecurityTrustUrl(inventoryService.inventoryToEdit.image.data)" />
       <p class="col-md-12 text-center" *ngIf="inventoryService.inventoryToEdit.image.loading">
-        <i class="fa fa-cog fa-spin fa-2x fa-fw"></i>
+        <fa-icon [icon]="['fas', 'cog']" [spin]="true" style="color:gray;"></fa-icon>
         <span class="sr-only">Loading...</span>
       </p>
-      <div class="">
-        <img class="img-rounded img-responsive center-image"
-          [src]="domSanitizer.bypassSecurityTrustUrl(inventoryService.inventoryToEdit.image.data)" />
-      </div>
     </div>
+    <!-- ImageEditor End  -->
+
   </div>
 </div>

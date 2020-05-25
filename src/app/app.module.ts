@@ -5,7 +5,7 @@ import {HttpClientModule} from '@angular/common/http';
 // import { Routes, RouterModule } from '@angular/router';
 // import { AlertModule } from 'ngx-bootstrap';
 // import { HttpModule } from '@angular/http';
-// import { Ng2ImgMaxModule } from 'ng2-img-max';
+import { Ng2ImgMaxModule } from 'ng2-img-max';
 import { RecaptchaModule } from 'ng-recaptcha';
 
 // import { CookieService } from 'angular2-cookie/services/cookies.service';
@@ -92,7 +92,7 @@ import { LoadAnimationComponent } from './corp/load-animation/load-animation.com
     FontAwesomeModule,
     ReactiveFormsModule,
     // HttpModule,
-    // Ng2ImgMaxModule,
+    Ng2ImgMaxModule,
     RecaptchaModule
   ],
   providers: [
