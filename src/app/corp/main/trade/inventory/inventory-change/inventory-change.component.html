@@ -270,9 +270,10 @@
           <div class="form-group">
             <button type="button" class="btn btn-outline-secondary btn-sm mx-1" (click)="editImageStart()"
               *ngIf="!inventoryService.inventoryToEdit.image.editing">Изменить</button>
-            <label class="btn btn-outline-secondary btn-sm mt-2 mx-1" *ngIf="inventoryService.inventoryToEdit.image.editing">
-              Выбрать файл <input type="file" name="file" style="display: none;" (change)=onImageChange($event)>
-            </label>
+            <input type="file" name="file" style="display: none;" (change)=onImageChange($event) #fileInput>
+            <button class="btn btn-outline-secondary btn-sm mx-1" *ngIf="inventoryService.inventoryToEdit.image.editing" (click) = "fileInput.click()">
+              Выбрать файл 
+            </button>
             <button type="button" class="btn btn-outline-secondary btn-sm mx-1" (click)="updateImage()"
               *ngIf="inventoryService.inventoryToEdit.image.editing && inventoryService.inventoryToEdit.image.readyToSave">Сохранить</button>
             <button type="button" class="btn btn-outline-secondary btn-sm mx-1" (click)="editImageCancel()"
