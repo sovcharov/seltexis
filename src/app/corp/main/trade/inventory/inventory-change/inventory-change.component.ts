@@ -319,13 +319,13 @@ export class InventoryChangeComponent implements OnInit {
         error => {
           let alert: Alert = {
             alertClass: 'Danger',
-            comment: ".jpg and .png only accepted",
-            text: "Compression Error!"
+            text: `Error: ${error.error}`,
+            comment: `${error.reason}`
           };
           this.alertService.addAlert(alert);
           this.editImageCancel();
           this.inventoryService.inventoryToEdit.image.loading = false;
-          console.log('😢 Oh no!', error);
+          // console.log('😢 Oh no!', error);
 
         }
       );

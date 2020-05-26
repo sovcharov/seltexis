@@ -38,7 +38,7 @@
             <tr [ngClass]="{'text-danger':inventory.id == inventoryService.inventoryToEdit.id}">
               <td style="width:70%">
                 <a routerLink="" (click)="openInventoryId(inventory.id)">
-                  <fa-icon [icon]="faEdit"></fa-icon>
+                  <fa-icon [icon]="['fas', 'edit']"></fa-icon>
                 </a> id: {{inventory.id}}. {{inventory.description}} - {{inventory.numbers}}
               </td>
               <td style="width:10%">

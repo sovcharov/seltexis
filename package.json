@@ -30,6 +30,7 @@
     "ng-recaptcha": "^5.0.0",
     "ng2-img-max": "^2.2.4",
     "ngx-cookie": "^4.1.2",
+    "ngx-image-compress": "^8.0.4",
     "popper.js": "^1.16.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",

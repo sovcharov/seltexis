@@ -7,6 +7,7 @@ import {HttpClientModule} from '@angular/common/http';
 // import { HttpModule } from '@angular/http';
 import { Ng2ImgMaxModule } from 'ng2-img-max';
 import { RecaptchaModule } from 'ng-recaptcha';
+// import {NgxImageCompressService} from 'ngx-image-compress';
 
 // import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { CookieModule } from 'ngx-cookie';
@@ -109,6 +110,7 @@ import { LoadAnimationComponent } from './corp/load-animation/load-animation.com
     Tabs,
     InventoryService,
     ConfigService,
+    // NgxImageCompressService,
     LoadAnimationService
   ],
   bootstrap: [AppComponent]

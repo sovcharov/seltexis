@@ -1,6 +1,6 @@
 <div class="infoBoxMain">
     <div *ngFor = "let alert of alerts; let i = index" class="infoBox infoBoxDanger" [ngClass] = "alertService.getAlertClass(alert.alertClass)" (click) ="alertService.deleteAlert(i)">
         <div>{{alert.text}}</div>
-        <div class = "infoBoxComment">{{alert.comment}}</div>
+        <div class = "infoBoxComment"><span> - </span>{{alert.comment}}</div>
     </div>
 </div>

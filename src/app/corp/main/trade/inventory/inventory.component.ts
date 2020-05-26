@@ -4,7 +4,7 @@ import {
   ActivatedRoute
 } from '@angular/router';
 import { InventoryService } from '../../../../services/inventory.service';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+// import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Tabs } from '../../../../services/tabs.service'
 
 @Component({
@@ -13,7 +13,7 @@ import { Tabs } from '../../../../services/tabs.service'
   styleUrls: ['./inventory.component.css']
 })
 export class InventoryComponent implements OnInit {
-  faEdit = faEdit;
+  // faEdit = faEdit;
 
   loading: boolean;
   inventoryToSearch: string = "";
