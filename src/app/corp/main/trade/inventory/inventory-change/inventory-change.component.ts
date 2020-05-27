@@ -5,6 +5,7 @@ import { Ng2ImgMaxService } from 'ng2-img-max';
 // import { CompanyService } from '../../../../../services/company.service';
 import { InventoryService } from '../../../../../services/inventory.service';
 import { AlertService, Alert } from '../../../../../services/alert.service';
+import heic2any from "heic2any";
 
 @Component({
   selector: 'app-inventory-change',
@@ -310,31 +311,60 @@ export class InventoryChangeComponent implements OnInit {
     onImageChange(event) {
       this.inventoryService.inventoryToEdit.image.loading = true;
       let image = event.target.files[0];
-      console.log(image);
-      // this.uploadedImage = new File([result], result.name);
-      this.getImagePreview(image);
-
-      // this.ng2ImgMax.compressImage(image, 0.2).subscribe(
-      //   result => {
-      //     this.uploadedImage = new File([result], result.name);
-      //     this.getImagePreview(this.uploadedImage);
-      //   },
-      //   error => {
-      //     let alert: Alert = {
-      //       alertClass: 'Danger',
-      //       text: `Error: ${error.error}`,
-      //       comment: `${error.reason}`
-      //     };
-      //     this.alertService.addAlert(alert);
-      //     this.editImageCancel();
-      //     this.inventoryService.inventoryToEdit.image.loading = false;
-      //     // console.log('😢 Oh no!', error);
-
-      //   }
-      // );
+      let maxSize: number = 0.4;
+      // console.log(image);
+      if (image.type === 'image/heic') {
+        heic2any({
+          blob: image,
+          // quality: 0.2,    
+          toType: 'image/jpeg'
+        }).then((result) => {
+          console.log(result);
+          this.getCompressedImg(result, maxSize);
+        });
+      } else {
+        this.getCompressedImg(image, maxSize);
+      }
     }
 
-    getImagePreview(file: File) {
+    getCompressedImg(image, maxSize: number) {
+      this.ng2ImgMax.compressImage(image, maxSize).subscribe(
+        result => {
+          console.log(result);
+          this.uploadedImage = new File([result], result.name);
+          this.getImagePreview(this.uploadedImage);
+        },
+        error => {
+          if (error.error === 'UNABLE_TO_COMPRESS_ENOUGH' && maxSize < 1) {
+            let alert: Alert = {
+              alertClass: 'Danger',
+              text: `Error: ${error.error}`,
+              comment: `${error.reason}`,
+              waitForClick: true
+            };
+            this.getCompressedImg(image, maxSize*2);
+          } else {
+            let alert: Alert = {
+              alertClass: 'Danger',
+              text: `Error: ${error.error}`,
+              comment: `${error.reason}`,
+              waitForClick: true
+            };
+            this.alertService.addAlert(alert);
+            this.editImageCancel();
+            this.inventoryService.inventoryToEdit.image.loading = false;
+            this.inventoryService.inventoryToEdit.image.editing = true;
+            this.inventoryService.inventoryToEdit.image.readyToSave = false;
+            this.inventoryService.inventoryToEdit.image.data = this.inventoryService.inventoryToEdit.image.tempData;
+            console.log('😢 Oh no!', error);
+          }
+
+        }
+      );
+    }
+
+
+    getImagePreview(file: any) {
       const reader: FileReader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
