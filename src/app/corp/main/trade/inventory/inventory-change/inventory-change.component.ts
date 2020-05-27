@@ -27,6 +27,7 @@ export class InventoryChangeComponent implements OnInit {
   image: any;
   uploadedImage: File;
   imageLoading: boolean = false;
+  maxSize: number = 200;
   // binImage: any;
   // inventoryToEdit: any;
 
@@ -308,41 +309,48 @@ export class InventoryChangeComponent implements OnInit {
       }
     }
 
+    changeImageSize() {
+      this.inventoryService.inventoryToEdit.image.loading = true;
+      this.getCompressedImg(this.image, this.maxSize/1000);
+    }
+
     onImageChange(event) {
       this.inventoryService.inventoryToEdit.image.loading = true;
-      let image = event.target.files[0];
-      let maxSize: number = 0.4;
+      this.image = event.target.files[0];
+      let maxSize: number = this.maxSize/1000;
       // console.log(image);
-      if (image.type === 'image/heic') {
+      if (this.image.type === 'image/heic') {
         heic2any({
-          blob: image,
+          blob: this.image,
           // quality: 0.2,    
           toType: 'image/jpeg'
         }).then((result) => {
-          console.log(result);
+          // console.log(result);
+          this.image = result;
           this.getCompressedImg(result, maxSize);
         });
       } else {
-        this.getCompressedImg(image, maxSize);
+        this.getCompressedImg(this.image, maxSize);
       }
     }
 
     getCompressedImg(image, maxSize: number) {
       this.ng2ImgMax.compressImage(image, maxSize).subscribe(
         result => {
-          console.log(result);
+          // console.log(result);
           this.uploadedImage = new File([result], result.name);
           this.getImagePreview(this.uploadedImage);
         },
         error => {
-          if (error.error === 'UNABLE_TO_COMPRESS_ENOUGH' && maxSize < 1) {
+          if ((error.error === 'UNABLE_TO_COMPRESS_ENOUGH' || error.error === 'MAX_STEPS_EXCEEDED') && maxSize < 1.1) {
             let alert: Alert = {
               alertClass: 'Danger',
               text: `Error: ${error.error}`,
               comment: `${error.reason}`,
               waitForClick: true
             };
-            this.getCompressedImg(image, maxSize*2);
+            this.maxSize += 100;
+            this.getCompressedImg(image, this.maxSize/1000);
           } else {
             let alert: Alert = {
               alertClass: 'Danger',
@@ -362,7 +370,6 @@ export class InventoryChangeComponent implements OnInit {
         }
       );
     }
-
 
     getImagePreview(file: any) {
       const reader: FileReader = new FileReader();
