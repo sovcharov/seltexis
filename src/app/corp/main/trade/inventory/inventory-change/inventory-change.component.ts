@@ -310,25 +310,28 @@ export class InventoryChangeComponent implements OnInit {
     onImageChange(event) {
       this.inventoryService.inventoryToEdit.image.loading = true;
       let image = event.target.files[0];
+      console.log(image);
+      // this.uploadedImage = new File([result], result.name);
+      this.getImagePreview(image);
 
-      this.ng2ImgMax.compressImage(image, 0.2).subscribe(
-        result => {
-          this.uploadedImage = new File([result], result.name);
-          this.getImagePreview(this.uploadedImage);
-        },
-        error => {
-          let alert: Alert = {
-            alertClass: 'Danger',
-            text: `Error: ${error.error}`,
-            comment: `${error.reason}`
-          };
-          this.alertService.addAlert(alert);
-          this.editImageCancel();
-          this.inventoryService.inventoryToEdit.image.loading = false;
-          // console.log('😢 Oh no!', error);
+      // this.ng2ImgMax.compressImage(image, 0.2).subscribe(
+      //   result => {
+      //     this.uploadedImage = new File([result], result.name);
+      //     this.getImagePreview(this.uploadedImage);
+      //   },
+      //   error => {
+      //     let alert: Alert = {
+      //       alertClass: 'Danger',
+      //       text: `Error: ${error.error}`,
+      //       comment: `${error.reason}`
+      //     };
+      //     this.alertService.addAlert(alert);
+      //     this.editImageCancel();
+      //     this.inventoryService.inventoryToEdit.image.loading = false;
+      //     // console.log('😢 Oh no!', error);
 
-        }
-      );
+      //   }
+      // );
     }
 
     getImagePreview(file: File) {
@@ -363,5 +366,4 @@ export class InventoryChangeComponent implements OnInit {
       this.inventoryService.inventoryToEdit.image.readyToSave = false;
       this.inventoryService.inventoryToEdit.image.data = this.inventoryService.inventoryToEdit.image.tempData;
     }
-
   }
