@@ -282,6 +282,10 @@
             <div  *ngIf="inventoryService.inventoryToEdit.image.editing && inventoryService.inventoryToEdit.image.readyToSave">
               <input type="range" id="vol" name="vol" min="200" max="1000" [(ngModel)]="maxSize"> {{maxSize}} kb
               <button type="button" class="btn btn-outline-secondary btn-sm mx-1" (click)="changeImageSize()">Изменить размер</button>
+              <button type="button" class="btn btn-outline-secondary btn-sm mx-1" (click)="rotateImage()">
+                <fa-icon [icon]="['fas', 'undo']" style="color:gray;"></fa-icon>
+                <span class="sr-only">Loading...</span>
+              </button>
             </div>
           </div>
           <!-- <button type="button" class="btn btn-default" >Добавить</button> -->
