@@ -1,0 +1,41 @@
+<div class="col-md-12">
+    <label class="control-label">Изображение:</label>
+  </div>
+  <div class="inventory-image mb-4">
+    <div class="col-md-12 text-center" *ngIf="!inventoryService.inventoryToEdit.image.loading">
+      <form class="form" style="margin-bottom:4px;">
+        <div class="form-group">
+          <button type="button" class="btn btn-outline-secondary btn-sm mx-1" (click)="editImageStart()"
+            *ngIf="!inventoryService.inventoryToEdit.image.editing">Изменить</button>
+          <input type="file" name="file" style="display: none;" (change)=onImageChange($event) #fileInput>
+          <button class="btn btn-outline-secondary btn-sm mx-1 mb-1" *ngIf="inventoryService.inventoryToEdit.image.editing" (click) = "fileInput.click()">
+            Выбрать файл 
+          </button>
+          <button type="button" class="btn btn-outline-secondary btn-sm mx-1 mb-1" (click)="editImageCancel()"
+            *ngIf="inventoryService.inventoryToEdit.image.editing">Отменить</button>
+          <button type="button" class="btn btn-outline-secondary btn-sm mx-1 mb-1" *ngIf="inventoryService.inventoryToEdit.image.editing && inventoryService.inventoryToEdit.image.readyToSave" (click)="updateImage()">
+            Сохранить
+          </button>
+          <div  *ngIf="inventoryService.inventoryToEdit.image.editing && inventoryService.inventoryToEdit.image.readyToSave">
+            <input type="range" id="vol" name="vol" min="200" max="1000" [(ngModel)]="maxSize"> {{maxSize}} kb
+            <button type="button" class="btn btn-outline-secondary btn-sm mx-1" (click)="changeImageSize()">Изменить размер</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm mx-1" (click)="rotateImage()">
+              <fa-icon [icon]="['fas', 'undo']" style="color:gray;"></fa-icon>
+              <span class="sr-only">Loading...</span>
+            </button>
+          </div>
+        </div>
+        <!-- <button type="button" class="btn btn-default" >Добавить</button> -->
+        <!-- <span class = "form-group">
+          <button type="submit" class="btn btn-default" >Добавить</button>
+        </span> -->
+
+      </form>
+    </div>
+    <img *ngIf="!inventoryService.inventoryToEdit.image.loading" class="img-rounded img-responsive center-image" [src]="domSanitizer.bypassSecurityTrustUrl(inventoryService.inventoryToEdit.image.data)" />
+    <p class="col-md-12 text-center" *ngIf="inventoryService.inventoryToEdit.image.loading">
+      <fa-icon [icon]="['fas', 'cog']" [spin]="true" style="color:gray;"></fa-icon>
+      <span class="sr-only">Loading...</span>
+    </p>
+  </div>
+  <br/>

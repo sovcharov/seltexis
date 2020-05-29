@@ -1,0 +1,12 @@
+.center-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 500px;
+    height: 100% \9;
+}
+
+/* .inventory-image{
+  height:550px;
+} */
