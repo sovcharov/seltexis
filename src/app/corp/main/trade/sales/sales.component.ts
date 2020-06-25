@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { InventoryService } from '../../../../services/inventory.service';
 
 @Component({
   selector: 'app-sales',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SalesComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public inventoryService: InventoryService
+  ) { }
 
   ngOnInit() {
+    // this.inventoryService.getInventoryImages(1110, data => {
+    //   console.log(data);
+    // });
+    // this.inventoryService.deleteInventoryImage('1110','11', data => {
+    //   console.log(data);
+    // });
   }
 
 }

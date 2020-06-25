@@ -105,6 +105,29 @@ export class ServerService {
       // });
   }
 
+  getInventoryImages(company, id) {
+    return this.http.get(`${this.host}/api/getinventoryimages/${company}/${id}`)
+  }
+
+  saveInventoryImage(company, image, id) {
+    return this.http.post(
+      `${this.host}/api/savenewimage/company/${company}`,{image: image, partId: id})
+  }
+
+  deleteInventoryImage(company, partId, imageId) {
+      return this.http.delete(`${this.host}/api/deleteimage/${company}/${partId}/${imageId}`,{});
+  }
+
+  updateImage(company, image, partId) {
+      return this.http.post(
+        `${this.host}/api/updateimage/company/${company}`,{image: image, partId: partId})
+    // .map((response: Response) => {
+    //   const data = response.json();
+    //   // console.log(data);
+    //   return data;
+    // });
+  }
+
   searchInventory(company, search) {
     return this.http.get(`${this.host}/api/searchinventory/company/${company}/search/${search}`)
       // .map((response: Response) => {
@@ -113,6 +136,7 @@ export class ServerService {
       //   return data;
       // });
   }
+
 
   updateInventoryNumber(company, invenventoryNumberId, newNumber, newManufacturer) {
     return this.http.put(`${this.host}/api/updateinventorynumber/company/${company}/numberid/${invenventoryNumberId}/newManufacturer/${newManufacturer}`,{newNumber:newNumber})
@@ -214,15 +238,7 @@ export class ServerService {
       // });
   }
 
-  updateImage(company, image, partId) {
-        return this.http.post(
-          `${this.host}/api/updateimage/company/${company}`,{image: image, partId: partId})
-      // .map((response: Response) => {
-      //   const data = response.json();
-      //   // console.log(data);
-      //   return data;
-      // });
-  }
+
 
   tempFunc() {
         return this.http.get(

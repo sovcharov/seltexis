@@ -86,7 +86,12 @@ export class InventoryService {
       (response) => {
         // console.log(response);
         this.inventoryToEdit = response[0];
-        this.inventoryToEdit.image = {loading:true};
+        this.inventoryToEdit.images = {
+          loading: true,
+          data: []
+        };
+
+        this.inventoryToEdit.image = {loading: false};
         this.inventoryToEdit.description = {text: this.inventoryToEdit.description};
         this.inventoryToEdit.comment = {text: this.inventoryToEdit.comment};
         this.inventoryToEdit.weight = {text: this.inventoryToEdit.weight};
@@ -99,12 +104,12 @@ export class InventoryService {
           this.inventoryToEdit.loadingNumbers = false;
           callback(this.inventoryToEdit);
         });
-        this.getInventoryImage(invenventoryId,(res)=>{
+        this.getInventoryImages(invenventoryId,(res)=>{
           if(!res.error) {
-            // console.log(res);
-            this.inventoryToEdit.image.data = res.image;
-            this.inventoryToEdit.image.loading = false;
-
+            console.log(res);
+            // this.inventoryToEdit.image.data = res.image;
+            this.inventoryToEdit.images.data = res;
+            this.inventoryToEdit.images.loading = false;
           }
         });
       },
@@ -135,6 +140,61 @@ export class InventoryService {
     .subscribe(
       (response) => {
         // console.log(response);
+        callback(response);
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
+
+  getInventoryImages(invenventoryId, callback) {
+    this.serverService.getInventoryImages(this.companyService.company.id, invenventoryId)
+    .subscribe(
+      (response) => {
+        // console.log(response);
+        callback(response);
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
+
+  saveInventoryImage(image, invenventoryId, callback) {
+    this.serverService.saveInventoryImage(this.companyService.company.id, image, invenventoryId)
+    .subscribe(
+      (response) => {
+        // console.log(response);
+        callback(response);
+      },
+      (error) => {
+        console.log("Error: ", error);
+        return false;
+      }
+    );
+  }
+
+  deleteInventoryImage(imageId, partId, callback) {
+    this.serverService.deleteInventoryImage(this.companyService.company.id, partId, imageId)
+    .subscribe(
+      (response) => {
+        // console.log(response);
+        callback(response);
+      },
+      (error) => {
+        console.log("Error: ", error);
+        return false;
+      }
+    );
+  }
+
+  updateImage(image, partId, callback) {
+    this.serverService.updateImage(this.companyService.company.id, image, partId)
+    .subscribe(
+      (response) => {
         callback(response);
       },
       (error) => {
@@ -303,19 +363,6 @@ export class InventoryService {
 
   addManufacturer(name, fullName, callback) {
     this.serverService.addManufacturer(this.companyService.company.id, name, fullName)
-    .subscribe(
-      (response) => {
-        callback(response);
-      },
-      (error) => {
-        console.log("Error: " + error);
-        return false;
-      }
-    );
-  }
-
-  updateImage(image, partId, callback) {
-    this.serverService.updateImage(this.companyService.company.id, image, partId)
     .subscribe(
       (response) => {
         callback(response);

@@ -17,6 +17,7 @@ export class IcImageComponent implements OnInit {
   imageLoading: boolean = false;
   maxSize: number = 200;
   turnCount: number = 0;
+  changingMain: boolean = false;
 
   constructor(
     public inventoryService: InventoryService,
@@ -27,6 +28,7 @@ export class IcImageComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
   changeImageSize() {
     this.inventoryService.inventoryToEdit.image.loading = true;
     this.getCompressedImg(this.image, this.maxSize/1000);
@@ -99,7 +101,7 @@ export class IcImageComponent implements OnInit {
       this.turnCountHelper(this.turnCount);
       this.inventoryService.inventoryToEdit.image.readyToSave = true;
       // this.inventoryService.inventoryToEdit.image.loading = false;
-      // console.log(this.inventoryService.inventoryToEdit.image.data);
+      console.log(this.inventoryService.inventoryToEdit.image.data);
     };
   }
 
@@ -166,11 +168,14 @@ export class IcImageComponent implements OnInit {
   }
 
 
-  updateImage(){
+  saveImage(){
     this.inventoryService.inventoryToEdit.image.readyToSave = false;
     this.inventoryService.inventoryToEdit.image.loading = true;
-    this.inventoryService.updateImage(this.inventoryService.inventoryToEdit.image.data, this.inventoryService.inventoryToEdit.id, (res)=>{
-      // console.log(res);
+    this.inventoryService.saveInventoryImage(this.inventoryService.inventoryToEdit.image.data, this.inventoryService.inventoryToEdit.id, (res)=>{
+      console.log(res);
+      res.image = this.inventoryService.inventoryToEdit.image.data;
+      this.inventoryService.inventoryToEdit.images.data[this.inventoryService.inventoryToEdit.images.data.length] = res;
+      this.inventoryService.inventoryToEdit.image.data = "";
       // this.image = res;
       this.inventoryService.inventoryToEdit.image.editing = false;
       this.inventoryService.inventoryToEdit.image.loading = false;
@@ -187,4 +192,57 @@ export class IcImageComponent implements OnInit {
     this.inventoryService.inventoryToEdit.image.readyToSave = false;
     this.inventoryService.inventoryToEdit.image.data = this.inventoryService.inventoryToEdit.image.tempData;
   }
+
+  deleteImageStart(i) {
+    this.inventoryService.inventoryToEdit.images.data[i].deleting = true;
+    // this.inventoryService.inventoryToEdit.image.tempData = this.inventoryService.inventoryToEdit.image.data;
+  }
+
+  deleteImageCancel(i) {
+    this.inventoryService.inventoryToEdit.images.data[i].deleting = false;
+    // this.inventoryService.inventoryToEdit.image.readyToSave = false;
+    // this.inventoryService.inventoryToEdit.image.data = this.inventoryService.inventoryToEdit.image.tempData;
+  }
+  
+  deleteImage(i) {
+    this.inventoryService.inventoryToEdit.images.data[i].deleting = true;
+    this.inventoryService.deleteInventoryImage(this.inventoryService.inventoryToEdit.images.data[i].id, this.inventoryService.inventoryToEdit.id, (res)=>{
+      console.log(res);
+      this.inventoryService.inventoryToEdit.images.data.splice(i, 1);
+    })
+  }
+
+  changeMainBegin(index){
+    this.inventoryService.inventoryToEdit.images.data[index].changeMain=true;
+  }
+
+  changeMainSave(index){
+    this.inventoryService.inventoryToEdit.images.data[index].saving = true;
+    this.changingMain = true;
+    // this.inventoryService.updateInventoryMainNumber(this.inventoryService.inventoryToEdit.numbers[index].id, this.inventoryService.inventoryToEdit.id, (res) => {
+    //   // console.log(res);
+    //   this.inventoryService.inventoryToEdit.numbers[index].changeMain = false;
+    //   for (let i = 0; i < this.inventoryService.inventoryToEdit.numbers.length; i+=1){
+    //     if(this.inventoryService.inventoryToEdit.numbers[i].main) {
+    //       this.inventoryService.inventoryToEdit.numbers[i].main = 0;
+    //     }
+
+    //   }
+    //   this.inventoryService.inventoryToEdit.numbers[index].saving = false;
+      this.changingMain = false;
+    //   this.inventoryService.inventoryToEdit.numbers[index].main = 1;
+    // });
+  }
+
+  changeMainCancel(index){
+    this.inventoryService.inventoryToEdit.images.data[index].changeMain=false;
+  }
+
+  // saveImage(): void {
+  //   this.inventoryService.saveInventoryImage(1, 1110, data => {
+  //     console.log(data);
+  //   });
+  // }
+
+
 }
