@@ -49,19 +49,27 @@ export class IcImageComponent implements OnInit {
       }).then((result) => {
         // console.log(result);
         this.image = result;
-        this.getCompressedImg(result, this.maxSize/1000);
+        this.getRotated(result, this.maxSize/1000);
       });
     } else {
-      this.getCompressedImg(this.image, this.maxSize/1000);
+      this.getRotated(this.image, this.maxSize/1000);
     }
   }
 
+  getRotated(img, maxSize) {
+    this.ng2ImgMax.getEXIFOrientedImage(img).then(
+      (value) => {
+        this.getCompressedImg(value, maxSize);
+      });
+  }
+
   getCompressedImg(image, maxSize: number) {
+    
     this.ng2ImgMax.compressImage(image, maxSize).subscribe(
       result => {
         // console.log(result);
-        this.uploadedImage = new File([result], result.name);
-        this.getImagePreview(this.uploadedImage);
+        // this.uploadedImage = new File([result], result.name);
+        this.getImagePreview(result);
       },
       error => {
         if ((error.error === 'UNABLE_TO_COMPRESS_ENOUGH' || error.error === 'MAX_STEPS_EXCEEDED') && maxSize < 1.1) {
@@ -94,6 +102,7 @@ export class IcImageComponent implements OnInit {
   }
 
   getImagePreview(file: any) {
+    // console.log(file)
     const reader: FileReader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
@@ -101,7 +110,7 @@ export class IcImageComponent implements OnInit {
       this.turnCountHelper(this.turnCount);
       this.inventoryService.inventoryToEdit.image.readyToSave = true;
       // this.inventoryService.inventoryToEdit.image.loading = false;
-      console.log(this.inventoryService.inventoryToEdit.image.data);
+      // console.log(this.inventoryService.inventoryToEdit.image.data);
     };
   }
 
@@ -115,6 +124,7 @@ export class IcImageComponent implements OnInit {
       });
     } else {
       this.inventoryService.inventoryToEdit.image.loading = false;
+      console.log((this.inventoryService.inventoryToEdit.image.data.length));
     }
   }
 
@@ -159,9 +169,13 @@ export class IcImageComponent implements OnInit {
   }
 
   rotateImage() {
+    this.inventoryService.inventoryToEdit.image.rotating = true;
     // 6 - orientation clockwise, 8 - clockunwise
     this.changeOrientation(this.inventoryService.inventoryToEdit.image.data, 8, (resetBase64Image) => {
+      this.inventoryService.inventoryToEdit.image.rotating = false;
       this.inventoryService.inventoryToEdit.image.data = resetBase64Image;
+      console.log((this.inventoryService.inventoryToEdit.image.data.length));
+
     });
     this.turnCount = (this.turnCount + 1) % 4;
     // console.log('rotate+ ', this.turnCount);
@@ -205,7 +219,7 @@ export class IcImageComponent implements OnInit {
   }
   
   deleteImage(i) {
-    this.inventoryService.inventoryToEdit.images.data[i].deleting = true;
+    this.inventoryService.inventoryToEdit.images.data[i].delete = true;
     this.inventoryService.deleteInventoryImage(this.inventoryService.inventoryToEdit.images.data[i].id, this.inventoryService.inventoryToEdit.id, (res)=>{
       console.log(res);
       this.inventoryService.inventoryToEdit.images.data.splice(i, 1);
@@ -217,21 +231,25 @@ export class IcImageComponent implements OnInit {
   }
 
   changeMainSave(index){
-    this.inventoryService.inventoryToEdit.images.data[index].saving = true;
+    this.inventoryService.inventoryToEdit.images.data[index].updatingMain = true;
+    this.inventoryService.inventoryToEdit.images.data[index].changeMain=false;
     this.changingMain = true;
-    // this.inventoryService.updateInventoryMainNumber(this.inventoryService.inventoryToEdit.numbers[index].id, this.inventoryService.inventoryToEdit.id, (res) => {
-    //   // console.log(res);
-    //   this.inventoryService.inventoryToEdit.numbers[index].changeMain = false;
-    //   for (let i = 0; i < this.inventoryService.inventoryToEdit.numbers.length; i+=1){
-    //     if(this.inventoryService.inventoryToEdit.numbers[i].main) {
-    //       this.inventoryService.inventoryToEdit.numbers[i].main = 0;
-    //     }
-
-    //   }
-    //   this.inventoryService.inventoryToEdit.numbers[index].saving = false;
-      this.changingMain = false;
-    //   this.inventoryService.inventoryToEdit.numbers[index].main = 1;
-    // });
+    this.inventoryService.updateInventoryMainImage(this.inventoryService.inventoryToEdit.images.data[index].id, this.inventoryService.inventoryToEdit.id, (res) => {
+      // console.log(res);
+      for (let i = 0; i < this.inventoryService.inventoryToEdit.images.data.length; i += 1){
+        if(this.inventoryService.inventoryToEdit.images.data[i].main) {
+          this.inventoryService.inventoryToEdit.images.data[i].main = 0;
+        }
+      }
+      this.inventoryService.inventoryToEdit.images.data[index].updatingMain = false;
+      this.inventoryService.inventoryToEdit.images.data[index].main = 1;
+      if(index) {
+        this.inventoryService.inventoryToEdit.images.data.unshift(this.inventoryService.inventoryToEdit.images.data[index]);
+        this.inventoryService.inventoryToEdit.images.data.splice(index + 1, 1);
+      }
+      // this.inventoryService.inventoryToEdit.images.data[index].saving = false;
+      // this.changingMain = false;
+    });
   }
 
   changeMainCancel(index){

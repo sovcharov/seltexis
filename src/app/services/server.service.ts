@@ -110,13 +110,17 @@ export class ServerService {
   }
 
   saveInventoryImage(company, image, id) {
-    return this.http.post(
+    return this.http.put(
       `${this.host}/api/savenewimage/company/${company}`,{image: image, partId: id})
   }
 
   deleteInventoryImage(company, partId, imageId) {
       return this.http.delete(`${this.host}/api/deleteimage/${company}/${partId}/${imageId}`,{});
   }
+
+  updateInventoryMainImage(company, partId, imageId) {
+    return this.http.post(`${this.host}/api/updateinventorymainimage/${company}/${partId}/${imageId}`,{});
+}
 
   updateImage(company, image, partId) {
       return this.http.post(

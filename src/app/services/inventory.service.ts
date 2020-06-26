@@ -191,6 +191,20 @@ export class InventoryService {
     );
   }
 
+  updateInventoryMainImage(imageId, partId, callback) {
+    this.serverService.updateInventoryMainImage(this.companyService.company.id, partId, imageId)
+    .subscribe(
+      (response) => {
+        // console.log(response);
+        callback(response);
+      },
+      (error) => {
+        console.log("Error: ", error);
+        return false;
+      }
+    );
+  }
+
   updateImage(image, partId, callback) {
     this.serverService.updateImage(this.companyService.company.id, image, partId)
     .subscribe(

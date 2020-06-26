@@ -25,6 +25,10 @@
             </button>
           </div>
         </div>
+        <div class="" *ngIf="inventoryService.inventoryToEdit.image.rotating">
+          <fa-icon [icon]="['fas', 'cog']" [spin]="true" style="color:gray;"></fa-icon>
+          <span class="sr-only">Loading...</span>
+        </div>
         <!-- <button type="button" class="btn btn-default" >Добавить</button> -->
         <!-- <span class = "form-group">
           <button type="submit" class="btn btn-default" >Добавить</button>
@@ -67,7 +71,12 @@
                   (click)="changeMainCancel(i)">Отменить</button>
                 <span *ngIf="image.main">Основной</span>
               </div>
+              <div class="" *ngIf="image.delete || image.updatingMain">
+                <fa-icon [icon]="['fas', 'cog']" [spin]="true" style="color:gray;"></fa-icon>
+                <span class="sr-only">Loading...</span>
+              </div>
             </div>
+
 
             <!-- <button type="button" class="btn btn-default" >Добавить</button> -->
             <!-- <span class = "form-group">
