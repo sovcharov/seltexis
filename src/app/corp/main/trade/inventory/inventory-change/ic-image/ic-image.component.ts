@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Ng2ImgMaxService } from 'ng2-img-max';
+import { imageProcessor, rotate } from 'ts-image-processor';
+
 import { InventoryService } from '../../../../../../services/inventory.service';
 import { AlertService, Alert } from '../../../../../../services/alert.service';
 import heic2any from "heic2any";
@@ -49,18 +51,11 @@ export class IcImageComponent implements OnInit {
       }).then((result) => {
         // console.log(result);
         this.image = result;
-        this.getRotated(result, this.maxSize/1000);
+        this.getCompressedImg(result, this.maxSize/1000);
       });
     } else {
-      this.getRotated(this.image, this.maxSize/1000);
+      this.getCompressedImg(this.image, this.maxSize/1000);
     }
-  }
-
-  getRotated(img, maxSize) {
-    this.ng2ImgMax.getEXIFOrientedImage(img).then(
-      (value) => {
-        this.getCompressedImg(value, maxSize);
-      });
   }
 
   getCompressedImg(image, maxSize: number) {
@@ -107,6 +102,7 @@ export class IcImageComponent implements OnInit {
     reader.readAsDataURL(file);
     reader.onload = () => {
       this.inventoryService.inventoryToEdit.image.data = reader.result;
+      this.turnCount = (4 + this.turnCount) % 4;
       this.turnCountHelper(this.turnCount);
       this.inventoryService.inventoryToEdit.image.readyToSave = true;
       // this.inventoryService.inventoryToEdit.image.loading = false;
@@ -117,11 +113,15 @@ export class IcImageComponent implements OnInit {
   turnCountHelper(count) {
     // console.log('helper ', this.turnCount, " count ", count);
     if (count) {
-      this.changeOrientation(this.inventoryService.inventoryToEdit.image.data, 8, (resetBase64Image) => {
-        this.inventoryService.inventoryToEdit.image.data = resetBase64Image;
+      imageProcessor.src(this.inventoryService.inventoryToEdit.image.data)
+      .pipe(
+        rotate({clockwise: true})
+      )
+      .then(img=>{
+        this.inventoryService.inventoryToEdit.image.data = img;
         count -= 1;
         this.turnCountHelper(count);
-      });
+      })
     } else {
       this.inventoryService.inventoryToEdit.image.loading = false;
       console.log((this.inventoryService.inventoryToEdit.image.data.length));
@@ -160,6 +160,7 @@ export class IcImageComponent implements OnInit {
   
       // draw image
       ctx.drawImage(img, 0, 0);
+      console.log(canvas);
   
       // export base64
       callback(canvas.toDataURL());
@@ -168,17 +169,32 @@ export class IcImageComponent implements OnInit {
     img.src = srcBase64;
   }
 
-  rotateImage() {
+  rotateImage(clockwise) {
     this.inventoryService.inventoryToEdit.image.rotating = true;
-    // 6 - orientation clockwise, 8 - clockunwise
-    this.changeOrientation(this.inventoryService.inventoryToEdit.image.data, 8, (resetBase64Image) => {
+    imageProcessor.src(this.inventoryService.inventoryToEdit.image.data)
+    .pipe(
+      rotate({clockwise: clockwise})
+    )
+    .then(img=>{
+      this.inventoryService.inventoryToEdit.image.data = img;
       this.inventoryService.inventoryToEdit.image.rotating = false;
-      this.inventoryService.inventoryToEdit.image.data = resetBase64Image;
       console.log((this.inventoryService.inventoryToEdit.image.data.length));
+    })
+    // rotate(this.inventoryService.inventoryToEdit.image.data);
+    // 6 - orientation clockwise, 8 - clockunwise
+    // this.changeOrientation(this.inventoryService.inventoryToEdit.image.data, 8, (resetBase64Image) => {
+    //   console.log(resetBase64Image);
+    //   this.inventoryService.inventoryToEdit.image.rotating = false;
+    //   this.inventoryService.inventoryToEdit.image.data = resetBase64Image;
+    //   console.log((this.inventoryService.inventoryToEdit.image.data.length));
 
-    });
-    this.turnCount = (this.turnCount + 1) % 4;
-    // console.log('rotate+ ', this.turnCount);
+    // });
+    if(clockwise) {
+      this.turnCount = (this.turnCount + 1) % 4;
+    } else {
+      this.turnCount = (this.turnCount - 1) % 4;
+    }
+    console.log('rotate+ ', this.turnCount);
   }
 
 

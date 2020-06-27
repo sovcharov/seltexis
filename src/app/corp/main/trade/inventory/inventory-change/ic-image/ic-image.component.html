@@ -7,7 +7,7 @@
         <div class="form-group">
           <button type="button" class="btn btn-outline-secondary btn-sm mx-1" (click)="editImageStart()"
             *ngIf="!inventoryService.inventoryToEdit.image.editing">Добавить</button>
-          <input type="file" name="file" style="display: none;" (change)=onImageChange($event) #fileInput>
+          <input type="file" name="file" style="display: none;" (change)=onImageChange($event) accept=".heic, .jpg, .png" #fileInput>
           <button class="btn btn-outline-secondary btn-sm mx-1 mb-1" *ngIf="inventoryService.inventoryToEdit.image.editing" (click) = "fileInput.click()">
             Выбрать файл  
           </button>
@@ -19,7 +19,11 @@
           <div  *ngIf="inventoryService.inventoryToEdit.image.editing && inventoryService.inventoryToEdit.image.readyToSave">
             <input type="range" id="vol" name="vol" min="200" max="1000" [(ngModel)]="maxSize"> {{maxSize}} kb
             <button type="button" class="btn btn-outline-secondary btn-sm mx-1" (click)="changeImageSize()">Изменить размер</button>
-            <button type="button" class="btn btn-outline-secondary btn-sm mx-1" (click)="rotateImage()">
+            <button type="button" class="btn btn-outline-secondary btn-sm mx-1" (click)="rotateImage(true)">
+              <fa-icon [icon]="['fas', 'redo']" style="color:gray;"></fa-icon>
+              <!-- <span class="sr-only">Loading...</span> -->
+            </button>
+            <button type="button" class="btn btn-outline-secondary btn-sm mx-1" (click)="rotateImage(false)">
               <fa-icon [icon]="['fas', 'undo']" style="color:gray;"></fa-icon>
               <!-- <span class="sr-only">Loading...</span> -->
             </button>
