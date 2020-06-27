@@ -62,7 +62,6 @@ export class IcImageComponent implements OnInit {
     
     this.ng2ImgMax.compressImage(image, maxSize).subscribe(
       result => {
-        // console.log(result);
         // this.uploadedImage = new File([result], result.name);
         this.getImagePreview(result);
       },
@@ -91,13 +90,11 @@ export class IcImageComponent implements OnInit {
           this.inventoryService.inventoryToEdit.image.data = this.inventoryService.inventoryToEdit.image.tempData;
           // console.log('😢 Oh no!', error);
         }
-
       }
     );
   }
 
   getImagePreview(file: any) {
-    // console.log(file)
     const reader: FileReader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
@@ -111,7 +108,6 @@ export class IcImageComponent implements OnInit {
   }
 
   turnCountHelper(count) {
-    // console.log('helper ', this.turnCount, " count ", count);
     if (count) {
       imageProcessor.src(this.inventoryService.inventoryToEdit.image.data)
       .pipe(
@@ -128,47 +124,6 @@ export class IcImageComponent implements OnInit {
     }
   }
 
-  changeOrientation(srcBase64, srcOrientation, callback) {
-    var img = new Image();	
-  
-    img.onload = function() {
-      var width = img.width,
-          height = img.height,
-          canvas = document.createElement('canvas'),
-          ctx = canvas.getContext("2d");
-      
-      // set proper canvas dimensions before transform & export
-      if (4 < srcOrientation && srcOrientation < 9) {
-        canvas.width = height;
-        canvas.height = width;
-      } else {
-        canvas.width = width;
-        canvas.height = height;
-      }
-    
-      // transform context before drawing image
-      switch (srcOrientation) {
-        case 2: ctx.transform(-1, 0, 0, 1, width, 0); break;
-        case 3: ctx.transform(-1, 0, 0, -1, width, height ); break;
-        case 4: ctx.transform(1, 0, 0, -1, 0, height ); break;
-        case 5: ctx.transform(0, 1, 1, 0, 0, 0); break;
-        case 6: ctx.transform(0, 1, -1, 0, height , 0); break;
-        case 7: ctx.transform(0, -1, -1, 0, height , width); break;
-        case 8: ctx.transform(0, -1, 1, 0, 0, width); break;
-        default: break;
-      }
-  
-      // draw image
-      ctx.drawImage(img, 0, 0);
-      console.log(canvas);
-  
-      // export base64
-      callback(canvas.toDataURL());
-    };
-  
-    img.src = srcBase64;
-  }
-
   rotateImage(clockwise) {
     this.inventoryService.inventoryToEdit.image.rotating = true;
     imageProcessor.src(this.inventoryService.inventoryToEdit.image.data)
@@ -180,15 +135,6 @@ export class IcImageComponent implements OnInit {
       this.inventoryService.inventoryToEdit.image.rotating = false;
       console.log((this.inventoryService.inventoryToEdit.image.data.length));
     })
-    // rotate(this.inventoryService.inventoryToEdit.image.data);
-    // 6 - orientation clockwise, 8 - clockunwise
-    // this.changeOrientation(this.inventoryService.inventoryToEdit.image.data, 8, (resetBase64Image) => {
-    //   console.log(resetBase64Image);
-    //   this.inventoryService.inventoryToEdit.image.rotating = false;
-    //   this.inventoryService.inventoryToEdit.image.data = resetBase64Image;
-    //   console.log((this.inventoryService.inventoryToEdit.image.data.length));
-
-    // });
     if(clockwise) {
       this.turnCount = (this.turnCount + 1) % 4;
     } else {
