@@ -5,7 +5,7 @@
     <div class="col-md-12 text-center" *ngIf="!inventoryService.inventoryToEdit.image.loading">
       <form class="form" style="margin-bottom:4px;">
         <div class="form-group">
-          <button type="button" class="btn btn-outline-secondary btn-sm mx-1" (click)="editImageStart()"
+          <button type="button" class="btn btn-outline-secondary btn-sm mx-1" (click)="editImageStart(); fileInput.click()"
             *ngIf="!inventoryService.inventoryToEdit.image.editing">Добавить</button>
           <input type="file" name="file" style="display: none;" (change)=onImageChange($event) accept=".heic, .jpg, .png" #fileInput>
           <button class="btn btn-outline-secondary btn-sm mx-1 mb-1" *ngIf="inventoryService.inventoryToEdit.image.editing" (click) = "fileInput.click()">

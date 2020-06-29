@@ -42,7 +42,7 @@ export class IcImageComponent implements OnInit {
     this.maxSize = 200; //reset since new file picked
     this.turnCount = 0; //reset since new file picked
 
-    // console.log(image);
+    console.log(this.image);
     if (this.image.type === 'image/heic') {
       heic2any({
         blob: this.image,
@@ -99,9 +99,33 @@ export class IcImageComponent implements OnInit {
     reader.readAsDataURL(file);
     reader.onload = () => {
       this.inventoryService.inventoryToEdit.image.data = reader.result;
-      this.turnCount = (4 + this.turnCount) % 4;
-      this.turnCountHelper(this.turnCount);
-      this.inventoryService.inventoryToEdit.image.readyToSave = true;
+      var image = new Image();
+      image.src = this.inventoryService.inventoryToEdit.image.data;
+      image.onload = () => {
+        let imgSidesRatio: number = image.height/image.width;
+        if(0.95 < imgSidesRatio && imgSidesRatio < 1.05) {
+          this.turnCount = (4 + this.turnCount) % 4;
+          this.turnCountHelper(this.turnCount);
+          this.inventoryService.inventoryToEdit.image.readyToSave = true;
+        } else {
+          this.inventoryService.inventoryToEdit.image.data = "";
+          let alert: Alert = {
+            alertClass: 'Danger',
+            text: `Error: NOT RECTANGLE`,
+            comment: `must be: heigth = width`,
+            waitForClick: true
+          };
+          this.alertService.addAlert(alert);
+          this.editImageCancel();
+          this.inventoryService.inventoryToEdit.image.loading = false;
+          this.inventoryService.inventoryToEdit.image.editing = true;
+          this.inventoryService.inventoryToEdit.image.readyToSave = false;
+          this.inventoryService.inventoryToEdit.image.data = this.inventoryService.inventoryToEdit.image.tempData;
+        }
+        
+      }
+
+
       // this.inventoryService.inventoryToEdit.image.loading = false;
       // console.log(this.inventoryService.inventoryToEdit.image.data);
     };
@@ -140,7 +164,7 @@ export class IcImageComponent implements OnInit {
     } else {
       this.turnCount = (this.turnCount - 1) % 4;
     }
-    console.log('rotate+ ', this.turnCount);
+    // console.log('rotate+ ', this.turnCount);
   }
 
 
@@ -148,7 +172,7 @@ export class IcImageComponent implements OnInit {
     this.inventoryService.inventoryToEdit.image.readyToSave = false;
     this.inventoryService.inventoryToEdit.image.loading = true;
     this.inventoryService.saveInventoryImage(this.inventoryService.inventoryToEdit.image.data, this.inventoryService.inventoryToEdit.id, (res)=>{
-      console.log(res);
+      // console.log(res);
       res.image = this.inventoryService.inventoryToEdit.image.data;
       this.inventoryService.inventoryToEdit.images.data[this.inventoryService.inventoryToEdit.images.data.length] = res;
       this.inventoryService.inventoryToEdit.image.data = "";
@@ -183,7 +207,7 @@ export class IcImageComponent implements OnInit {
   deleteImage(i) {
     this.inventoryService.inventoryToEdit.images.data[i].delete = true;
     this.inventoryService.deleteInventoryImage(this.inventoryService.inventoryToEdit.images.data[i].id, this.inventoryService.inventoryToEdit.id, (res)=>{
-      console.log(res);
+      // console.log(res);
       this.inventoryService.inventoryToEdit.images.data.splice(i, 1);
     })
   }
