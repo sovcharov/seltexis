@@ -222,8 +222,8 @@ export class InventoryService {
     this.serverService.searchInventory(this.companyService.company.id, search)
     .subscribe(
       (response) => {
-        this.inventory = response;
-        callback();
+        // this.inventory = response;
+        callback(response);
       },
       (error) => {
         console.log("Error: " + error);

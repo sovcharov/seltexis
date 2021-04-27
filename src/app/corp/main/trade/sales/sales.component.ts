@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InventoryService } from '../../../../services/inventory.service';
+import { Tabs } from '../../../../services/tabs.service'
+
 
 @Component({
   selector: 'app-sales',
@@ -9,7 +11,8 @@ import { InventoryService } from '../../../../services/inventory.service';
 export class SalesComponent implements OnInit {
 
   constructor(
-    public inventoryService: InventoryService
+    public inventoryService: InventoryService,
+    private tabs: Tabs 
   ) { }
 
   ngOnInit() {
@@ -19,6 +22,10 @@ export class SalesComponent implements OnInit {
     // this.inventoryService.deleteInventoryImage('1110','11', data => {
     //   console.log(data);
     // });
+  }
+
+  public addTab(name, id) {
+    this.tabs.openTab(name, id);
   }
 
 }

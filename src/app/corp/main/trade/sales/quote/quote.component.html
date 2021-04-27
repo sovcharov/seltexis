@@ -1,0 +1,57 @@
+<div class="" style="padding: 10px;">
+    <form *ngIf = "!arrayToQuote.length">
+        <div class="form-group">
+        <label for="exampleFormControlTextarea1">Enter numbers with space, comma or one per row</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" [(ngModel)]="boldText" name = "boldText"></textarea>
+        </div>
+        
+        <div class="form-group">
+            <!-- <div class="btn-group" role="group" aria-label="Basic example"> -->
+            <button class="btn btn-outline-secondary"
+                    *ngIf="1" type=""
+                    (click)="checkBoldText()" style = "margin-right: 5px;">Проверить</button>
+            <button class="btn btn-outline-secondary text-right"
+                *ngIf="1" type=""
+                (click)="clearForm()">Очистить</button>
+            <!-- </div> -->
+        </div>
+
+    </form>
+    <form *ngIf = "arrayToQuote.length">
+        <div class="form-group">
+                <button class="btn btn-outline-secondary btn-sm text-right"
+                *ngIf="1" type=""
+                (click)="startOver()"><- Вернуться</button>
+        </div>
+        <ng-container *ngFor="let number of arrayToQuote; let i = index">   
+            <div class="alert alert-secondary fade show" role="alert">
+                <strong>{{number.searchPhrase}}</strong>
+                <button type="button" class="close" aria-label="Close" (click)="deleteNumber(i)">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div *ngIf = "getSearchResultsLength(i)" >
+                <ng-container *ngFor="let search of number.searchResults; let j = index">  
+                    <div class="input-group input-group-sm mb-3">
+                        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value = "{{search.descriptionToFinal}}" [(ngModel)] = "search.descriptionToFinal" name = "search">
+                        <div class="input-group-append">
+                            <button [ngClass] = "search.toTheFinalList ? 'btn-warning' : 'btn-outline-secondary'" class="btn btn-outline-secondary" type="button" (click)="search.toTheFinalList = !search.toTheFinalList;">Добавить <strong *ngIf="search.toTheFinalList">V</strong></button>
+                        </div>
+                      </div>
+                    <!-- <div>{{search.description}} {{search.number}}</div> -->
+        
+                </ng-container>
+            </div>
+
+        </ng-container>
+
+        
+        <div class="form-group">
+            <button class="btn btn-outline-secondary btn-sm"
+                    *ngIf="1" type=""
+                    (click)="sendToQuote()"style = "margin-right: 5px;">Расценить</button> 
+        </div>
+    </form>
+</div>
+
+

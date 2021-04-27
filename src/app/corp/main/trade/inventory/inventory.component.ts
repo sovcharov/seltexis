@@ -44,7 +44,8 @@ export class InventoryComponent implements OnInit {
 
   public searchInventory() {
     this.loading = true;
-    this.inventoryService.searchInventory(this.inventoryToSearch, () => {
+    this.inventoryService.searchInventory(this.inventoryToSearch, (res) => {
+      this.inventoryService.inventory = res;
       this.loading = false;
     });
   }

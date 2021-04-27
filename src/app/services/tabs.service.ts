@@ -25,11 +25,16 @@ export class Tabs {
       id: 'app-analogs'
     }*/
     ];
-    // this.active = this.main[1].id;
     this.active = this.main[0].id;
 
     this.tabsVisitingOrder = [this.active];
+    this.tempFuncToOpenUnderConstructionPage(); //comment for production
+  }
 
+  private tempFuncToOpenUnderConstructionPage(): void {
+    let name = "BatchQuote";
+    let id = "app-quote";
+    this.openTab(name, id);
   }
 
   openTab(name, id) {

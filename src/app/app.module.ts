@@ -56,6 +56,7 @@ import { PermalinkComponent } from './corp/main/trade/it/permalink/permalink.com
 import { SitemapComponent } from './corp/main/trade/it/sitemap/sitemap.component';
 import { LoadAnimationComponent } from './corp/load-animation/load-animation.component';
 import { IcImageComponent } from './corp/main/trade/inventory/inventory-change/ic-image/ic-image.component';
+import { QuoteComponent } from './corp/main/trade/sales/quote/quote.component';
 
 
 
@@ -83,7 +84,8 @@ import { IcImageComponent } from './corp/main/trade/inventory/inventory-change/i
     PermalinkComponent,
     SitemapComponent,
     LoadAnimationComponent,
-    IcImageComponent
+    IcImageComponent,
+    QuoteComponent
   ],
   imports: [
     // AlertModule.forRoot(),
