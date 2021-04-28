@@ -18,6 +18,9 @@ export class QuoteComponent implements OnInit {
   public boldText: string = "1234 2345";
   public arrayToQuote: search[] = [];
   public loading: boolean = false;
+  public discount: number = 5;
+  public quoted: boolean = false;
+  public finalPlainText: string = "";
   constructor(
     private inventoryService: InventoryService,
     private alertService: AlertService
@@ -51,10 +54,25 @@ export class QuoteComponent implements OnInit {
     for (let i = 0; i < this.arrayToQuote.length; i += 1) {
       this.inventoryService.searchInventory(this.arrayToQuote[i].searchPhrase, (res) => {
         this.arrayToQuote[i].searchResults = res;
-        for (let j = 0; j < this.arrayToQuote[i].searchResults.length; j += 1) {
-          this.arrayToQuote[i].searchResults[j].descriptionToFinal = `${this.arrayToQuote[i].searchResults[j].description} ${this.arrayToQuote[i].searchResults[j].numbers}`;
-        }
+        this.setDescriptionToFinal (this.arrayToQuote[i].searchResults);
+
       });
+    }
+    this.quoted = true;
+  }
+
+  public setDescriptionToFinalForAll () {
+    for (let i = 0; i < this.arrayToQuote.length; i += 1) {
+      this.setDescriptionToFinal (this.arrayToQuote[i].searchResults);
+    }
+  }
+
+  private setDescriptionToFinal (searchResults) {
+    for (let j = 0; j < searchResults.length; j += 1) {
+      searchResults[j].descriptionToFinal = `${searchResults[j].description} ${searchResults[j].numbers}`;
+      searchResults[j].descriptionToFinal = searchResults[j].descriptionToFinal.replace(/[\t,\r,\n,\f,\s]+/g," ");
+      searchResults[j].descriptionToFinal += `- ${Math.ceil(searchResults[j].price * ((100 -this.discount)/100))}р. Нал: Мск: ${searchResults[j].msk} СПб: ${searchResults[j].stock} Едет: ${searchResults[j].ordered}`
+      // console.log(res);
     }
   }
 
@@ -66,10 +84,23 @@ export class QuoteComponent implements OnInit {
   }
   public startOver() {
     this.arrayToQuote = [];
+    this.quoted = false;
   }
 
   public getSearchResultsLength (i) {
     return this.arrayToQuote[i].searchResults.length;
+  }
+
+  public createPlainText () {
+    let result: string = '';
+    for(let i = 0; i < this.arrayToQuote.length; i += 1) {
+      for (let j = 0; j < this.arrayToQuote[i].searchResults.length; j += 1) {
+        if(this.arrayToQuote[i].searchResults[j].toTheFinalList) {
+          result = result.length ? `${result}\n${this.arrayToQuote[i].searchResults[j].descriptionToFinal}` : `${this.arrayToQuote[i].searchResults[j].descriptionToFinal}`;
+        }
+      }
+    }
+    this.finalPlainText = result;
   }
 
 }

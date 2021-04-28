@@ -1,11 +1,10 @@
 <div class="" style="padding: 10px;">
-    <form *ngIf = "!arrayToQuote.length">
+    <div *ngIf = "!arrayToQuote.length">
         <div class="form-group">
         <label for="exampleFormControlTextarea1">Enter numbers with space, comma or one per row</label>
         <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" [(ngModel)]="boldText" name = "boldText"></textarea>
         </div>
-        
-        <div class="form-group">
+        <div class="input-group">
             <!-- <div class="btn-group" role="group" aria-label="Basic example"> -->
             <button class="btn btn-outline-secondary"
                     *ngIf="1" type=""
@@ -15,13 +14,27 @@
                 (click)="clearForm()">Очистить</button>
             <!-- </div> -->
         </div>
+    </div>
+    <div *ngIf = "arrayToQuote.length">
 
-    </form>
-    <form *ngIf = "arrayToQuote.length">
-        <div class="form-group">
-                <button class="btn btn-outline-secondary btn-sm text-right"
-                *ngIf="1" type=""
-                (click)="startOver()"><- Вернуться</button>
+        <div class="input-group mb-4" style = "margin-bottom: 5px;">
+                <input type="text" autofocus="autofocus" style="display:none" />
+                <button class="btn btn-outline-secondary"
+                type=""
+                (click)="startOver()" style = "margin-right: 15px;"><- В начало</button>
+                <div class="input-group-append">
+                    <label class="input-group-text" for="inputGroupSelect01">Скидка %</label>
+                    <input type="text" class="form-control" value = "{{discount}}" [(ngModel)] = "discount" name = "discount" style = "width: 50px; text-align: center; font-weight: bold; color: orangered;">
+                    <button class="btn btn-outline-secondary" type="" (click)="discount = discount - 1" style = "width: 40px;">-</button>                   
+                    <button class="btn btn-outline-secondary" type="" (click)="discount = discount + 1" style = "width: 40px;">+</button>
+                    <button class="btn btn-outline-secondary" type="" (click)="discount = 0" style = "width: 40px;"[ngClass] = "discount === 0 ? 'btn-warning' : 'btn-outline-secondary'">0</button>
+                    <button class="btn btn-outline-secondary" type="" (click)="discount = 5" style = "width: 40px;" [ngClass] = "discount === 5 ? 'btn-warning' : 'btn-outline-secondary'">5</button>
+                    <button class="btn btn-outline-secondary" type="" (click)="discount = 10" style = "width: 40px;"[ngClass] = "discount === 10 ? 'btn-warning' : 'btn-outline-secondary'">10</button>
+                    <button class="btn btn-outline-secondary" type="" (click)="discount = 15" style = "width: 40px;"[ngClass] = "discount === 15 ? 'btn-warning' : 'btn-outline-secondary'">15</button>
+
+                    <button class="btn btn-outline-secondary" type="" (click)="setDescriptionToFinalForAll();">Пересчитать</button>
+                </div>
+
         </div>
         <ng-container *ngFor="let number of arrayToQuote; let i = index">   
             <div class="alert alert-secondary fade show" role="alert">
@@ -33,9 +46,10 @@
             <div *ngIf = "getSearchResultsLength(i)" >
                 <ng-container *ngFor="let search of number.searchResults; let j = index">  
                     <div class="input-group input-group-sm mb-3">
-                        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value = "{{search.descriptionToFinal}}" [(ngModel)] = "search.descriptionToFinal" name = "search">
+                        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" style="font-size:12px;" value = "{{search.descriptionToFinal}}" [(ngModel)] = "search.descriptionToFinal" name = "search">
                         <div class="input-group-append">
-                            <button [ngClass] = "search.toTheFinalList ? 'btn-warning' : 'btn-outline-secondary'" class="btn btn-outline-secondary" type="button" (click)="search.toTheFinalList = !search.toTheFinalList;">Добавить <strong *ngIf="search.toTheFinalList">V</strong></button>
+                            <label class="input-group-text" for="inputGroupSelect01">{{search.msk}}-{{search.stock}}-{{search.ordered}}</label>
+                            <button [ngClass] = "search.toTheFinalList ? 'btn-warning' : 'btn-outline-secondary'" class="btn btn-outline-secondary" type="" (click)="search.toTheFinalList = !search.toTheFinalList;">Добавить <strong *ngIf="search.toTheFinalList">V</strong></button>
                         </div>
                       </div>
                     <!-- <div>{{search.description}} {{search.number}}</div> -->
@@ -46,12 +60,18 @@
         </ng-container>
 
         
-        <div class="form-group">
+        <div class="input-group">
             <button class="btn btn-outline-secondary btn-sm"
-                    *ngIf="1" type=""
+                    *ngIf="!quoted" type=""
                     (click)="sendToQuote()"style = "margin-right: 5px;">Расценить</button> 
         </div>
-    </form>
+        <div class="input-group">
+            <button class="btn btn-outline-secondary btn-sm"
+                    *ngIf="quoted" type=""
+                    (click)="createPlainText()"style = "margin-right: 5px;">Plain text</button> 
+        </div>
+        <div style="margin-top:10px;" *ngIf="finalPlainText.length">
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" [(ngModel)]="finalPlainText" name = "finalPlainText"></textarea>
+        </div>
+    </div>
 </div>
-
-
