@@ -28,7 +28,7 @@ export class Tabs {
     this.active = this.main[0].id;
 
     this.tabsVisitingOrder = [this.active];
-    this.tempFuncToOpenUnderConstructionPage(); //comment for production
+    // this.tempFuncToOpenUnderConstructionPage(); //comment for production
   }
 
   private tempFuncToOpenUnderConstructionPage(): void {

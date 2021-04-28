@@ -15,12 +15,22 @@ interface search {
 
 export class QuoteComponent implements OnInit {
 
-  public boldText: string = "1234 2345";
+  public boldText: string = "";
   public arrayToQuote: search[] = [];
   public loading: boolean = false;
   public discount: number = 5;
   public quoted: boolean = false;
   public finalPlainText: string = "";
+  public listVars = {
+    includeSearchNumber: false,
+    includeDescription: true,
+    includeNumber: true,
+    includeManufacturer: true,
+    includeSpb: true,
+    includeMsk: true,
+    includeOrdered: false
+  };
+  public includeDescription= true;
   constructor(
     private inventoryService: InventoryService,
     private alertService: AlertService
@@ -48,13 +58,22 @@ export class QuoteComponent implements OnInit {
   }
 
   public sendToQuote() {
-    console.log(this.arrayToQuote); 
+    // console.log(this.arrayToQuote); 
     this.loading = true;
 
     for (let i = 0; i < this.arrayToQuote.length; i += 1) {
       this.inventoryService.searchInventory(this.arrayToQuote[i].searchPhrase, (res) => {
         this.arrayToQuote[i].searchResults = res;
-        this.setDescriptionToFinal (this.arrayToQuote[i].searchResults);
+        // console.log(res);
+        for (let j = 0; j < this.arrayToQuote[i].searchResults.length; j += 1) {
+          this.inventoryService.getInventoryNumbers(this.arrayToQuote[i].searchResults[j].id, (res2) => {
+            this.arrayToQuote[i].searchResults[j].allNumbers = res2;
+            // console.log(res2);
+            this.setDescriptionToFinalSingleItem (this.arrayToQuote[i].searchResults[j], this.arrayToQuote[i].searchPhrase);
+          });
+        }
+
+        // this.setDescriptionToFinal (this.arrayToQuote[i].searchResults);
 
       });
     }
@@ -63,28 +82,75 @@ export class QuoteComponent implements OnInit {
 
   public setDescriptionToFinalForAll () {
     for (let i = 0; i < this.arrayToQuote.length; i += 1) {
-      this.setDescriptionToFinal (this.arrayToQuote[i].searchResults);
+      this.setDescriptionToFinal (this.arrayToQuote[i].searchResults, this.arrayToQuote[i].searchPhrase);
     }
   }
 
-  private setDescriptionToFinal (searchResults) {
+  private setDescriptionToFinal (searchResults, searchPhrase) {
     for (let j = 0; j < searchResults.length; j += 1) {
-      searchResults[j].descriptionToFinal = `${searchResults[j].description} ${searchResults[j].numbers}`;
-      searchResults[j].descriptionToFinal = searchResults[j].descriptionToFinal.replace(/[\t,\r,\n,\f,\s]+/g," ");
-      searchResults[j].descriptionToFinal += `- ${Math.ceil(searchResults[j].price * ((100 -this.discount)/100))}р. Нал: Мск: ${searchResults[j].msk} СПб: ${searchResults[j].stock} Едет: ${searchResults[j].ordered}`
-      // console.log(res);
+      this.setDescriptionToFinalSingleItem (searchResults[j], searchPhrase);
     }
   }
+
+  private setDescriptionToFinalSingleItem (searchResult, searchPhrase) {
+      let availability: string = "";
+      searchResult.descriptionToFinal = "";
+      if (this.listVars.includeMsk) {
+        if(searchResult.msk > 20) {
+          availability += `Мск: Много `;
+        } else {
+          availability += `Мск: ${searchResult.msk} `;
+        }
+      }
+      if (this.listVars.includeSpb) {
+        if(searchResult.stock > 20) {
+          availability += `СПб: Много `;
+        } else {
+          availability += `СПб: ${searchResult.stock} `;
+        }
+      }
+      if (this.listVars.includeOrdered) {
+        if(searchResult.ordered > 20) {
+          availability += `Едет: Много `;
+        } else {
+          availability += `Едет: ${searchResult.ordered} `;
+        }
+      }
+      if (availability.length) {
+        availability = `Нал: ${availability}`;
+      }
+      if (this.listVars.includeSearchNumber) {
+        searchResult.descriptionToFinal += `${searchPhrase} `;
+      }
+      if (this.listVars.includeDescription) {
+        searchResult.descriptionToFinal += `${searchResult.description} `;
+      }
+      if (this.listVars.includeNumber) {
+        searchResult.descriptionToFinal += `${searchResult.allNumbers[0].number} `;
+      }
+      if (this.listVars.includeManufacturer) {
+        searchResult.descriptionToFinal += `(Произв:${searchResult.allNumbers[0].manufacturer}) `;
+      }
+      // searchResult.descriptionToFinal = `${searchResult.description} ${searchResult.allNumbers[0].number} `;
+      // searchResult.descriptionToFinal += `(Произв:${searchResult.allNumbers[0].manufacturer}) `;
+      searchResult.descriptionToFinal = searchResult.descriptionToFinal.replace(/[\t,\r,\n,\f,\s]+/g," ");
+      searchResult.descriptionToFinal += `- ${Math.ceil(searchResult.price * ((100 -this.discount)/100))}р. ${availability}`;
+      // console.log(res);
+  }
+
+
 
   public deleteNumber(i) {
     this.arrayToQuote.splice(i,1); 
   }
   public clearForm() {
     this.boldText = "";
+    this.finalPlainText = "";
   }
   public startOver() {
     this.arrayToQuote = [];
     this.quoted = false;
+    this.finalPlainText = "";
   }
 
   public getSearchResultsLength (i) {
@@ -99,6 +165,9 @@ export class QuoteComponent implements OnInit {
           result = result.length ? `${result}\n${this.arrayToQuote[i].searchResults[j].descriptionToFinal}` : `${this.arrayToQuote[i].searchResults[j].descriptionToFinal}`;
         }
       }
+    }
+    if (result.length) {
+      result = `${result}\nЦена включает скидку ${this.discount}%`
     }
     this.finalPlainText = result;
   }
