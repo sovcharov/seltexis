@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { InventoryService } from '../../../../../services/inventory.service';
 import { AlertService, Alert } from '../../../../../services/alert.service';
+import { LoadAnimationService } from '../../../../../services/load-animation.service';
+
 
 interface search {
   searchPhrase: string,
@@ -15,7 +17,7 @@ interface search {
 
 export class QuoteComponent implements OnInit {
 
-  public boldText: string = "";
+  public boldText: string = "1234 2345";
   public arrayToQuote: search[] = [];
   public loading: boolean = false;
   public discount: number = 5;
@@ -33,7 +35,8 @@ export class QuoteComponent implements OnInit {
   public includeDescription= true;
   constructor(
     private inventoryService: InventoryService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private loadAnimationService: LoadAnimationService
   ) { }
 
   ngOnInit(): void {
@@ -60,16 +63,25 @@ export class QuoteComponent implements OnInit {
   public sendToQuote() {
     // console.log(this.arrayToQuote); 
     this.loading = true;
+    this.loadAnimationService.loading = true;
+    let countTotal = 0;
+    let countDone = 0;
 
     for (let i = 0; i < this.arrayToQuote.length; i += 1) {
       this.inventoryService.searchInventory(this.arrayToQuote[i].searchPhrase, (res) => {
         this.arrayToQuote[i].searchResults = res;
         // console.log(res);
         for (let j = 0; j < this.arrayToQuote[i].searchResults.length; j += 1) {
+          countTotal += 1;
           this.inventoryService.getInventoryNumbers(this.arrayToQuote[i].searchResults[j].id, (res2) => {
             this.arrayToQuote[i].searchResults[j].allNumbers = res2;
             // console.log(res2);
             this.setDescriptionToFinalSingleItem (this.arrayToQuote[i].searchResults[j], this.arrayToQuote[i].searchPhrase);
+            countDone += 1;
+            // console.log(countDone,"-",countTotal);
+            if (countTotal === countDone) {
+              this.loadAnimationService.loading = false;
+            }
           });
         }
 
@@ -131,11 +143,8 @@ export class QuoteComponent implements OnInit {
       if (this.listVars.includeManufacturer) {
         searchResult.descriptionToFinal += `(Произв:${searchResult.allNumbers[0].manufacturer}) `;
       }
-      // searchResult.descriptionToFinal = `${searchResult.description} ${searchResult.allNumbers[0].number} `;
-      // searchResult.descriptionToFinal += `(Произв:${searchResult.allNumbers[0].manufacturer}) `;
       searchResult.descriptionToFinal = searchResult.descriptionToFinal.replace(/[\t,\r,\n,\f,\s]+/g," ");
-      searchResult.descriptionToFinal += `- ${Math.ceil(searchResult.price * ((100 -this.discount)/100))}р. ${availability}`;
-      // console.log(res);
+      searchResult.descriptionToFinal += `- ${Math.ceil(searchResult.price * ((100 -this.discount)/100))} р. ${availability}`;
   }
 
 

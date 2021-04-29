@@ -5,13 +5,16 @@ import { environment } from '../../environments/environment'
 export class ConfigService {
 
   public config = {
+    production: false,
     host: ""
   };
   
   constructor() {
     if(environment.production) {
-      this.config.host = 'https://seltex.ru:3001'
+      this.config.production = true;
+      this.config.host = 'https://seltex.ru:3001';
     } else {
+      this.config.production = false;
       this.config.host = 'http://localhost:3001'
     }
   }

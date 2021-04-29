@@ -62,8 +62,9 @@
                     <div class="input-group input-group-sm mb-3">
                         <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" style="font-size:12px;" value = "{{search.descriptionToFinal}}" [(ngModel)] = "search.descriptionToFinal" name = "search">
                         <div class="input-group-append">
-                            <label class="input-group-text" for="inputGroupSelect01">{{search.msk}}-{{search.stock}}-{{search.ordered}}</label>
-                            <button [ngClass] = "search.toTheFinalList ? 'btn-warning' : 'btn-outline-secondary'" class="btn btn-outline-secondary" type="" (click)="search.toTheFinalList = !search.toTheFinalList; createPlainText();">Добавить <strong *ngIf="search.toTheFinalList">V</strong></button>
+                            <label class="input-group-text" for="inputGroupSelect01" style="font-size:12px;">{{search.allNumbers[0].manufacturer}}</label>
+                            <label class="input-group-text" for="inputGroupSelect01" style="font-size:12px;">{{search.msk}}-{{search.stock}}-{{search.ordered}}</label>
+                            <button [ngClass] = "search.toTheFinalList ? 'btn-warning' : 'btn-outline-secondary'" class="btn btn-outline-secondary" type="" (click)="search.toTheFinalList = !search.toTheFinalList; createPlainText();" style="font-size:12px;">Добавить <strong *ngIf="search.toTheFinalList">V</strong></button>
                         </div>
                       </div>
                     <!-- <div>{{search.description}} {{search.number}}</div> -->

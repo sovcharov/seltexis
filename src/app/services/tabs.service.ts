@@ -4,6 +4,8 @@ import {
 } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { CompanyService } from './company.service';
+import { ConfigService } from './config.service';
+
 
 
 @Injectable()
@@ -15,12 +17,15 @@ export class Tabs {
 
   constructor(
     private router: Router,
+    private configService: ConfigService,
     private companyService: CompanyService
   ) {
-    this.main = [{
-      name: 'Home',
-      id: `app-home`
-    }/*,{
+    this.main = [
+      {
+        name: 'Home',
+        id: `app-home`
+      }
+    /*,{
       name: 'Аналоги',
       id: 'app-analogs'
     }*/
@@ -28,10 +33,12 @@ export class Tabs {
     this.active = this.main[0].id;
 
     this.tabsVisitingOrder = [this.active];
-    // this.tempFuncToOpenUnderConstructionPage(); //comment for production
+    if (!configService.config.production) {
+      this.openExtraPagesForDevMove();
+    }
   }
 
-  private tempFuncToOpenUnderConstructionPage(): void {
+  private openExtraPagesForDevMove(): void {
     let name = "BatchQuote";
     let id = "app-quote";
     this.openTab(name, id);
