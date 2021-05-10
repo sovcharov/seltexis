@@ -31,6 +31,16 @@ export class MyCookieService {
     this.cookieService.putObject('company', company, { expires: date });
   }
 
+  getUserQuoteVars() {
+    return this.cookieService.getObject('quoteVars');
+  }
+
+  putUserQuoteVars(quoteVars) {
+    // let date = new Date();
+    // date.setDate(date.getDate() + 1);
+    this.cookieService.putObject('quoteVars', quoteVars);
+  }
+
   deleteUser(){
     this.cookieService.remove('user');
   }

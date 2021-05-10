@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { InventoryService } from '../../../../../services/inventory.service';
 import { AlertService, Alert } from '../../../../../services/alert.service';
+import { MyCookieService } from '../../../../../services/my-cookie.service';
+
 import { LoadAnimationService } from '../../../../../services/load-animation.service';
 
 
@@ -26,7 +28,7 @@ export class QuoteComponent implements OnInit {
   public discount: number = 5;
   public quoted: boolean = false;
   public finalPlainText: string = "";
-  public listVars = {
+  public listVars: any = {
     includeSearchNumber: false,
     includeSearchQty: true,
     includeDescription: true,
@@ -34,16 +36,34 @@ export class QuoteComponent implements OnInit {
     includeManufacturer: false,
     includeMsk: true,
     includeSpb: true,
-    includeOrdered: false
+    includeOrdered: false,
+    discount: 5
   };
   public includeDescription= true;
   constructor(
     private inventoryService: InventoryService,
     private alertService: AlertService,
-    private loadAnimationService: LoadAnimationService
+    private loadAnimationService: LoadAnimationService,
+    private MyCookieService: MyCookieService
+
+    
   ) { }
 
   ngOnInit(): void {
+    this.listVars = this.MyCookieService.getUserQuoteVars();
+    if(!this.listVars) {
+      this.listVars = {
+        includeSearchNumber: false,
+        includeSearchQty: true,
+        includeDescription: true,
+        includeNumber: false,
+        includeManufacturer: false,
+        includeMsk: true,
+        includeSpb: true,
+        includeOrdered: false
+      };
+    }
+    console.log(this.listVars);
   }
 
   public checkBoldText() {
@@ -160,7 +180,7 @@ export class QuoteComponent implements OnInit {
         searchResult.descriptionToFinal += `(Произв:${searchResult.allNumbers[0].manufacturer}) `;
       }
       searchResult.descriptionToFinal = searchResult.descriptionToFinal.replace(/[\t,\r,\n,\f,\s]+/g," ");
-      searchResult.descriptionToFinal += `- ${Math.ceil(searchResult.price * ((100 -this.discount)/100))} р. ${availability}`;
+      searchResult.descriptionToFinal += `- ${Math.ceil(searchResult.price * ((100 -this.listVars.discount)/100))} р. ${availability}`;
   }
 
 
@@ -192,9 +212,13 @@ export class QuoteComponent implements OnInit {
       }
     }
     if (result.length) {
-      result = `${result}\nЦена включает скидку ${this.discount}%`
+      result = `${result}\nЦена включает скидку ${this.listVars.discount}%`
     }
     this.finalPlainText = result;
+  }
+
+  public saveQuoteVars () {
+    this.MyCookieService.putUserQuoteVars(this.listVars);
   }
 
 }
