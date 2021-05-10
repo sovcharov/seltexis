@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod --aot --output-path /Users/sergei/Documents/1.Work/soft/projects/seltex/seltexru/app/seltexru/sis --base-href /sis/",
+    "build": "sudo ng build --prod --aot --output-path /Users/sergei/Documents/1.Work/soft/projects/seltex/seltexru/app/seltexru/sis --base-href /sis/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
