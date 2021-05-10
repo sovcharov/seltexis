@@ -6,6 +6,7 @@ import { LoadAnimationService } from '../../../../../services/load-animation.ser
 
 interface search {
   searchPhrase: string,
+  qty: number,
   searchResults: any[]
 }
 
@@ -17,7 +18,9 @@ interface search {
 
 export class QuoteComponent implements OnInit {
 
-  public boldText: string = "1234 2345";
+  public boldText: string = "";
+//   `1234 2
+// 2345 3`;
   public arrayToQuote: search[] = [];
   public loading: boolean = false;
   public discount: number = 5;
@@ -25,11 +28,12 @@ export class QuoteComponent implements OnInit {
   public finalPlainText: string = "";
   public listVars = {
     includeSearchNumber: false,
+    includeSearchQty: true,
     includeDescription: true,
-    includeNumber: true,
-    includeManufacturer: true,
-    includeSpb: true,
+    includeNumber: false,
+    includeManufacturer: false,
     includeMsk: true,
+    includeSpb: true,
     includeOrdered: false
   };
   public includeDescription= true;
@@ -43,21 +47,30 @@ export class QuoteComponent implements OnInit {
   }
 
   public checkBoldText() {
-    let result = this.boldText.replace(/[\n,\s,\;\/\:]+/g, ",").split(",");
+    // let result = this.boldText.replace(/[\n,\s,\;\/\:]+/g, ",").split(","); //old without qty
+    let result: any = this.boldText.replace(/[\n,\;,\/,\:]+/g, ",").split(",");
     // console.log(result); 
     if (result[result.length-1] === "") {
       result.pop();
     }
+    // console.log(result); 
     if (result[0] === "") {
       result.splice(0,1);
     }
+    // console.log(result); 
+    for (let i = 0; i < result.length; i += 1) {
+      result[i] = result[i].replace(/^\s+/g, "").replace(/\s+/g, ",").split(",");
+    }
+    console.log(result); 
     for (let i = 0; i < result.length; i += 1) {
       this.arrayToQuote[i] = {
-        searchPhrase: result[i],
+        searchPhrase: result[i][0],
+        qty: result[i][1] || 1,
         searchResults: []
       }
     }
-    // this.arrayToQuote = result;
+    // console.log(this.arrayToQuote); 
+
   }
 
   public sendToQuote() {
@@ -76,7 +89,7 @@ export class QuoteComponent implements OnInit {
           this.inventoryService.getInventoryNumbers(this.arrayToQuote[i].searchResults[j].id, (res2) => {
             this.arrayToQuote[i].searchResults[j].allNumbers = res2;
             // console.log(res2);
-            this.setDescriptionToFinalSingleItem (this.arrayToQuote[i].searchResults[j], this.arrayToQuote[i].searchPhrase);
+            this.setDescriptionToFinalSingleItem (this.arrayToQuote[i].searchResults[j], this.arrayToQuote[i].searchPhrase, this.arrayToQuote[i].qty);
             countDone += 1;
             // console.log(countDone,"-",countTotal);
             if (countTotal === countDone) {
@@ -94,17 +107,17 @@ export class QuoteComponent implements OnInit {
 
   public setDescriptionToFinalForAll () {
     for (let i = 0; i < this.arrayToQuote.length; i += 1) {
-      this.setDescriptionToFinal (this.arrayToQuote[i].searchResults, this.arrayToQuote[i].searchPhrase);
+      this.setDescriptionToFinal (this.arrayToQuote[i].searchResults, this.arrayToQuote[i].searchPhrase, this.arrayToQuote[i].qty);
     }
   }
 
-  private setDescriptionToFinal (searchResults, searchPhrase) {
+  private setDescriptionToFinal (searchResults, searchPhrase, qty) {
     for (let j = 0; j < searchResults.length; j += 1) {
-      this.setDescriptionToFinalSingleItem (searchResults[j], searchPhrase);
+      this.setDescriptionToFinalSingleItem (searchResults[j], searchPhrase, qty);
     }
   }
 
-  private setDescriptionToFinalSingleItem (searchResult, searchPhrase) {
+  private setDescriptionToFinalSingleItem (searchResult, searchPhrase, qty) {
       let availability: string = "";
       searchResult.descriptionToFinal = "";
       if (this.listVars.includeMsk) {
@@ -139,6 +152,9 @@ export class QuoteComponent implements OnInit {
       }
       if (this.listVars.includeNumber) {
         searchResult.descriptionToFinal += `${searchResult.allNumbers[0].number} `;
+      }
+      if (this.listVars.includeSearchQty) {
+        searchResult.descriptionToFinal += `(${qty}шт) `;
       }
       if (this.listVars.includeManufacturer) {
         searchResult.descriptionToFinal += `(Произв:${searchResult.allNumbers[0].manufacturer}) `;
