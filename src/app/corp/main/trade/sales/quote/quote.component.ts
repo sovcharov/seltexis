@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { InventoryService } from '../../../../../services/inventory.service';
 import { AlertService, Alert } from '../../../../../services/alert.service';
 import { MyCookieService } from '../../../../../services/my-cookie.service';
-
 import { LoadAnimationService } from '../../../../../services/load-animation.service';
+import { DH_NOT_SUITABLE_GENERATOR } from 'constants';
 
 
 interface search {
@@ -219,6 +219,12 @@ export class QuoteComponent implements OnInit {
 
   public saveQuoteVars () {
     this.MyCookieService.putUserQuoteVars(this.listVars);
+    let alert: Alert = {
+      alertClass: "success",
+      text: "Настройки сохранены",
+      comment: '-'
+    }
+    this.alertService.addAlert(alert);
   }
 
 }

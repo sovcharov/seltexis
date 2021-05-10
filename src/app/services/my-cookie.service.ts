@@ -36,8 +36,6 @@ export class MyCookieService {
   }
 
   putUserQuoteVars(quoteVars) {
-    // let date = new Date();
-    // date.setDate(date.getDate() + 1);
     this.cookieService.putObject('quoteVars', quoteVars);
   }
 
