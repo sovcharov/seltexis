@@ -3,8 +3,6 @@ import { InventoryService } from '../../../../../services/inventory.service';
 import { AlertService, Alert } from '../../../../../services/alert.service';
 import { MyCookieService } from '../../../../../services/my-cookie.service';
 import { LoadAnimationService } from '../../../../../services/load-animation.service';
-import { DH_NOT_SUITABLE_GENERATOR } from 'constants';
-
 
 interface search {
   searchPhrase: string,
@@ -60,28 +58,23 @@ export class QuoteComponent implements OnInit {
         includeManufacturer: false,
         includeMsk: true,
         includeSpb: true,
-        includeOrdered: false
+        includeOrdered: false,
+        discount: 5
       };
     }
-    console.log(this.listVars);
   }
 
   public checkBoldText() {
-    // let result = this.boldText.replace(/[\n,\s,\;\/\:]+/g, ",").split(","); //old without qty
     let result: any = this.boldText.replace(/[\n,\;,\/,\:]+/g, ",").split(",");
-    // console.log(result); 
     if (result[result.length-1] === "") {
       result.pop();
     }
-    // console.log(result); 
     if (result[0] === "") {
       result.splice(0,1);
     }
-    // console.log(result); 
     for (let i = 0; i < result.length; i += 1) {
       result[i] = result[i].replace(/^\s+/g, "").replace(/\s+/g, ",").split(",");
     }
-    console.log(result); 
     for (let i = 0; i < result.length; i += 1) {
       this.arrayToQuote[i] = {
         searchPhrase: result[i][0],
@@ -89,7 +82,6 @@ export class QuoteComponent implements OnInit {
         searchResults: []
       }
     }
-    // console.log(this.arrayToQuote); 
 
   }
 
@@ -222,7 +214,7 @@ export class QuoteComponent implements OnInit {
     let alert: Alert = {
       alertClass: "success",
       text: "Настройки сохранены",
-      comment: '-'
+      comment: ''
     }
     this.alertService.addAlert(alert);
   }

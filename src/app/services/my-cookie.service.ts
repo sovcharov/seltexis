@@ -36,7 +36,9 @@ export class MyCookieService {
   }
 
   putUserQuoteVars(quoteVars) {
-    this.cookieService.putObject('quoteVars', quoteVars);
+    let date = new Date();
+    date.setDate(date.getDate() + 365);
+    this.cookieService.putObject('quoteVars', quoteVars, { expires: date });
   }
 
   deleteUser(){
