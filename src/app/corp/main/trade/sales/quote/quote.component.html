@@ -99,13 +99,13 @@
                     (click)="sendToQuote()"style = "margin-right: 5px;">Расценить</button> 
         </div>
         <div class="input-group" *ngIf="finalPlainText.length">
-            Текст для отправки:
-            <!-- <button class="btn btn-outline-secondary btn-sm"
+            <button class="btn btn-outline-secondary btn-sm"
                     type=""
-                    (click)="createPlainText()"style = "margin-right: 5px;">Сформировать</button>  -->
+                    (click)="copyToClipboard()"style = "margin-right: 5px;">Копировать</button> 
+            Текст для отправки:
         </div>
         <div style="margin-top:10px;" *ngIf="finalPlainText.length">
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" [(ngModel)]="finalPlainText" name = "finalPlainText" style = "font-size:14px;"></textarea>
+            <textarea class="form-control" id="finalPlainTextArea" rows="10" [(ngModel)]="finalPlainText" name = "finalPlainText" style = "font-size:14px;"></textarea>
         </div>
     </div>
 </div>

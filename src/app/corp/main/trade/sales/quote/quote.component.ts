@@ -219,4 +219,24 @@ export class QuoteComponent implements OnInit {
     this.alertService.addAlert(alert);
   }
 
+  public copyToClipboard () {
+    /* Get the text field */
+    let copyText: any = document.getElementById("finalPlainTextArea");
+
+    /* Select the text field */
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
+    let alert: Alert = {
+      alertClass: "success",
+      text: "Скопировано",
+      comment: 'в буфер обмена'
+    }
+    this.alertService.addAlert(alert);
+    /* Alert the copied text */
+    // alert("Copied the text: " + copyText.value);
+  }
+
 }
