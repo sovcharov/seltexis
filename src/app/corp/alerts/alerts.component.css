@@ -6,7 +6,7 @@
 	background-color:#B20000;
 }
 .infoBoxSuccess{
-	background-color:#33804c;
+	background-color:#17a2b8/*#33804c*/;
 }
 
 /*Here are commonly used styles for alerts: */
@@ -33,7 +33,7 @@
 .infoBoxComment{
     font-size:12px;
 	line-height:16px;
-	text-align: justify;
+	text-align: center;
 	text-justify: inter-word;
 	padding-bottom: 8px;
 	padding-left: 8px;

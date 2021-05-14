@@ -18,25 +18,15 @@ interface search {
 
 export class QuoteComponent implements OnInit {
 
-  public boldText: string = "";
-//   `1234 2
-// 2345 3`;
+  public boldText: string = //"";
+  `1234 2
+2345 3`;
   public arrayToQuote: search[] = [];
   public loading: boolean = false;
   public discount: number = 5;
   public quoted: boolean = false;
   public finalPlainText: string = "";
-  public listVars: any = {
-    includeSearchNumber: false,
-    includeSearchQty: true,
-    includeDescription: true,
-    includeNumber: false,
-    includeManufacturer: false,
-    includeMsk: true,
-    includeSpb: true,
-    includeOrdered: false,
-    discount: 5
-  };
+  public listVars: any;
   public includeDescription= true;
   constructor(
     private inventoryService: InventoryService,
@@ -59,7 +49,8 @@ export class QuoteComponent implements OnInit {
         includeMsk: true,
         includeSpb: true,
         includeOrdered: false,
-        discount: 5
+        discount: 5,
+        showDiscount: true
       };
     }
   }
@@ -203,7 +194,7 @@ export class QuoteComponent implements OnInit {
         }
       }
     }
-    if (result.length) {
+    if (result.length && this.listVars.showDiscount) {
       result = `${result}\nЦена включает скидку ${this.listVars.discount}%`
     }
     this.finalPlainText = result;
@@ -229,13 +220,14 @@ export class QuoteComponent implements OnInit {
 
     /* Copy the text inside the text field */
     document.execCommand("copy");
+
+    /* Alert the copied text */
     let alert: Alert = {
       alertClass: "success",
       text: "Скопировано",
       comment: 'в буфер обмена'
     }
     this.alertService.addAlert(alert);
-    /* Alert the copied text */
     // alert("Copied the text: " + copyText.value);
   }
 
