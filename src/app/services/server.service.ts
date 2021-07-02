@@ -141,6 +141,15 @@ export class ServerService {
       // });
   }
 
+  searchInventoryForQuote(company, search) {
+    return this.http.get(`${this.host}/api/searchinventoryforquote/company/${company}/search/${search}`)
+      // .map((response: Response) => {
+      //   const data = response.json();
+      //   // console.log(data);
+      //   return data;
+      // });
+  }
+
 
   updateInventoryNumber(company, invenventoryNumberId, newNumber, newManufacturer) {
     return this.http.put(`${this.host}/api/updateinventorynumber/company/${company}/numberid/${invenventoryNumberId}/newManufacturer/${newManufacturer}`,{newNumber:newNumber})

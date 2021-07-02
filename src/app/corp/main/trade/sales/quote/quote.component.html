@@ -44,6 +44,7 @@
             </div>
             <div class="btn-group mr-2 mb-1" role="group" aria-label="Second group">                
                 <button type="button" class="btn btn-outline-secondary" (click)="listVars.includeDescription = !listVars.includeDescription" [ngClass] = "listVars.includeDescription ? 'btn-warning' : 'btn-outline-secondary'">Описание</button>
+                <button type="button" class="btn btn-outline-secondary" (click)="listVars.includeComment = !listVars.includeComment" [ngClass] = "listVars.includeComment ? 'btn-warning' : 'btn-outline-secondary'">Коммент</button>
                 <button type="button" class="btn btn-outline-secondary"(click)="listVars.includeNumber = !listVars.includeNumber" [ngClass] = "listVars.includeNumber ? 'btn-warning' : 'btn-outline-secondary'">Номер</button>
                 <button type="button" class="btn btn-outline-secondary"(click)="listVars.includeManufacturer = !listVars.includeManufacturer" [ngClass] = "listVars.includeManufacturer ? 'btn-warning' : 'btn-outline-secondary'">Производитель</button>
             </div>

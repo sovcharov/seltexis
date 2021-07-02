@@ -232,6 +232,20 @@ export class InventoryService {
     );
   }
 
+  searchInventoryForQuote(search, callback) {
+    this.serverService.searchInventoryForQuote(this.companyService.company.id, search)
+    .subscribe(
+      (response) => {
+        // this.inventory = response;
+        callback(response);
+      },
+      (error) => {
+        console.log("Error: " + error);
+        return false;
+      }
+    );
+  }
+
   updateInventoryNumber(invenventoryNumberId, newNumber, newManufacturer, callback) {
     this.serverService.updateInventoryNumber(this.companyService.company.id, invenventoryNumberId, newNumber, newManufacturer)
     .subscribe(

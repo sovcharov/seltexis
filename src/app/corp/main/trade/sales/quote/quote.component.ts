@@ -44,6 +44,7 @@ export class QuoteComponent implements OnInit {
         includeSearchNumber: false,
         includeSearchQty: true,
         includeDescription: true,
+        includeComment: true,
         includeNumber: false,
         includeManufacturer: false,
         includeMsk: true,
@@ -85,9 +86,9 @@ export class QuoteComponent implements OnInit {
     let countDone = 0;
 
     for (let i = 0; i < this.arrayToQuote.length; i += 1) {
-      this.inventoryService.searchInventory(this.arrayToQuote[i].searchPhrase, (res) => {
+      this.inventoryService.searchInventoryForQuote(this.arrayToQuote[i].searchPhrase, (res) => {
         this.arrayToQuote[i].searchResults = res;
-        // console.log(res);
+        console.log(res);
         for (let j = 0; j < this.arrayToQuote[i].searchResults.length; j += 1) {
           countTotal += 1;
           this.inventoryService.getInventoryNumbers(this.arrayToQuote[i].searchResults[j].id, (res2) => {
@@ -152,7 +153,10 @@ export class QuoteComponent implements OnInit {
         searchResult.descriptionToFinal += `${searchPhrase} `;
       }
       if (this.listVars.includeDescription) {
-        searchResult.descriptionToFinal += `${searchResult.description} `;
+        searchResult.descriptionToFinal += `${searchResult.iDescription} `;
+      }
+      if (this.listVars.includeComment) {
+        searchResult.descriptionToFinal += `${searchResult.iComment} `;
       }
       if (this.listVars.includeNumber) {
         searchResult.descriptionToFinal += `${searchResult.allNumbers[0].number} `;
@@ -187,6 +191,7 @@ export class QuoteComponent implements OnInit {
   }
 
   public createPlainText () {
+    console.log(this.arrayToQuote);
     let result: string = '';
     for(let i = 0; i < this.arrayToQuote.length; i += 1) {
       if(!this.arrayToQuote[i].searchResults.length && this.listVars.showNotQuoted) {
