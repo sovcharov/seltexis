@@ -18,9 +18,9 @@ interface search {
 
 export class QuoteComponent implements OnInit {
 
-  public boldText: string = //"";
-  `1234 2
-2345 3`;
+  public boldText: string = "";
+//   `1234 2
+// 2345 3`;
   public arrayToQuote: search[] = [];
   public loading: boolean = false;
   public discount: number = 5;
@@ -50,7 +50,8 @@ export class QuoteComponent implements OnInit {
         includeSpb: true,
         includeOrdered: false,
         discount: 5,
-        showDiscount: true
+        showDiscount: true,
+        showNotQuoted: true
       };
     }
   }
@@ -188,6 +189,9 @@ export class QuoteComponent implements OnInit {
   public createPlainText () {
     let result: string = '';
     for(let i = 0; i < this.arrayToQuote.length; i += 1) {
+      if(!this.arrayToQuote[i].searchResults.length && this.listVars.showNotQuoted) {
+        result = result.length ? `${result}\n${this.arrayToQuote[i].searchPhrase} - нет` : `${this.arrayToQuote[i].searchPhrase} - нет`;
+      }
       for (let j = 0; j < this.arrayToQuote[i].searchResults.length; j += 1) {
         if(this.arrayToQuote[i].searchResults[j].toTheFinalList) {
           result = result.length ? `${result}\n${this.arrayToQuote[i].searchResults[j].descriptionToFinal}` : `${this.arrayToQuote[i].searchResults[j].descriptionToFinal}`;

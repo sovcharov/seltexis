@@ -52,6 +52,9 @@
               <button type="button" class="btn btn-outline-secondary"(click)="listVars.includeSpb = !listVars.includeSpb" [ngClass] = "listVars.includeSpb ? 'btn-warning' : 'btn-outline-secondary'">СПб</button>
               <button type="button" class="btn btn-outline-secondary"(click)="listVars.includeOrdered = !listVars.includeOrdered" [ngClass] = "listVars.includeOrdered ? 'btn-warning' : 'btn-outline-secondary'">Едет</button>
             </div>
+            <div class="btn-group mr-2 mb-1" role="group" aria-label="Second group">
+                <button type="button" class="btn btn-outline-secondary"(click)="listVars.showNotQuoted = !listVars.showNotQuoted" [ngClass] = "listVars.showNotQuoted ? 'btn-warning' : 'btn-outline-secondary'">Не найденные</button>
+            </div>
         </div>
         <div class="input-group" role="toolbar" aria-label="Toolbar with button groups" style = "margin-bottom: 10px;">
             <div class="input-group-append mb-2 mr-2">
