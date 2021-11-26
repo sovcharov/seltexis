@@ -34,14 +34,13 @@ export class Tabs {
 
     this.tabsVisitingOrder = [this.active];
     if (!configService.config.production) {
-      this.openExtraPagesForDevMove();
+      this.openTabWObject(configService.config.devStartPage);
+      // this.openTabWObject({name: 'Аналоги', id: 'app-analogs'});
     }
   }
 
-  private openExtraPagesForDevMove(): void {
-    let name = "BatchQuote";
-    let id = "app-quote";
-    this.openTab(name, id);
+  private openTabWObject(page): void {
+    this.openTab(page.name, page.id);
   }
 
   openTab(name, id) {

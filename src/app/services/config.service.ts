@@ -6,7 +6,11 @@ export class ConfigService {
 
   public config = {
     production: false,
-    host: ""
+    host: "",
+    devStartPage: {
+      name:  "BatchQuote",
+      id: "app-quote"
+    }
   };
   
   constructor() {
