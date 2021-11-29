@@ -1,18 +1,19 @@
 <div class="" style="padding: 10px;">
     <div *ngIf = "!arrayToQuote.length">
+
         <div class="form-group">
-        <label for="exampleFormControlTextarea1">Вставьте номера в столбик с количеством через пробел (Работает copy-paste из xls).</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" [(ngModel)]="boldText" name = "boldText"></textarea>
-        </div>
-        <div class="input-group">
-            <!-- <div class="btn-group" role="group" aria-label="Basic example"> -->
-            <button class="btn btn-outline-secondary"
+            <label for="exampleFormControlTextarea1">Вставьте номера в столбик с количеством через пробел (Работает copy-paste из xls).</label>
+            <div class="input-group">
+                <!-- <div class="btn-group" role="group" aria-label="Basic example"> -->
+                <button class="btn btn-outline-secondary"
+                        *ngIf="1" type=""
+                        (click)="checkBoldText()" style = "margin-right: 5px;">Проверить</button>
+                <button class="btn btn-outline-secondary text-right"
                     *ngIf="1" type=""
-                    (click)="checkBoldText()" style = "margin-right: 5px;">Проверить</button>
-            <button class="btn btn-outline-secondary text-right"
-                *ngIf="1" type=""
-                (click)="clearForm()">Очистить</button>
-            <!-- </div> -->
+                    (click)="clearForm()">Очистить</button>
+                <!-- </div> -->
+            </div>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="20" [(ngModel)]="boldText" name = "boldText" style = "margin-top:10px"></textarea>
         </div>
         <div style = "white-space: pre-wrap; margin-top:10px">
             <strong>Пример:</strong><br>
