@@ -105,14 +105,77 @@
                     *ngIf="!quoted" type=""
                     (click)="sendToQuote()"style = "margin-right: 5px;">Расценить</button> 
         </div>
-        <div class="input-group" *ngIf="finalPlainText.length">
-            <button class="btn btn-outline-secondary btn-sm"
-                    type=""
-                    (click)="copyToClipboard()"style = "margin-right: 5px;">Копировать</button> 
-            Текст для отправки:
+        <ul class="nav nav-tabs" *ngIf="quoted">
+            <li class = "nav-item">
+              <a [ngClass]="{'active': !listVars.showAsTable, 'text-info': listVars.showAsTable}" [routerLink]="" class="nav-link" (click)="listVars.showAsTable = false">Текст
+              </a>
+            </li>
+            <li class = "nav-item">
+                <a [ngClass]="{'active': listVars.showAsTable, 'text-info': !listVars.showAsTable}" [routerLink]="" class="nav-link" (click)="listVars.showAsTable = true">Таблица
+                </a>
+            </li>
+        </ul>
+        <br>
+        <div *ngIf = "!listVars.showAsTable">
+            <div class="input-group" *ngIf="finalPlainText.length">
+                <button class="btn btn-outline-secondary btn-sm"
+                        type=""
+                        (click)="copyToClipboard()"style = "margin-right: 5px;">Копировать</button> 
+                Текст для отправки:
+            </div>
+            <div style="margin-top:10px;" *ngIf="finalPlainText.length">
+                <textarea class="form-control" id="finalPlainTextArea" rows="10" [(ngModel)]="finalPlainText" name = "finalPlainText" style = "font-size:14px;"></textarea>
+            </div>
         </div>
-        <div style="margin-top:10px;" *ngIf="finalPlainText.length">
-            <textarea class="form-control" id="finalPlainTextArea" rows="10" [(ngModel)]="finalPlainText" name = "finalPlainText" style = "font-size:14px;"></textarea>
+        <div *ngIf = "listVars.showAsTable && finalPlainText.length">
+            <table class="table table-sm">
+                <thead>
+                  <tr>
+                    <!-- <th scope="row">#</th> -->
+                    <th *ngIf = "listVars.includeSearchNumber">Фраза</th>
+                    <th *ngIf = "listVars.includeSearchQty">Кол</th>
+                    <th *ngIf = "listVars.includeDescription">Название</th>
+                    <th *ngIf = "listVars.includeComment">Коммент</th>
+                    <th *ngIf = "listVars.includeNumber">Номер</th>
+                    <th *ngIf = "listVars.includeManufacturer">Произв</th>
+                    <th>Цена</th>
+                    <th *ngIf = "listVars.includeMsk">МСК</th>
+                    <th *ngIf = "listVars.includeSpb">СПб</th>
+                    <th *ngIf = "listVars.includeOrdered">Едет</th>
+                    <th *ngIf = "listVars.showDiscount">Скидка%</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let number of arrayToQuote; let i = index">
+                        <ng-container *ngFor="let search of number.searchResults; let j = index">
+                            <tr *ngIf = "search.toTheFinalList">
+                                <!-- <th scope="row">{{j+1}}</th> -->
+                                <td *ngIf = "listVars.includeSearchNumber">{{number.searchPhrase}}</td>
+                                <td *ngIf = "listVars.includeSearchQty">{{number.qty}}</td>
+                                <td *ngIf = "listVars.includeDescription">{{search.iDescription}}</td>
+                                <td *ngIf = "listVars.includeComment">{{search.iComment}}</td>
+                                <td *ngIf = "listVars.includeNumber">{{search.allNumbers[0].number}}</td>
+                                <td *ngIf = "listVars.includeManufacturer">{{search.allNumbers[0].manufacturer}}</td>
+                                <td>{{getPriceWithDiscount(search.price)}}</td>
+
+                                <td *ngIf = "listVars.includeMsk">
+                                    <span *ngIf = "search.msk > 24">Много</span>
+                                    <span *ngIf = "search.msk < 25">{{search.msk}}</span>
+                                </td>
+                                <td *ngIf = "listVars.includeSpb">
+                                    <span *ngIf = "search.stock > 24">Много</span>
+                                    <span *ngIf = "search.stock < 25">{{search.stock}}</span>
+                                </td>
+                                <td *ngIf = "listVars.includeOrdered">
+                                    <span *ngIf = "search.ordered > 24">Много</span>
+                                    <span *ngIf = "search.ordered < 25">{{search.ordered}}</span>
+                                </td>
+                                <td *ngIf = "listVars.showDiscount">{{listVars.discount}}</td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+                </tbody>
+              </table>
         </div>
     </div>
 </div>

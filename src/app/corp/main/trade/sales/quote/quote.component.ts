@@ -52,7 +52,8 @@ export class QuoteComponent implements OnInit {
         includeOrdered: false,
         discount: 5,
         showDiscount: true,
-        showNotQuoted: true
+        showNotQuoted: true,
+        showAsTable: true
       };
     }
   }
@@ -171,7 +172,9 @@ export class QuoteComponent implements OnInit {
       searchResult.descriptionToFinal += `- ${Math.ceil(searchResult.price * ((100 -this.listVars.discount)/100))} р. ${availability}`;
   }
 
-
+  public getPriceWithDiscount (price) {
+    return Math.ceil(price * ((100 -this.listVars.discount)/100))
+  }
 
   public deleteNumber(i) {
     this.arrayToQuote.splice(i,1); 
