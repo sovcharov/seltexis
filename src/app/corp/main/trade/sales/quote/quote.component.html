@@ -85,7 +85,7 @@
             <div *ngIf = "getSearchResultsLength(i)" >
                 <ng-container *ngFor="let search of number.searchResults; let j = index">  
                     <div class="input-group input-group-sm mb-3">
-                        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" style="font-size:12px;" value = "{{search.iDescription}} {{search.iComment}} {{search.allNumbers[0].number}} {{search.allNumbers[0].manufacturer}} - {{search.price}}"  name = "search">
+                        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" style="font-size:12px;" value = "{{search.iDescription}} {{search.iComment}} {{search.allNumbersText}} {{search.allNumbers[0].manufacturer}} - {{search.price}}"  name = "search">
                         <div class="input-group-append">
                             <label *ngIf = "search.allNumbers" class="input-group-text" for="inputGroupSelect01" style="font-size:12px;">{{search.allNumbers[0].manufacturer}}</label>
                             <label class="input-group-text" for="inputGroupSelect01" style="font-size:12px;">{{search.msk}}-{{search.stock}}-{{search.ordered}}</label>

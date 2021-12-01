@@ -95,6 +95,12 @@ jkljl88878`;
           countTotal += 1;
           this.inventoryService.getInventoryNumbers(this.arrayToQuote[i].searchResults[j].id, (res2) => {
             this.arrayToQuote[i].searchResults[j].allNumbers = res2;
+            for (let k = 0; k < res2.length; k += 1) {
+              if (k === 0) {
+                this.arrayToQuote[i].searchResults[j].allNumbersText = `${res2[k].number}`;
+              }
+              this.arrayToQuote[i].searchResults[j].allNumbersText +=  ` ${res2[k].number}`
+            }
             // console.log(res2);
             this.setDescriptionToFinalSingleItem (this.arrayToQuote[i].searchResults[j], this.arrayToQuote[i].searchPhrase, this.arrayToQuote[i].qty);
             countDone += 1;
