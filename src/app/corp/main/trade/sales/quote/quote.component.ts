@@ -18,10 +18,10 @@ interface search {
 
 export class QuoteComponent implements OnInit {
 
-  // public boldText: string = "";
-  public boldText: string = `1979330 2
-1979322 3
-jkljl88878`;
+  public boldText: string = "";
+//   public boldText: string = `1979330 2
+// 1979322 3
+// jkljl88878`;
   public arrayToQuote: search[] = [];
   public loading: boolean = false;
   public discount: number = 5;
