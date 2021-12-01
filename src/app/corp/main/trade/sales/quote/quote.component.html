@@ -37,7 +37,7 @@
                 <button class="btn btn-sm btn-outline-info" style = "height:33px" type="" (click)="saveQuoteVars();" >Сохранить настройки</button>
             </div>
         </div>
-        <div class="btn-toolbar mb-2" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-toolbar mb-2" role="toolbar" aria-label="Toolbar with button groups" (click)="setDescriptionToFinalForAll(); createPlainText();">
             <div class="btn-group mr-2 mb-1" role="group" aria-label="First group">
                 <button class="btn btn-outline-secondary" for="inputGroupSelect01" disabled>Искомые:</button>
                 <button type="button" class="btn btn-outline-secondary" (click)="listVars.includeSearchNumber = !listVars.includeSearchNumber" [ngClass] = "listVars.includeSearchNumber ? 'btn-warning' : 'btn-outline-secondary'">Фраза</button>
@@ -59,9 +59,9 @@
             </div>
         </div>
         <div class="input-group" role="toolbar" aria-label="Toolbar with button groups" style = "margin-bottom: 10px;">
-            <div class="input-group-append mb-2 mr-2">
+            <div class="input-group-append mb-2 mr-2" (click)="setDescriptionToFinalForAll(); createPlainText();">
                 <button class="btn btn-outline-secondary" for="inputGroupSelect01" disabled>Скидка%</button>
-                <input type="text" class="form-control" value = "{{listVars.discount}}" [(ngModel)] = "listVars.discount" name = "discount" style = "width: 50px; text-align: center; font-weight: bold; color: orangered;">
+                <input type="text" class="form-control" value = "{{listVars.discount}}" [(ngModel)] = "listVars.discount" (ngModelChange)="setDescriptionToFinalForAll(); createPlainText();" name = "discount" style = "width: 50px; text-align: center; font-weight: bold; color: orangered;">
                 <button class="btn btn-outline-secondary" type="" (click)="listVars.discount = listVars.discount - 1" style = "width: 40px; ">-</button>                   
                 <button class="btn btn-outline-secondary" type="" (click)="listVars.discount = listVars.discount + 1" style = "width: 40px;">+</button>
                 <button class="btn btn-outline-secondary" type="" (click)="listVars.discount = 0" style = "width: 40px;"[ngClass] = "listVars.discount === 0 ? 'btn-warning' : 'btn-outline-secondary'">0</button>
@@ -72,7 +72,7 @@
             </div>
             <div class="btn-group mb-2" role="group" aria-label="Third group">
                 <!-- <button class="btn btn-sm btn-outline-secondary" style = "color:lightseagreen; height:33px" type="" (click)="saveQuoteVars();" >Сохранить настройки</button> -->
-                <button class="btn btn-outline-secondary" type="" (click)="setDescriptionToFinalForAll(); createPlainText();" *ngIf = "quoted" style = "font-size: 14px;">Переделать текст для отправки</button>
+                <!-- <button class="btn btn-outline-secondary" type="" (click)="setDescriptionToFinalForAll(); createPlainText();" *ngIf = "quoted" style = "font-size: 14px;">Переделать текст для отправки</button> -->
             </div>
         </div>
         <ng-container *ngFor="let number of arrayToQuote; let i = index">   
@@ -85,7 +85,7 @@
             <div *ngIf = "getSearchResultsLength(i)" >
                 <ng-container *ngFor="let search of number.searchResults; let j = index">  
                     <div class="input-group input-group-sm mb-3">
-                        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" style="font-size:12px;" value = "{{search.descriptionToFinal}}" [(ngModel)] = "search.descriptionToFinal" name = "search">
+                        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" style="font-size:12px;" value = "{{search.iDescription}} {{search.iComment}} {{search.allNumbers[0].number}} {{search.allNumbers[0].manufacturer}} - {{search.price}}"  name = "search">
                         <div class="input-group-append">
                             <label *ngIf = "search.allNumbers" class="input-group-text" for="inputGroupSelect01" style="font-size:12px;">{{search.allNumbers[0].manufacturer}}</label>
                             <label class="input-group-text" for="inputGroupSelect01" style="font-size:12px;">{{search.msk}}-{{search.stock}}-{{search.ordered}}</label>
@@ -124,7 +124,8 @@
                 Текст для отправки:
             </div>
             <div style="margin-top:10px;" *ngIf="finalPlainText.length">
-                <textarea class="form-control" id="finalPlainTextArea" rows="10" [(ngModel)]="finalPlainText" name = "finalPlainText" style = "font-size:14px;"></textarea>
+                <textarea class="form-control" id="finalPlainTextArea" rows="10" [(ngModel)]="finalPlainText" name = "finalPlainText" style = "font-size:14px;">
+                </textarea>
             </div>
         </div>
         <div *ngIf = "listVars.showAsTable && finalPlainText.length">
@@ -147,6 +148,24 @@
                 </thead>
                 <tbody>
                     <ng-container *ngFor="let number of arrayToQuote; let i = index">
+                        <tr *ngIf = "!number.searchResults.length && listVars.showNotQuoted">
+                            <!-- <th scope="row">{{j+1}}</th> -->
+                            <td *ngIf = "listVars.includeSearchNumber">{{number.searchPhrase}}</td>
+                            <td *ngIf = "listVars.includeSearchQty">{{number.qty}}</td>
+                            <td *ngIf = "listVars.includeDescription">{{number.searchPhrase}}</td>
+                            <td *ngIf = "listVars.includeComment">{{number.searchPhrase}}</td>
+                            <td *ngIf = "listVars.includeNumber">{{number.searchPhrase}}</td>
+                            <td *ngIf = "listVars.includeManufacturer"></td>
+                            <td>не найден</td>
+
+                            <td *ngIf = "listVars.includeMsk">
+                            </td>
+                            <td *ngIf = "listVars.includeSpb">
+                            </td>
+                            <td *ngIf = "listVars.includeOrdered">
+                            </td>
+                            <td *ngIf = "listVars.showDiscount"></td>
+                        </tr>
                         <ng-container *ngFor="let search of number.searchResults; let j = index">
                             <tr *ngIf = "search.toTheFinalList">
                                 <!-- <th scope="row">{{j+1}}</th> -->

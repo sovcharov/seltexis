@@ -18,9 +18,10 @@ interface search {
 
 export class QuoteComponent implements OnInit {
 
-  public boldText: string = "";
-//   `1234 2
-// 2345 3`;
+  // public boldText: string = "";
+  public boldText: string = `1979330 2
+1979322 3
+jkljl88878`;
   public arrayToQuote: search[] = [];
   public loading: boolean = false;
   public discount: number = 5;
@@ -148,10 +149,20 @@ export class QuoteComponent implements OnInit {
         }
       }
       if (availability.length) {
-        availability = `Нал: ${availability}`;
+        availability = `Склад: ${availability}`;
       }
-      if (this.listVars.includeSearchNumber) {
-        searchResult.descriptionToFinal += `${searchPhrase} `;
+      if (this.listVars.includeSearchNumber || this.listVars.includeSearchQty) {
+        searchResult.descriptionToFinal += `(`;
+        if (this.listVars.includeSearchNumber) {
+          searchResult.descriptionToFinal += `${searchPhrase}`;
+        }
+        if (this.listVars.includeSearchQty) {
+          if (this.listVars.includeSearchNumber) {
+           searchResult.descriptionToFinal += ` `;
+          }
+          searchResult.descriptionToFinal += `${qty}шт`;
+        }
+        searchResult.descriptionToFinal += `) `;
       }
       if (this.listVars.includeDescription) {
         searchResult.descriptionToFinal += `${searchResult.iDescription} `;
@@ -162,11 +173,11 @@ export class QuoteComponent implements OnInit {
       if (this.listVars.includeNumber) {
         searchResult.descriptionToFinal += `${searchResult.allNumbers[0].number} `;
       }
-      if (this.listVars.includeSearchQty) {
-        searchResult.descriptionToFinal += `(${qty}шт) `;
-      }
+      // if (this.listVars.includeSearchQty) {
+      //   searchResult.descriptionToFinal += `(${qty}шт) `;
+      // }
       if (this.listVars.includeManufacturer) {
-        searchResult.descriptionToFinal += `(Произв:${searchResult.allNumbers[0].manufacturer}) `;
+        searchResult.descriptionToFinal += `(Брэнд:${searchResult.allNumbers[0].manufacturer}) `;
       }
       searchResult.descriptionToFinal = searchResult.descriptionToFinal.replace(/[\t,\r,\n,\f,\s]+/g," ");
       searchResult.descriptionToFinal += `- ${Math.ceil(searchResult.price * ((100 -this.listVars.discount)/100))} р. ${availability}`;
