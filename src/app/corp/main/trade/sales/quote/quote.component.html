@@ -105,7 +105,7 @@
                     *ngIf="!quoted" type=""
                     (click)="sendToQuote()"style = "margin-right: 5px;">Расценить</button> 
         </div>
-        <ul class="nav nav-tabs" *ngIf="quoted">
+        <ul class="nav nav-tabs" *ngIf="quoted" style = "margin-bottom: 10px;">
             <li class = "nav-item">
               <a [ngClass]="{'active': !listVars.showAsTable, 'text-info': listVars.showAsTable}" [routerLink]="" class="nav-link" (click)="listVars.showAsTable = false">Текст
               </a>
@@ -115,21 +115,24 @@
                 </a>
             </li>
         </ul>
-        <br>
-        <div *ngIf = "!listVars.showAsTable">
+        <div *ngIf = "!listVars.showAsTable" >
             <div class="input-group" *ngIf="finalPlainText.length">
                 <button class="btn btn-outline-secondary btn-sm"
                         type=""
-                        (click)="copyToClipboard()"style = "margin-right: 5px;">Копировать</button> 
-                Текст для отправки:
+                        (click)="copyToClipboard()"style = "margin-right: 5px; margin-bottom: 10px">Копировать</button> 
             </div>
-            <div style="margin-top:10px;" *ngIf="finalPlainText.length">
+            <div *ngIf="finalPlainText.length">
                 <textarea class="form-control" id="finalPlainTextArea" rows="10" [(ngModel)]="finalPlainText" name = "finalPlainText" style = "font-size:14px;">
                 </textarea>
             </div>
         </div>
         <div *ngIf = "listVars.showAsTable && finalPlainText.length">
-            <table class="table table-sm">
+            <div class="input-group" *ngIf="finalPlainText.length">
+                <button class="btn btn-outline-secondary btn-sm"
+                        type=""
+                        (click)="copyToClipboardTable()"style = "margin-right: 5px;; margin-bottom: 10px">Копировать</button>
+            </div>
+            <table class="table table-sm" id = "finalTableToCopy">
                 <thead>
                   <tr>
                     <!-- <th scope="row">#</th> -->

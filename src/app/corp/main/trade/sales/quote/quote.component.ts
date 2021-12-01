@@ -34,8 +34,6 @@ jkljl88878`;
     private alertService: AlertService,
     private loadAnimationService: LoadAnimationService,
     private MyCookieService: MyCookieService
-
-    
   ) { }
 
   ngOnInit(): void {
@@ -249,6 +247,37 @@ jkljl88878`;
 
     /* Copy the text inside the text field */
     document.execCommand("copy");
+
+    /* Alert the copied text */
+    let alert: Alert = {
+      alertClass: "success",
+      text: "Скопировано",
+      comment: 'в буфер обмена'
+    }
+    this.alertService.addAlert(alert);
+    // alert("Copied the text: " + copyText.value);
+  }
+
+  public copyToClipboardTable () {
+    var urlField = document.getElementById("finalTableToCopy");   
+    var body = document.body, range, sel;
+    if (document.createRange && window.getSelection) {
+        range = document.createRange();
+        sel = window.getSelection();
+        sel.removeAllRanges();
+        try {
+            range.selectNodeContents(urlField);
+            sel.addRange(range);
+        } catch (e) {
+            range.selectNode(urlField);
+            sel.addRange(range);
+        }
+    } else {
+        // range = body.createTextRange();
+        range.moveToElementText(urlField);
+        range.select();
+    }
+    document.execCommand("Copy")
 
     /* Alert the copied text */
     let alert: Alert = {
