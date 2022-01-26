@@ -77,7 +77,7 @@
         </div>
         <ng-container *ngFor="let number of arrayToQuote; let i = index">   
             <div class="alert alert-secondary fade show" role="alert">
-                <strong>{{number.searchPhrase}}</strong> - {{number.qty}} шт.
+                <strong>{{number.searchPhrase}}</strong> - {{number.qty}} шт. <span *ngIf = "!number.found" style = "color: rgb(145, 143, 143)"> - нет совпадений</span>
                 <button type="button" class="close" aria-label="Close" (click)="deleteNumber(i)">
                   <span aria-hidden="true">&times;</span>
                 </button>

@@ -7,6 +7,7 @@ import { LoadAnimationService } from '../../../../../services/load-animation.ser
 interface search {
   searchPhrase: string,
   qty: number,
+  found: boolean,
   searchResults: any[]
 }
 
@@ -72,6 +73,7 @@ export class QuoteComponent implements OnInit {
       this.arrayToQuote[i] = {
         searchPhrase: result[i][0],
         qty: result[i][1] || 1,
+        found: true,
         searchResults: []
       }
     }
@@ -110,6 +112,7 @@ export class QuoteComponent implements OnInit {
               });
             }
           } else {
+            this.arrayToQuote[i].found = false;
             if (countTotal === countDone && this.arrayToQuote.length-1 === i) {
               // console.log(i);
               this.loadAnimationService.loading = false;
