@@ -88,26 +88,35 @@ export class QuoteComponent implements OnInit {
     for (let i = 0; i < this.arrayToQuote.length; i += 1) {
       this.inventoryService.searchInventoryForQuote(this.arrayToQuote[i].searchPhrase, (res) => {
         this.arrayToQuote[i].searchResults = res;
-        console.log(res);
-        for (let j = 0; j < this.arrayToQuote[i].searchResults.length; j += 1) {
-          countTotal += 1;
-          this.inventoryService.getInventoryNumbers(this.arrayToQuote[i].searchResults[j].id, (res2) => {
-            this.arrayToQuote[i].searchResults[j].allNumbers = res2;
-            for (let k = 0; k < res2.length; k += 1) {
-              if (k === 0) {
-                this.arrayToQuote[i].searchResults[j].allNumbersText = `${res2[k].number}`;
-              }
-              this.arrayToQuote[i].searchResults[j].allNumbersText +=  ` ${res2[k].number}`
+        // console.log(res);
+          if(this.arrayToQuote[i].searchResults.length) {
+            for (let j = 0; j < this.arrayToQuote[i].searchResults.length; j += 1) {
+              countTotal += 1;
+              this.inventoryService.getInventoryNumbers(this.arrayToQuote[i].searchResults[j].id, (res2) => {
+                this.arrayToQuote[i].searchResults[j].allNumbers = res2;
+                for (let k = 0; k < res2.length; k += 1) {
+                  if (k === 0) {
+                    this.arrayToQuote[i].searchResults[j].allNumbersText = `${res2[k].number}`;
+                  }
+                  this.arrayToQuote[i].searchResults[j].allNumbersText +=  ` ${res2[k].number}`
+                }
+                // console.log(res2);
+                this.setDescriptionToFinalSingleItem (this.arrayToQuote[i].searchResults[j], this.arrayToQuote[i].searchPhrase, this.arrayToQuote[i].qty);
+                countDone += 1;
+                // console.log(countDone,"-",countTotal);
+                if (countTotal === countDone) {
+                  this.loadAnimationService.loading = false;
+                }
+              });
             }
-            // console.log(res2);
-            this.setDescriptionToFinalSingleItem (this.arrayToQuote[i].searchResults[j], this.arrayToQuote[i].searchPhrase, this.arrayToQuote[i].qty);
-            countDone += 1;
-            // console.log(countDone,"-",countTotal);
-            if (countTotal === countDone) {
+          } else {
+            if (countTotal === countDone && this.arrayToQuote.length-1 === i) {
+              // console.log(i);
               this.loadAnimationService.loading = false;
             }
-          });
-        }
+          }
+
+        
 
         // this.setDescriptionToFinal (this.arrayToQuote[i].searchResults);
 
